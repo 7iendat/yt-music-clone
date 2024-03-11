@@ -7,7 +7,7 @@ const InputSearch = () => {
       <input
         className="input-search"
         placeholder="Tìm bài hát, nghệ sĩ, podcast"
-      ></input>
+      />
     </div>
   );
 };

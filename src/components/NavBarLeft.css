@@ -1,5 +1,35 @@
 .nar-bar-left{
-    width: 200px;
-    height: 100%;
-    background-color: blue ;
+    position: absolute;
+    width: 250px;
+    height: calc(100vh - 66px);
+    background-color: black;
+    top: 66px;
+    left: 0px;
+    border-right: .2px solid rgb(209, 209, 209);
+}
+
+.option{
+    position: relative;
+    display: flex;
+   
+    height: 42px;
+    background-color: black;
+    border-radius: 20px;
+    padding: 4px;
+    align-items: center;
+    margin: 8px;
+    color: white;
+    
+}
+
+.icon-option{
+    background-image: url(../../public/icons/home-icon.png);
+    
+    width:  24px;
+    height: 24px ;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
