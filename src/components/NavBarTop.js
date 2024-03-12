@@ -8,7 +8,7 @@ const NavBarTop = () => {
         <div className="menu-bar"></div>
         <div className="logo">
           <div className="icon-app"></div>
-          <h3>Music</h3>
+          <span>Music</span>
         </div>
       </div>
       <InputSearch />

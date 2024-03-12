@@ -1,5 +1,5 @@
 .nar-bar-left{
-    position: absolute;
+    position: fixed;
     width: 250px;
     height: calc(100vh - 66px);
     background-color: black;
@@ -14,7 +14,7 @@
    
     height: 42px;
     background-color: black;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 4px;
     align-items: center;
     margin: 8px;
@@ -23,7 +23,6 @@
 }
 
 .icon-option{
-    background-image: url(../../public/icons/home-icon.png);
     
     width:  24px;
     height: 24px ;
@@ -32,4 +31,122 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.icon-option.home{
+    background-image: url(../../public/icons/home-icon.png);
+
+}
+
+.icon-option.explore{
+    background-image: url(../../public/icons/explore-icon.png);
+
+}
+.icon-option.lib{
+    background-image: url(../../public/icons/library-icon.png);
+
+}
+.icon-option.update{
+    background-image: url(../../public/icons/update-icon.png);
+
+}
+
+
+.option.active{
+    background-color: rgb(53, 52, 52) !important;
+    
+}
+
+.option:hover{
+    background-color: rgb(84, 84, 84) !important;
+
+
+    cursor: pointer;
+}
+
+.bound{
+    width: 70%;
+    height: 1px;
+    background-color: gray;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-music{
+
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgb(53, 52, 52) ;
+    display: flex;
+    align-items: center;
+    margin: 20px 7px 10px 7px;
+    padding-left: 12px;
+}
+
+.icon-add-list{
+    width: 20px;
+    height: 20px;
+     margin-right: 4px;
+    background-image: url(../../public/icons/plus-icon-v2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.list-music span{
+    color: white;
+  
+}
+.list-music:hover{
+    cursor: pointer;
+    background-color:rgb(75, 75, 75) ;
+}
+
+.list-music-liked{
+    height: 50px;
+    display: flex;
+    color: white;
+    align-items: center;
+    border-radius: 10px;
+    margin: 12px;
+    padding-left: 10px;
+    justify-content: space-between;
+}
+
+.list-music-liked:hover {
+    background-color: rgb(53, 52, 52) !important;
+    cursor: pointer;
+}
+.list-music-liked-text{
+    
+}
+.text-child{
+    font-size: 14px;
+    color: rgb(163, 163, 163);
+    display: flex;
+    align-items: center;
+}
+.icon-text-child{
+    width: 14px;
+    height: 14px;
+    background-image: url("../../public/icons/pin-icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 8px;
+}
+.list-music-icon{
+    display: none;
+    width: 26px;
+    height: 26px;
+    background-image: url("../../public/icons/play-icon-v2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 10px;
+}
+
+.list-music-liked:hover  .list-music-icon{
+    display: block;
+    
 }

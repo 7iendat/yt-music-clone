@@ -1,0 +1,61 @@
+.option-slick{
+
+    height: 250px;
+    background-color: black;
+    margin-right: 6px;
+}
+
+
+.head-theme{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.more-view{
+    width: 100px;
+    height: 40px;
+    background-color: black;
+    border: .3px solid white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;}
+
+.more-view:hover{
+    background-color: rgb(192, 189, 189);
+    color: black;
+}
+
+.container-slider{margin: 0 !important;}
+
+.thumb{
+    width: 95%;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-image: url("../../public/icons/thumb-test.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.thumb:hover{
+    opacity: 0.6;
+    cursor: pointer;
+    
+}
+.infor{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.infor > span{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.description{
+    color: rgb(154, 153, 153);
+}
