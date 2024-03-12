@@ -1,5 +1,8 @@
+import React from "react";
 import "./NavBarLeft.css";
-const NavBarLeft = () => {
+
+const NavBarLeft = (props) => {
+  console.log("profile:", props.profile);
   return (
     <div className="nar-bar-left">
       <div className="option ">
@@ -20,22 +23,32 @@ const NavBarLeft = () => {
       </div>
 
       <div className="bound"></div>
-
       <div className="list-music">
         <div className="icon-add-list"></div>
         <span>Danh sách phát mới</span>
       </div>
-
-      <div className="list-music-liked">
-        <div className="list-music-liked-text">
-          <span>Nhạc đã thích</span>
-          <div className="text-child">
-            <div className="icon-text-child"></div>
-            <span>Danh sách tự động</span>
+      {props.profile !== null ? (
+        <>
+          <div className="list-music-liked">
+            <div className="list-music-liked-text">
+              <span>Nhạc đã thích</span>
+              <div className="text-child">
+                <div className="icon-text-child"></div>
+                <span>Danh sách tự động</span>
+              </div>
+            </div>
+            <div className="list-music-icon"></div>
           </div>
+
+          <div className="btn-logOut" onClick={props.logOut}>
+            Log Out
+          </div>
+        </>
+      ) : (
+        <div className="btn-login" onClick={props.login}>
+          Sign Up
         </div>
-        <div className="list-music-icon"></div>
-      </div>
+      )}
     </div>
   );
 };

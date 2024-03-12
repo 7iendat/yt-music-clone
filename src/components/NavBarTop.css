@@ -76,5 +76,26 @@
     width: 37px;
     height: 37px;
     border-radius: 50%;
-    background-color: blue;
+    
+}
+
+.profile img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn-login{
+    width: 100px;
+    height: 40px;
+    background-color: gray;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:50px;
+    margin-right: 100px;
+    cursor: pointer;
 }
