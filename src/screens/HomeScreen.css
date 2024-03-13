@@ -1,5 +1,5 @@
 .home-screen{
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     left: 251px;
     height: 167%;
@@ -14,4 +14,35 @@
     padding: 50px;
     background-color: black;
     margin-top: 20px;
+}
+
+/* cat-nav-bar */
+
+.cat-navbar ul{
+    list-style-type: none;
+    padding: 0px;
+    display: flex;
+    overflow: hidden;
+    justify-content: space-evenly;
+}
+
+.cat-navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    background-color: #FFFFFF3A;
+    border-radius: 8%;
+    justify-content: center;
+    border: none;
+    box-sizing: border-box;
+}
+
+.cat-navbar a:hover{
+    background-color: gray;
+}
+
+.cat-navbar li{
+    float: left;
 }
