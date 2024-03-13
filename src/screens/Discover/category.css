@@ -1,0 +1,44 @@
+
+
+.categories-scoll {
+
+    overflow: auto;
+    white-space: nowrap;
+
+    overflow-x: scroll;
+}
+
+.category-ul {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat (4, min-content);
+    gap: 16px 24px;
+}
+
+.color-category {
+    height: 48px;
+    border-radius: 4px;
+    
+}
+
+.scrollbox {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+
+        background-color: black;
+        height: 15px;
+    }
+}
+
+.scrollbox:hover {
+    &::-webkit-scrollbar {
+        height: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(222, 219, 219, 0.4);
+    }
+}
+

@@ -1,7 +1,7 @@
 import InputSearch from "./inputSearch";
 import "./NavBarTop.css";
 
-const NavBarTop = (props) => {
+const NavBarTop = () => {
   return (
     <div className="nav-bar">
       <div className="nav-bar-top-left">
@@ -14,15 +14,7 @@ const NavBarTop = (props) => {
       <InputSearch />
       <div className="nav-bar-top-right">
         <div className="connect-device"></div>
-        {props.profile !== null ? (
-          <div className="profile">
-            <img src={props.profile.picture} />
-          </div>
-        ) : (
-          <div className="btn-login" onClick={props.login}>
-            Sign Up
-          </div>
-        )}
+        <div className="profile"></div>
       </div>
     </div>
   );
