@@ -1,0 +1,47 @@
+.container {
+    position: absolute !important;
+    left: 251px;
+    height: calc(100vh - 66px);
+    top: 66px;
+    width: calc(100% - 251px);
+    padding: 0 96px;
+    width: 83.5%;
+    margin: 31px 0;
+}
+
+.row {
+
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
+.Release {
+    font-size: 21px;
+    height: 100%;
+    min-height: 56px;
+    padding: 8px 16px;
+    font-weight: 700;
+    line-height: 21px;
+    border: 1px solid #292929;
+    color: aliceblue;
+    width: 32%;
+    background: #292929;
+    border-radius: 5px;
+
+}
+
+.Release:hover {
+    background: #1e1e1e;
+}
+
+.Release>span {
+    text-align: center;
+
+}
+
+
+

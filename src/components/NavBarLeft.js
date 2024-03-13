@@ -1,70 +1,41 @@
-import React from "react";
 import "./NavBarLeft.css";
-import { Link } from "react-router-dom";
-
-const NavBarLeft = (props) => {
-  console.log("profile:", props.profile);
+const NavBarLeft = () => {
   return (
     <div className="nar-bar-left">
-      
-      <Link to='/home'>
-        <div className="option ">
-          <div className="icon-option home"></div>
-          <span>Trang chủ</span>
-        </div>
-      </Link>
-      
-      <Link to='/explore'>
-        <div className="option active">
-          <div className="icon-option explore "></div>
-          <span>Khám phá</span>
-        </div>
-      </Link>
-      
-
-      {/* <div className="option active">
+      <div className="option ">
+        <div className="icon-option home"></div>
+        <span>Trang chủ</span>
+      </div>
+      <div className="option active">
         <div className="icon-option explore "></div>
         <span>Khám phá</span>
-      </div> */}
-
+      </div>
       <div className="option">
         <div className="icon-option lib"></div>
         <span>Thư viện</span>
       </div>
-
       <div className="option">
         <div className="icon-option update"></div>
         <span>Nâng cấp</span>
       </div>
 
       <div className="bound"></div>
+
       <div className="list-music">
         <div className="icon-add-list"></div>
         <span>Danh sách phát mới</span>
       </div>
 
-      {props.profile !== null ? (
-        <>
-          <div className="list-music-liked">
-            <div className="list-music-liked-text">
-              <span>Nhạc đã thích</span>
-              <div className="text-child">
-                <div className="icon-text-child"></div>
-                <span>Danh sách tự động</span>
-              </div>
-            </div>
-            <div className="list-music-icon"></div>
+      <div className="list-music-liked">
+        <div className="list-music-liked-text">
+          <span>Nhạc đã thích</span>
+          <div className="text-child">
+            <div className="icon-text-child"></div>
+            <span>Danh sách tự động</span>
           </div>
-
-          <div className="btn-logOut" onClick={props.logOut}>
-            Log Out
-          </div>
-        </>
-      ) : (
-        <div className="btn-login" onClick={props.login}>
-          Sign Up
         </div>
-      )}
+        <div className="list-music-icon"></div>
+      </div>
     </div>
   );
 };

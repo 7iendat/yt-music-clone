@@ -1,8 +1,0 @@
-.explore-screen{
-    position: absolute;
-    left: 251px;
-    background-color: rgb(17, 142, 63);
-    height: calc(100vh - 66px);
-    top: 66px;
-    width: calc(100% - 251px);
-}
