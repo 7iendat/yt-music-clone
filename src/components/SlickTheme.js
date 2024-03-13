@@ -13,6 +13,7 @@ const SimpleSlider = () => {
   };
   return (
     <Slider {...settings} className="container-slider">
+
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
@@ -22,6 +23,7 @@ const SimpleSlider = () => {
           </div>
         </div>
       </div>
+
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
@@ -31,6 +33,7 @@ const SimpleSlider = () => {
           </div>
         </div>
       </div>
+
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
@@ -40,6 +43,7 @@ const SimpleSlider = () => {
           </div>
         </div>
       </div>
+
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
@@ -49,6 +53,7 @@ const SimpleSlider = () => {
           </div>
         </div>
       </div>
+
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
@@ -58,6 +63,7 @@ const SimpleSlider = () => {
           </div>
         </div>
       </div>
+      
       <div className="option-slick">
         <div className="thumb"></div>
         <div className="infor">
