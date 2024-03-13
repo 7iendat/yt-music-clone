@@ -13,8 +13,8 @@ const category = () => {
                 <div className="more-view">Xem Thêm</div>
             </div>
             <div className="w-[100%] mt-6">
-                <div className="overflow-hidden">
-                    <ul className="category-ul categories-scoll overflow-x-scroll ">
+                <div className="">
+                    <ul className="category-ul categories-scoll scrollbox">
                         {categories.map((main, i) => (
                             <li style={{borderLeftColor:main.color}} className={`  inline-block mt-[5px] border-l-[6px] border-l-${main.color} leading-7 scroll-ml-96 bg-[#292929] rounded hover:bg-[#212121]  `}>
                                 <Link to={`${main.link}`} className="color-category flex justify-start normal-case text-center ">

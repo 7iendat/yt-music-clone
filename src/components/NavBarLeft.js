@@ -1,23 +1,32 @@
+import { Link } from "react-router-dom";
 import "./NavBarLeft.css";
 const NavBarLeft = () => {
   return (
     <div className="nar-bar-left">
+<Link to="/">
       <div className="option ">
         <div className="icon-option home"></div>
         <span>Trang chủ</span>
-      </div>
+       </div></Link>
+
+        <Link to="/discover">
       <div className="option active">
-        <div className="icon-option explore "></div>
-        <span>Khám phá</span>
-      </div>
+          <div className="icon-option explore "></div>
+          <span>Khám phá</span>
+       </div> </Link>
+
+        <Link to="/">
       <div className="option">
-        <div className="icon-option lib"></div>
-        <span>Thư viện</span>
-      </div>
+          <div className="icon-option lib"></div>
+          <span>Thư viện</span>
+        </div></Link>
+
+        <Link to="/">
       <div className="option">
-        <div className="icon-option update"></div>
-        <span>Nâng cấp</span>
-      </div>
+          <div className="icon-option update"></div>
+          <span>Nâng cấp</span>
+        </div></Link>
+
 
       <div className="bound"></div>
 

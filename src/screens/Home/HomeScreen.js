@@ -4,7 +4,7 @@ const HomeScreen = () => {
   const title = "Theme";
   return (
     <div className="home-screen">
-      <div className="container">
+      <div className="">
         <Theme title={title} />
         <Theme title={title} />
         <Theme title={title} />
