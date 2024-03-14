@@ -3,7 +3,7 @@ import { songs } from '../utils/songs'
 import "./Trending.css"
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-const Trending = () => {
+const MusicTop = () => {
 
 
 
@@ -12,8 +12,7 @@ const Trending = () => {
       {/*Title  */}
       <div className=''>
         <div>
-          <p className='text-[16px] -mb-1'>BẮT ĐẦU ĐÀI PHÁT BẰNG MỘT BÀI HÁT</p>
-          <p className='text-[32px] font-bold'>Chọn nhanh đài phát</p>
+          <p className='text-[32px] font-bold'>Video nhạc hàng đầu</p>
         </div>
       </div>
       {/* Songs */}
@@ -39,4 +38,4 @@ const Trending = () => {
   )
 }
 
-export default Trending
+export default MusicTop
