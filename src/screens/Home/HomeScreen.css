@@ -2,10 +2,13 @@
     z-index: -1;
     position: absolute;
     left: 251px;
-    height: 167%;
     top: 66px;
-    width: calc(100% - 251px);
     color: white;
+    margin:auto ;
+    display: block;
+    width: 100%;
+    padding-left: 100px;  
+
 }
 
 .container{
