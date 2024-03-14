@@ -1,6 +1,7 @@
 import React from 'react'
 import { songs } from '../utils/songs'
 import "./Trending.css"
+import { Link } from 'react-router-dom'
 
 const Trending = () => {
 
@@ -18,14 +19,18 @@ const Trending = () => {
       {/* Songs */}
       <div className='grid grid-cols-3 gap-3 mt-4 pl-[20px] py-5 pb-20'>
         {songs.map((isong, isonges) => (
-          <div className="set-item-hover flex items-center justify-between  mr-10 ">
-            <div className='flex h-full '>
-              <img src={isong.cover} alt="" className='w-24 object-cover p-[1px] bg-white' />
-            </div>
-            <div className='pr-8 text-end -my-21 w-full h-full bg-transparent hover:bg-blue-900 '>
+          <div className=" ">
+            <Link to={isong.link} className='set-item-hover flex items-center justify-start  mr-10'>
+              <div className='flex h-full '>
+                <img src={isong.cover} alt="" className='w-24 object-cover  bg-white' />
+              </div>
+              <div className='pl-5 text-start -my-21 w-full h-full bg-transparent hover:bg-zinc-700 '>
+
                 <p className=' text-lg'>{isong.title}</p>
                 <p className='text-sm'>{isong.singer}</p>
-            </div>
+
+              </div>
+            </Link>
           </div>
         ))}
       </div>
