@@ -28,19 +28,11 @@ const HomeScreen = () => {
           </nav>
         
         <Trending/>
-<<<<<<< Updated upstream
-        <Records />
-        <MusicTop/>
-        <Theme title={title} />
-        <Theme title={title} />
-        <Theme title={title} />
-        <Theme title={title} />
-=======
         <Theme title={frequently} />
         <Theme title={recommend} />
         <Theme title={trending} />
         <Theme title={disc} />
->>>>>>> Stashed changes
+
       </div>
     </div>
   );
