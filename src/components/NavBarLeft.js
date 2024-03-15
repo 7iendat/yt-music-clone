@@ -18,13 +18,10 @@ const NavBarLeft = (props) => {
         </div>{" "}
       </Link>
 
-<<<<<<< HEAD
-      <Link to="/">
-        <div className="option">
-=======
+
+
         <Link to="/library">
       <div className="option">
->>>>>>> 2d2bfaa (fix Search)
           <div className="icon-option lib"></div>
           <span>Thư viện</span>
         </div>
