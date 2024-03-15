@@ -45,6 +45,8 @@ const HomeScreen = () => {
           </nav>
         
         <Trending/>
+        <Records/>
+        <MusicTop/>
         <Theme title={frequently} />
         <Theme title={recommend} />
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
