@@ -8,6 +8,7 @@
     justify-content: space-between;
     position: fixed;
     padding: 2px;
+    z-index: 4;
 }
 
 .nav-bar-top-left{

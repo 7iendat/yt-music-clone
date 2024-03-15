@@ -1,8 +1,8 @@
 import React from 'react'
 import { songs } from '../utils/songs'
+import Song from './Song'
 import "./Trending.css"
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const Trending = () => {
 
 
@@ -18,17 +18,10 @@ const Trending = () => {
       </div>
       {/* Songs */}
       <div className='grid grid-cols-3 gap-3 mt-4 pl-[20px] py-5 pb-20'>
-        {songs.map((isong, isonges) => (
-          <div className="set-item-hover flex items-center justify-between  mr-10 ">
-            <div className='flex h-full '>
-              <img src={isong.cover} alt="" className='w-24 object-cover p-[1px] bg-white' />
-            </div>
-            <div className='cursor-pointer pr-8 text-end -my-21 w-full h-full bg-transparent hover:bg-blue-900'>
-                <p className=' text-lg'>{isong.title}</p>
-                <p className='text-sm'>{isong.singer}</p>
-
-              </div>
-          </div>
+      {songs?.map((isong) => (
+         <div className=''>
+          <Song title={isong.title} link={isong.link} icon={isong.icon} cover={isong.cover} singer={isong.singer}/>
+         </div>
         ))}
       </div>
     </div>
