@@ -1,11 +1,12 @@
 .slider{
-    width: 96%;
+    width: 88%;
     background-color: gray;
     margin-left: 32px;
 }
 
-.theme{
-  
+.head-theme h1{
+    font-size: 32px;
+    font-weight: bold;
     top: 66px;
     
     color: white;
