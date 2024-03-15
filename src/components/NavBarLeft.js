@@ -16,7 +16,7 @@ const NavBarLeft = (props) => {
           <span>Khám phá</span>
        </div> </Link>
 
-        <Link to="/">
+        <Link to="/library">
       <div className="option">
           <div className="icon-option lib"></div>
           <span>Thư viện</span>

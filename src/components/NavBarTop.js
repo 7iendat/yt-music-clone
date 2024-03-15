@@ -3,7 +3,7 @@ import "./NavBarTop.css";
 
 const NavBarTop = (props) => {
   return (
-    <div className="nav-bar">
+    <div className="nav-bar z-50">
       <div className="nav-bar-top-left">
         <div className="menu-bar"></div>
         <div className="logo">
