@@ -18,6 +18,7 @@ const Trending = () => {
       </div>
       {/* Songs */}
       <div className='grid grid-cols-3 gap-3 mt-4 pl-[20px] py-5 pb-20'>
+<<<<<<< Updated upstream
         {songs?.map((isong, isonges) => (
           <div className=" ">
             <Link to={isong.link} className='hover:bg-slate-600 rounded-md p-2 flex items-center justify-start  mr-5 relative group'>
@@ -27,6 +28,14 @@ const Trending = () => {
               </div>
               <div className='cursor-pointer pl-5 text-start -my-21 w-full h-full bg-transparent'>
                   
+=======
+        {songs.map((isong, isonges) => (
+          <div className="set-item-hover flex items-center justify-between  mr-10 ">
+            <div className='flex h-full '>
+              <img src={isong.cover} alt="" className='w-24 object-cover p-[1px] bg-white' />
+            </div>
+            <div className='cursor-pointer pr-8 text-end -my-21 w-full h-full bg-transparent hover:bg-blue-900'>
+>>>>>>> Stashed changes
                 <p className=' text-lg'>{isong.title}</p>
                 <p className='text-sm'>{isong.singer}</p>
 
