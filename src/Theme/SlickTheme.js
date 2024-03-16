@@ -4,7 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SlickTheme.css";
 
+
 const SimpleSlider = (props) => {
+
+
   var settings = {
     dots: false,
     infinite: true,
@@ -16,7 +19,7 @@ const SimpleSlider = (props) => {
   console.log("dataMusicPopular", props.dataMusicPopular);
   return (
     <Slider {...settings} className="container-slider">
-      {props.dataMusicPopular?.map((item, index) => {
+      {props.dataMusicPopular ? props.dataMusicPopular?.map((item, index) => {
         return (
           <div key={index} className="option-slick">
             <div
@@ -41,7 +44,7 @@ const SimpleSlider = (props) => {
             </div>
           </div>
         );
-      })}
+      }) : undefined}
     </Slider>
   );
 };
