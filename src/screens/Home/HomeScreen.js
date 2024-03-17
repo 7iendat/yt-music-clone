@@ -27,9 +27,9 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto">
+    <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
       <div className="">
-        <nav className="cat-navbar">
+        <nav className="cat-navbar ">
               <ul>
                 <li><a href="#">Nạp năng lượng</a></li>
                 <li><a href="#">Thư giãn</a></li>
