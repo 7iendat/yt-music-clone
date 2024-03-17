@@ -1,38 +1,45 @@
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./NavBarLeft.css";
 const NavBarLeft = (props) => {
   console.log("profile:", props.profile);
+
+  const LinkActive = ({ isActive }) => {
+    return {
+      backgroundColor: isActive ? "red" : "blue",
+      fontWeight: isActive ? "bold" : "normal",
+    };
+  };
+
   return (
     <div className="nar-bar-left">
-      <Link to="/">
-        <div className="option active ">
+      <NavLink style={LinkActive} to="/">
+        <div className="option">
           <div className="icon-option home"></div>
           <span>Trang chủ</span>
         </div>
-      </Link>
+      </NavLink>
 
-      <Link to="/discover">
-        <div className="option ">
+      <NavLink style={LinkActive} to="/discover">
+        <div className="option">
           <div className="icon-option explore "></div>
           <span>Khám phá</span>
         </div>{" "}
-      </Link>
+      </NavLink>
 
-
-
-        <Link to="/library">
-      <div className="option">
+      <NavLink style={LinkActive} to="/library">
+        <div className="option">
           <div className="icon-option lib"></div>
           <span>Thư viện</span>
         </div>
-      </Link>
+      </NavLink>
 
-      <Link to="/">
+      <NavLink style={LinkActive} to="/">
         <div className="option">
           <div className="icon-option update"></div>
           <span>Nâng cấp</span>
         </div>
-      </Link>
+      </NavLink>
 
       <div className="bound"></div>
 

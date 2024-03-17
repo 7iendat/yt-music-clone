@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import NavBarLeft from "./components/NavBarLeft";
 import NavBarTop from "./components/NavBarTop";
 
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import { matchPath } from "react-router-dom";
 
 // import ReactDOM from "react-dom/client";
@@ -15,10 +15,11 @@ import NotFound from "./page/notFound/NotFound";
 
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import SearchMusic from "./page/searchMusic/SearchMusic";
+import PlaySong from "./screens/PlaySong/PlaySong";
 
 function App() {
   const MainLayout = ({ children }) => {
-
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
 
@@ -56,13 +57,13 @@ function App() {
     const location = useLocation();
 
     //khai báo url path không xài header footer
-    const excludeRoutes = ['/*/:id'];
+    const excludeRoutes = ["/*/:id"];
 
     // kiểm tra bằng vòng lặp
     const isExist = excludeRoutes.some((routes) => {
       // trả về liệu có tồn tại location nào khớp với phần tử url nào trong excludeRoutes hay không
-      return matchPath({ path: routes, exact: true }, location.pathname)
-    })
+      return matchPath({ path: routes, exact: true }, location.pathname);
+    });
 
     // nếu có thì trả về children không xài header và footer
     if (isExist) {
@@ -76,20 +77,22 @@ function App() {
         {children}
       </>
     );
-  }
+  };
   return (
+    <BrowserRouter>
+      <MainLayout>
+        <Routes>
+          <Route element={<HomeScreen />} path="/" />
 
-      <BrowserRouter>
-        <MainLayout>
-          <Routes>
-            <Route element={<HomeScreen />} path="/" />
-            <Route  element={<ExploreScreen />} path="/discover" />
-            <Route element={<Library/>} path="/library"/>
-            <Route element={<NotFound />} path="*" />
-          </Routes>
-        </MainLayout>
-      </BrowserRouter>
+          <Route element={<ExploreScreen />} path="/discover" />
+          <Route element={<Library />} path="/library" />
+          <Route path="/search/:keySearch" element={<SearchMusic />} />
+          <Route path="/watch/:idSong" element={<PlaySong />} />
 
+          <Route element={<NotFound />} path="*" />
+        </Routes>
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

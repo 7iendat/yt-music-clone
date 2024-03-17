@@ -12,7 +12,7 @@ const HomeScreen = () => {
   const trending = "Các bài hát thịnh hành";
   const disc = "Đĩa nhạc đề xuất";
 
-  const [dataMusicPopular, setDataMusicPopular] = useState({});
+  const [dataMusicPopular, setDataMusicPopular] = useState([]);
 
   useEffect(() => {
     async function fecthData() {
