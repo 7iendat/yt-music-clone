@@ -1,39 +1,50 @@
+import React,{ useState} from "react";
 import { Link } from "react-router-dom";
 import "./NavBarLeft.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { FaRegCompass } from "react-icons/fa";
+import { SiAirplayaudio } from "react-icons/si";
+import { MdLibraryMusic } from "react-icons/md";
+
+
 const NavBarLeft = (props) => {
+  
+  
   console.log("profile:", props.profile);
   return (
-    <div className="nar-bar-left">
-      <Link to="/">
+    <div className="nar-bar-left w-[16.3%]">
+      <div className="pb-[20px]">
+      <Link to="/"  >
         <div className="option active ">
-          <div className="icon-option home"></div>
+          <div className="icon-option "><FontAwesomeIcon icon={faHome}/></div>
           <span>Trang chủ</span>
         </div>
       </Link>
 
       <Link to="/discover">
         <div className="option ">
-          <div className="icon-option explore "></div>
+          <div className="icon-option text-[20px]"><FaRegCompass /></div>
           <span>Khám phá</span>
-        </div>{" "}
+        </div>
       </Link>
 
 
 
         <Link to="/library">
       <div className="option">
-          <div className="icon-option lib"></div>
+          <div className="icon-option lib"><MdLibraryMusic /></div>
           <span>Thư viện</span>
         </div>
       </Link>
 
       <Link to="/">
         <div className="option">
-          <div className="icon-option update"></div>
+          <div className="icon-option update"><SiAirplayaudio /></div>
           <span>Nâng cấp</span>
         </div>
       </Link>
-
+      </div>
       <div className="bound"></div>
 
       <div className="list-music">

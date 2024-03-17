@@ -13,8 +13,10 @@ import ExploreScreen from "./screens/Discover/discovers";
 import Library from "./screens/library/Library";
 import NotFound from "./page/notFound/NotFound";
 
+
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import Author from "./page/author/Author";
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -85,6 +87,7 @@ function App() {
             <Route element={<HomeScreen />} path="/" />
             <Route  element={<ExploreScreen />} path="/discover" />
             <Route element={<Library/>} path="/library"/>
+            <Route element={<Author/>} path="/Tac-gia"/>
             <Route element={<NotFound />} path="*" />
           </Routes>
         </MainLayout>

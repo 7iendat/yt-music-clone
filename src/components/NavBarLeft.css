@@ -3,60 +3,45 @@
     width: 250px;
     height: calc(100vh - 66px);
     background-color: black;
-    top: 66px;
+    top: 60px;
     left: 0px;
     border-right: .2px solid rgb(209, 209, 209);
+    padding: 6px 12px;
 }
 
 .option{
     position: relative;
     display: flex;
-    height: 42px;
+    height: 45px;
     background-color: black;
-    border-radius: 10px;
-    padding: 4px;
+    border-radius: 8px;
+    padding:0 16px;
     align-items: center;
-    margin: 8px;
+    font-weight: 400;
     color: white;
-    
+    font-size: 16px;
 }
 
 .icon-option{
-    width:  24px;
-    height: 24px ;
+    
     margin-left: 10px;
     margin-right: 10px;
-    background-position: center;
-    background-repeat: no-repeat;
+   
     background-size: cover;
+    font-size: 25px;
 }
 
-.icon-option.home{
-    background-image: url(../../public/icons/home-icon.png);
 
-}
 
-.icon-option.explore{
-    background-image: url(../../public/icons/explore-icon.png);
 
-}
-.icon-option.lib{
-    background-image: url(../../public/icons/library-icon.png);
-
-}
-.icon-option.update{
-    background-image: url(../../public/icons/update-icon.png);
-
-}
 
 
 .option.active{
     background-color: rgb(53, 52, 52) !important;
-    
 }
 
 .option:hover{
-    background-color: rgb(84, 84, 84) !important;
+    background-color: rgb(60, 59, 59) !important;
 
 
     cursor: pointer;
@@ -115,9 +100,7 @@
     background-color: rgb(53, 52, 52) !important;
     cursor: pointer;
 }
-.list-music-liked-text{
-    
-}
+
 .text-child{
     font-size: 14px;
     color: rgb(163, 163, 163);

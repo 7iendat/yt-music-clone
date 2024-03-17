@@ -13,9 +13,9 @@ const Records = () => {
         </div>
       </div>
       {/* Music */}
-      <div className='w-full h-full mx-auto my-0 mt-6 mr-6'>
+      <div className='w-[94%] h-full mx-auto my-0 mt-6  ml-6'>
         {/*   */}
-        <div className='category-div categories-scoll Records-scrollbox'>
+        <div className='category-div categories-scoll Records-scrollbox '>
           {recordes?.map((songs) => (
             <div className=''>
               <Link to={songs.link} className='  mr-1'>
@@ -27,7 +27,8 @@ const Records = () => {
                 </div>
                 <div className=''>
                   <p className='w-40 text-wrap'>{songs.title}</p>
-                  <p className='' >{songs.singer}</p>
+                  <Link to='/Tac-gia'><p className='hover:underline ' >{songs.singer}</p></Link>
+                  
                 </div>
 
               </Link>
