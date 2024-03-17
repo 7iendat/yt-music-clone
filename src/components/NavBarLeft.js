@@ -6,15 +6,14 @@ const NavBarLeft = (props) => {
 
   const LinkActive = ({ isActive }) => {
     return {
-      backgroundColor : isActive ? 'red' : 'blue',
-      fontWeight : isActive ? 'bold'  : 'normal'
-    }
-  }
+      backgroundColor: isActive ? "red" : "blue",
+      fontWeight: isActive ? "bold" : "normal",
+    };
+  };
 
   return (
     <div className="nar-bar-left">
-
-      <NavLink style={LinkActive} to="/home">
+      <NavLink style={LinkActive} to="/">
         <div className="option">
           <div className="icon-option home"></div>
           <span>Trang chủ</span>
@@ -28,13 +27,11 @@ const NavBarLeft = (props) => {
         </div>{" "}
       </NavLink>
 
-
-
-        <NavLink style={LinkActive} to="/library">
-          <div className="option">
-            <div className="icon-option lib"></div>
-            <span>Thư viện</span>
-         </div>
+      <NavLink style={LinkActive} to="/library">
+        <div className="option">
+          <div className="icon-option lib"></div>
+          <span>Thư viện</span>
+        </div>
       </NavLink>
 
       <NavLink style={LinkActive} to="/">
