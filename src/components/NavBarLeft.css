@@ -12,7 +12,6 @@
     position: relative;
     display: flex;
     height: 42px;
-    background-color: black;
     border-radius: 10px;
     padding: 4px;
     align-items: center;
@@ -51,7 +50,7 @@
 
 
 .option.active{
-    background-color: rgb(53, 52, 52) !important;
+    /* background-color: rgb(53, 52, 52) !important; */
     
 }
 
