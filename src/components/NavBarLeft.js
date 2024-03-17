@@ -1,5 +1,5 @@
 import React,{ useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavBarLeft.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons';
@@ -23,35 +23,35 @@ const NavBarLeft = (props) => {
   return (
     <div className="nar-bar-left w-[16.3%]">
       <div className="pb-[20px]">
-      <Link to="/"  >
+      <NavLink to="/"  >
         <div className="option active ">
           <div className="icon-option "><FontAwesomeIcon icon={faHome}/></div>
           <span>Trang chủ</span>
         </div>
-      </Link>
+      </NavLink>
 
-      <Link to="/discover">
+      <NavLink to="/discover">
         <div className="option ">
           <div className="icon-option text-[20px]"><FaRegCompass /></div>
           <span>Khám phá</span>
         </div>
-      </Link>
+      </NavLink>
 
 
 
-        <Link to="/library">
+        <NavLink to="/library">
       <div className="option">
           <div className="icon-option lib"><MdLibraryMusic /></div>
           <span>Thư viện</span>
         </div>
-      </Link>
+      </NavLink>
 
-      <Link style={LinkActive} to="/">
+      <NavLink style={LinkActive} to="/">
         <div className="option">
           <div className="icon-option update"><SiAirplayaudio /></div>
           <span>Nâng cấp</span>
         </div>
-      </Link>
+      </NavLink>
       </div>
       <div className="bound"></div>
 
