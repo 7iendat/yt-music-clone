@@ -15,32 +15,32 @@ const NavBarLeft = (props) => {
 
   const LinkActive = ({ isActive }) => {
     return {
-      backgroundColor: isActive ? "red" : "blue",
       fontWeight: isActive ? "bold" : "normal",
+      color: isActive ? "red" : "white",
+      backgroundColor: isActive ? "red" : "white"
     };
   };
 
   return (
     <div className="nar-bar-left w-[16.3%]">
       <div className="pb-[20px]">
-      <NavLink to="/"  >
-        <div className="option active ">
+
+      <NavLink style={LinkActive} to="/home"  >
+        <div className="option">
           <div className="icon-option "><FontAwesomeIcon icon={faHome}/></div>
           <span>Trang chủ</span>
         </div>
       </NavLink>
 
-      <NavLink to="/discover">
-        <div className="option ">
+      <NavLink style={LinkActive} to="/discover">
+        <div className="option">
           <div className="icon-option text-[20px]"><FaRegCompass /></div>
           <span>Khám phá</span>
         </div>
       </NavLink>
 
-
-
-        <NavLink to="/library">
-      <div className="option">
+      <NavLink style={LinkActive} to="/library">
+        <div className="option">
           <div className="icon-option lib"><MdLibraryMusic /></div>
           <span>Thư viện</span>
         </div>
@@ -53,6 +53,8 @@ const NavBarLeft = (props) => {
         </div>
       </NavLink>
       </div>
+
+
       <div className="bound"></div>
 
       <div className="list-music">
