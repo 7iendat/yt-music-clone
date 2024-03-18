@@ -4,7 +4,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 export const recordes = [
     {
         title: "Chúng Ta Của Tương Lai",
-        link:"/chung-ta-cua-tuong-lai",
+        link:"/play-music",
         singer:"Sơn Tùng MTP",
         cover:cover,
         icon:faPlay,
