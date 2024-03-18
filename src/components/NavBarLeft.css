@@ -2,7 +2,7 @@
     position: fixed;
     width: 250px;
     height: calc(100vh - 66px);
-    background-color: black;
+    /* background-color: black; */
     top: 60px;
     left: 0px;
     border-right: .2px solid rgb(209, 209, 209);
@@ -13,11 +13,11 @@
     position: relative;
     display: flex;
     height: 45px;
-    background-color: black;
+    /* background-color: black; */
     border-radius: 8px;
     padding:0 16px;
     align-items: center;
-    font-weight: 400;
+    /* font-weight: 400; */
     color: white;
     font-size: 16px;
 }
@@ -32,13 +32,9 @@
 }
 
 
-
-
-
-
-.option.active{
+/* .option.active{
     background-color: rgb(53, 52, 52) !important;
-}
+} */
 
 .option:hover{
     background-color: rgb(60, 59, 59) !important;

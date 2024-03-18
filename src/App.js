@@ -83,7 +83,7 @@ function App() {
       <BrowserRouter>
         <MainLayout>
           <Routes>
-            <Route element={<HomeScreen />} path="/" />
+            <Route element={<HomeScreen />} path="/home" />
             <Route  element={<ExploreScreen />} path="/discover" />
             <Route element={<Library/>} path="/library"/>
             <Route element={<Author/>} path="/Tac-gia"/>
