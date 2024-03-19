@@ -16,7 +16,13 @@ import NotFound from "./page/notFound/NotFound";
 
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+
+import SearchMusic from "./page/searchMusic/SearchMusic";
+import PlaySong from "./screens/PlaySong/PlaySong";
+import TopicScreen from "./screens/Topic/TopicScreen";
+
 import Author from "./page/author/Author";
+
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -80,18 +86,20 @@ function App() {
   };
   return (
 
-      <BrowserRouter>
-        <MainLayout>
-          <Routes>
-            <Route element={<HomeScreen />} path="/home" />
-            <Route  element={<ExploreScreen />} path="/discover" />
-            <Route element={<Library/>} path="/library"/>
-            <Route element={<Author/>} path="/Tac-gia"/>
-            <Route element={<NotFound />} path="*" />
-          </Routes>
-        </MainLayout>
-      </BrowserRouter>
+<BrowserRouter>
+      <MainLayout>
+        <Routes>
+          <Route element={<HomeScreen />} path="/" />
 
+          <Route element={<ExploreScreen />} path="/discover" />
+          <Route element={<Library />} path="/library" />
+          <Route path="/search/:keySearch" element={<SearchMusic />} />
+          <Route path="/watch/:idSong" element={<PlaySong />} />
+          <Route path="/topic/:topicName" element={<TopicScreen />} />
+          <Route element={<NotFound />} path="*" />
+        </Routes>
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

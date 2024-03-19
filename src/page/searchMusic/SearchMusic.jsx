@@ -8,12 +8,13 @@ const SearchMusic = () => {
   const [dataSongSearched, setdataSongSearched] = useState([]);
 
   const { keySearch } = useParams();
+  const key = process.env.REACT_APP_API_KEY;
   console.log(keySearch);
 
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?key=AIzaSyCicMJd8w0G5XfYdqXpTK-ITzg4WaIdl74&part=snippet&q=${keySearch}&categoryId=10&maxResults=24&type=video&regionCode=VN`
+        `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&q=${keySearch}&categoryId=10&maxResults=24&type=video&regionCode=VN`
       );
 
       setdataSongSearched(res.data.items);
