@@ -17,6 +17,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import SearchMusic from "./page/searchMusic/SearchMusic";
 import PlaySong from "./screens/PlaySong/PlaySong";
+import TopicScreen from "./screens/Topic/TopicScreen";
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -88,7 +89,7 @@ function App() {
           <Route element={<Library />} path="/library" />
           <Route path="/search/:keySearch" element={<SearchMusic />} />
           <Route path="/watch/:idSong" element={<PlaySong />} />
-
+          <Route path="/topic/:topicName" element={<TopicScreen />} />
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
