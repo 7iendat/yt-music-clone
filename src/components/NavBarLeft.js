@@ -34,7 +34,7 @@ const NavBarLeft = (props) => {
         </div>
       </NavLink>
 
-      <NavLink style={LinkActive} to="/">
+      <NavLink style={LinkActive} to="/upgrade">
         <div className="option">
           <div className="icon-option update"></div>
           <span>Nâng cấp</span>
