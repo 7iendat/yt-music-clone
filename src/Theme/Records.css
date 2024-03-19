@@ -15,10 +15,6 @@
 }
 
 .Records-scrollbox:hover {
-    &::-webkit-scrollbar {
-        height: 15px;
-    }
-
     &::-webkit-scrollbar-thumb {
         background-color: rgba(222, 219, 219, 0.4);
     }
