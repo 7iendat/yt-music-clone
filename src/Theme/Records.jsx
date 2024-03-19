@@ -13,21 +13,22 @@ const Records = () => {
         </div>
       </div>
       {/* Music */}
-      <div className='w-full h-full mx-auto my-0 mt-6 mr-6'>
+      <div className='w-[94%] h-full mx-auto my-0 mt-6  ml-6'>
         {/*   */}
-        <div className='category-div categories-scoll Records-scrollbox'>
+        <div className='category-div categories-scoll Records-scrollbox '>
           {recordes?.map((songs) => (
             <div className=''>
-              <Link to={songs.link} className='  mr-1'>
-                <div className=''>
+              <Link to={songs.link} className='  mr-1 group relative'>
+                <div className='relative'>
                   <img src={songs.cover} alt='' className='' />
-                  <div className=''>
-                    <FontAwesomeIcon icon={songs.icon} />
+                  <div className='absolute bottom-[20%] right-[10%] overflow-hidden hidden  w-[35px] h-[35px] bg-black border-[1px] border-solid border-stone-800 rounded-full  group-hover:block'>
+                    <FontAwesomeIcon icon={songs.icon} className='pl-3 pt-2'/>
                   </div>
                 </div>
                 <div className=''>
                   <p className='w-40 text-wrap'>{songs.title}</p>
-                  <p className='' >{songs.singer}</p>
+                  <Link to='/Tac-gia'><p className='hover:underline ' >{songs.singer}</p></Link>
+                  
                 </div>
 
               </Link>
