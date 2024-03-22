@@ -31,12 +31,18 @@ const VideoLikedScreen = () => {
   console.log("video", videoLiked);
   return (
     <div className="video-liked-screen">
-      <div className="video-liked-item">
-        <h2 style={{ fontSize: "24px" }}>Danh sách đã thích</h2>
-        {videoLiked.map((item, index) => {
-          return <Song key={index} item={item} />;
-        })}
-      </div>
+      {videoLiked.length > 0 ? (
+        <div className="video-liked-item">
+          <h2 style={{ fontSize: "24px" }}>Danh sách đã thích</h2>
+          {videoLiked.map((item, index) => {
+            return <Song key={index} item={item} />;
+          })}
+        </div>
+      ) : (
+        <>
+          <h1 style={{ color: "white" }}>Bạn chưa thích video nào !</h1>
+        </>
+      )}
     </div>
   );
 };
