@@ -4,6 +4,8 @@ import { FaChromecast } from "react-icons/fa6";
 import "./NavBarTop.css";
 
 const NavBarTop = (props) => {
+  const access_token = localStorage.getItem("access_token");
+
   return (
     <div className="w-full">
       <div className="nav-bar z-50">
@@ -14,11 +16,15 @@ const NavBarTop = (props) => {
             <span>Music</span>
           </div>
         </div>
-        <div className="w-[70%]"><InputSearch /> </div>
-        
+        <div className="w-[70%]">
+          <InputSearch />{" "}
+        </div>
+
         <div className="nav-bar-top-right w-[13.7%]">
-          <div className="connect-device"><FaChromecast /></div>
-          {props.profile !== null ? (
+          <div className="connect-device">
+            <FaChromecast />
+          </div>
+          {access_token !== null && props.profile !== null ? (
             <div className="profile">
               <img src={props.profile.picture} />
             </div>
