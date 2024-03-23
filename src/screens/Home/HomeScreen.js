@@ -15,7 +15,7 @@ const HomeScreen = () => {
 
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
   const key = process.env.REACT_APP_API_KEY;
-  console.log(key);
+
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
@@ -31,7 +31,6 @@ const HomeScreen = () => {
   return (
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
       <div className="">
-
         <nav className="cat-navbar">
           <ul>
             <li>
