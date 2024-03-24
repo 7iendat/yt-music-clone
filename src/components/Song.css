@@ -1,6 +1,6 @@
 .song{
     width: 100%;
-    height: 200px;
+    height: 192px;
    
     margin-top: 20px;
     display: flex;
@@ -31,6 +31,9 @@
      padding-left: 14px;
      flex: 1;
      padding: 20px;
+     overflow: hidden;
+     -webkit-line-clamp: 2;
+     -webkit-box-orient: vertical;
 }
 
 .name-song{
@@ -61,4 +64,13 @@
     background-size: cover;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+.custom-decripton{
+    color: "gray";
+    font-size: "12px";
+    margin-top: "16px" ;
+    overflow-x: hidden;
+        width: 200px;
+        
 }

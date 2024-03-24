@@ -8,8 +8,9 @@ import { SiAirplayaudio } from "react-icons/si";
 import { MdLibraryMusic } from "react-icons/md";
 
 const NavBarLeft = (props) => {
-  console.log("profile:", props.profile);
+  const access_token = localStorage.getItem("access_token");
 
+  console.log("left:", access_token);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
@@ -65,18 +66,35 @@ const NavBarLeft = (props) => {
         <span>Danh sách phát mới</span>
       </div>
 
-      {props.profile !== null ? (
+      {access_token !== null && props.profile !== null ? (
         <>
-          <div className="list-music-liked">
-            <div className="list-music-liked-text">
-              <span>Nhạc đã thích</span>
-              <div className="text-child">
-                <div className="icon-text-child"></div>
-                <span>Danh sách tự động</span>
+          <Link to="/video-liked">
+            {" "}
+            <div className="list-music-liked">
+              <div className="list-music-liked-text">
+                <span>Nhạc đã thích</span>
+                <div className="text-child">
+                  <div className="icon-text-child"></div>
+                  <span>Danh sách tự động</span>
+                </div>
               </div>
+              <div className="list-music-icon"></div>
             </div>
-            <div className="list-music-icon"></div>
-          </div>
+          </Link>
+
+          <Link to="/playlist">
+            {" "}
+            <div className="list-music-liked">
+              <div className="list-music-liked-text">
+                <span>Danh sách phát</span>
+                <div className="text-child">
+                  <div className="icon-text-child"></div>
+                  <span>Danh sách tự động</span>
+                </div>
+              </div>
+              <div className="list-music-icon"></div>
+            </div>
+          </Link>
 
           <div className="btn-logout" onClick={props.logOut}>
             Log Out

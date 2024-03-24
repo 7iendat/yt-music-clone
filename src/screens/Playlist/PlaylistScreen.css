@@ -1,0 +1,13 @@
+.playlist-screen{
+    z-index: 1;
+    position: absolute;
+    left: 251px;
+    top: 66px;
+    color: white;
+    margin: auto;
+    display: block;
+    width: calc(100% - 251px);
+    height: calc(100vh - 66px);
+    padding-left: 14%;
+    padding-right: 14%;
+}

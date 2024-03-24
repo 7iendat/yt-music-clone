@@ -50,7 +50,7 @@ const Song = (props) => {
               {props.item.snippet.channelTitle}
             </span>
           </div>
-          <span style={{ color: "gray", fontSize: "12px", marginTop: "16px" }}>
+          <span className="custom-decripton">
             Mô tả: {props.item.snippet.description}
           </span>
         </div>

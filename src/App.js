@@ -13,32 +13,52 @@ import ExploreScreen from "./screens/Discover/discovers";
 import Library from "./screens/library/Library";
 import NotFound from "./page/notFound/NotFound";
 
-
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import {
+  googleLogout,
+  useGoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
 import axios from "axios";
 
 import SearchMusic from "./page/searchMusic/SearchMusic";
 import PlaySong from "./screens/PlaySong/PlaySong";
 import TopicScreen from "./screens/Topic/TopicScreen";
+import { useNavigate } from "react-router-dom";
 
 import Author from "./page/author/Author";
-
+import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
+import PlaylistScreen from "./screens/Playlist/PlaylistScreen";
 
 function App() {
   const MainLayout = ({ children }) => {
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
+    const history = useNavigate();
 
     const login = useGoogleLogin({
-      onSuccess: (codeResponse) => setUser(codeResponse),
-      onError: (error) => console.log("Login Failed:", error),
+      onSuccess: async (codeResponse) => {
+        setUser(codeResponse);
+        // const userInfo = await axios.get(
+        //   "https://www.googleapis.com/oauth2/v3/userinfo",
+        //   {
+        //     headers: { Authorization: `Bearer ${codeResponse.access_token}` },
+        //   }
+        // );
+
+        // console.log(userInfo);
+
+        localStorage.setItem("access_token", codeResponse.access_token);
+      },
+      scope: "openid https://www.googleapis.com/auth/youtube.readonly",
+      onError: (e) => console.log(e),
     });
 
+    const access_token_isChecked = localStorage.getItem("access_token");
     useEffect(() => {
-      if (user) {
+      if (access_token_isChecked) {
         axios
           .get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token_isChecked}`,
             {
               headers: {
                 Authorization: `Bearer ${user.access_token}`,
@@ -51,14 +71,20 @@ function App() {
           })
           .catch((err) => console.log(err));
       }
-    }, [user]);
+    }, [access_token_isChecked]);
 
     // log out function to log the user out of google and set the profile array to null
     const logOut = () => {
       googleLogout();
       setProfile(null);
+      localStorage.removeItem("user");
+      setUser(null);
+      localStorage.removeItem("access_token");
+      history("/");
     };
-    console.log(profile);
+    console.log("user is ", user);
+    console.log("profile is ", profile);
+
     //url path của trang web
     const location = useLocation();
 
@@ -85,8 +111,7 @@ function App() {
     );
   };
   return (
-
-<BrowserRouter>
+    <BrowserRouter>
       <MainLayout>
         <Routes>
           <Route element={<HomeScreen />} path="/" />
@@ -96,6 +121,8 @@ function App() {
           <Route path="/search/:keySearch" element={<SearchMusic />} />
           <Route path="/watch/:idSong" element={<PlaySong />} />
           <Route path="/topic/:topicName" element={<TopicScreen />} />
+          <Route element={<VideoLikedScreen />} path="/video-liked" />
+          <Route element={<PlaylistScreen />} path="/playlist" />
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
