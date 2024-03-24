@@ -81,6 +81,21 @@ const NavBarLeft = (props) => {
               <div className="list-music-icon"></div>
             </div>
           </Link>
+
+          <Link to="/playlist">
+            {" "}
+            <div className="list-music-liked">
+              <div className="list-music-liked-text">
+                <span>Danh sách phát</span>
+                <div className="text-child">
+                  <div className="icon-text-child"></div>
+                  <span>Danh sách tự động</span>
+                </div>
+              </div>
+              <div className="list-music-icon"></div>
+            </div>
+          </Link>
+
           <div className="btn-logout" onClick={props.logOut}>
             Log Out
           </div>
