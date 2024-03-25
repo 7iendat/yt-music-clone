@@ -63,7 +63,7 @@ const HomeScreen = () => {
           </ul>
         </nav>
 
-        <Trending />
+        <Trending dataMusicPopular={dataMusicPopular} />
         <Records />
         <MusicTop />
 
