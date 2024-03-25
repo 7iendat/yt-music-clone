@@ -4,7 +4,7 @@ import Song from "./Song";
 import "./Trending.css";
 
 const Trending = (props) => {
-  console.log("props", props.dataMusicPopular.length);
+  console.log("props", props.dataMusicPopular);
 
   return (
     <div className="text-white  max-w-[70vw]  mx-auto mt-8  ">
@@ -24,6 +24,7 @@ const Trending = (props) => {
           <Song
             key={index}
             idSong={item.id}
+            channelId={item.snippet.channelId}
             title={item.snippet.localized.title}
             thumb={item.snippet.thumbnails.high.url}
             singer={item.snippet.channelTitle}

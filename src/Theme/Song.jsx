@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Song = ({ title, thumb, idSong, singer }) => {
-  const link = `watch/${idSong}?title=${title}`;
+const Song = ({ title, thumb, idSong, singer, channelId }) => {
+  const link = `watch/${idSong}?title=${title}&channel=${channelId}`;
 
   return (
     <Link
