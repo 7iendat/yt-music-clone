@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./NavBarLeft.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,11 +6,15 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FaRegCompass } from "react-icons/fa";
 import { SiAirplayaudio } from "react-icons/si";
 import { MdLibraryMusic } from "react-icons/md";
+import axios from "axios";
+import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen"
 
 const NavBarLeft = (props) => {
   const access_token = localStorage.getItem("access_token");
+  const key = process.env.REACT_APP_API_KEY;
+  const [dataPlaylist, setDataPlaylist] = useState([]);
 
-  console.log("left:", access_token);
+  console.log("LEFT ACC:", access_token);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
@@ -18,6 +22,29 @@ const NavBarLeft = (props) => {
       backgroundColor: isActive ? "red" : "white",
     };
   };
+
+  useEffect(() => {
+    async function fecthData() {
+      let res = await axios.get(
+        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=25&mine=true&key=${key}`,
+        {
+          headers: {
+            Authorization: "Bearer " + access_token,
+
+            Accept: `application/json`,
+          },
+        }
+      );
+
+      setDataPlaylist(res.data.items);
+    }
+    if(access_token !== null && props.profile !== null){
+      fecthData();
+    }
+  }, []);
+
+  console.log("PLAYLIST LEFT", dataPlaylist);
+
 
   return (
     <div className="nar-bar-left w-[16.3%]">
@@ -81,8 +108,8 @@ const NavBarLeft = (props) => {
               <div className="list-music-icon"></div>
             </div>
           </Link>
-
-          <Link to="/playlist">
+          
+          {/* <Link to="/playlist">
             {" "}
             <div className="list-music-liked">
               <div className="list-music-liked-text">
@@ -94,7 +121,11 @@ const NavBarLeft = (props) => {
               </div>
               <div className="list-music-icon"></div>
             </div>
-          </Link>
+          </Link> */}
+
+          {dataPlaylist.map((item, index) => {
+            return <PlaylistScreen key={index} item={item} />;
+          })}
 
           <div className="btn-logout" onClick={props.logOut}>
             Log Out

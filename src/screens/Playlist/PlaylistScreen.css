@@ -1,13 +1,41 @@
-.playlist-screen{
-    z-index: 1;
-    position: absolute;
-    left: 251px;
-    top: 66px;
+.list-music-liked{
+    height: 50px;
+    display: flex;
     color: white;
-    margin: auto;
+    align-items: center;
+    border-radius: 10px;
+    margin: 12px;
+    padding-left: 10px;
+    justify-content: space-between;
+}
+
+.list-music-liked:hover {
+    background-color: rgb(53, 52, 52) !important;
+    cursor: pointer;
+}
+.list-music-liked:hover  .list-music-icon{
     display: block;
-    width: calc(100% - 251px);
-    height: calc(100vh - 66px);
-    padding-left: 14%;
-    padding-right: 14%;
+    
+}
+.text-child{
+    font-size: 14px;
+    color: rgb(163, 163, 163);
+    display: flex;
+    align-items: center;
+}
+
+.list-music-icon{
+    display: none;
+    width: 26px;
+    height: 26px;
+    background-image: url("../../../public/icons/play-button.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 10px;
+}
+
+.list-music-liked:hover  .list-music-icon{
+    display: block;
+    
 }

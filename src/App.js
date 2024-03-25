@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import Author from "./page/author/Author";
 import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
 import PlaylistScreen from "./screens/Playlist/PlaylistScreen";
+import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -122,7 +123,7 @@ function App() {
           <Route path="/watch/:idSong" element={<PlaySong />} />
           <Route path="/topic/:topicName" element={<TopicScreen />} />
           <Route element={<VideoLikedScreen />} path="/video-liked" />
-          <Route element={<PlaylistScreen />} path="/playlist" />
+          <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
