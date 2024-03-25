@@ -2,6 +2,7 @@ import InputSearch from "./inputSearch";
 import { FaChromecast } from "react-icons/fa6";
 
 import "./NavBarTop.css";
+import { Link } from "react-router-dom";
 
 const NavBarTop = (props) => {
   const access_token = localStorage.getItem("access_token");
@@ -11,10 +12,12 @@ const NavBarTop = (props) => {
       <div className="nav-bar z-50">
         <div className="nav-bar-top-left w-[16.3%] ">
           <div className="menu-bar"></div>
-          <div className="logo">
-            <div className="icon-app"></div>
-            <span>Music</span>
-          </div>
+          <Link to="/">
+            <div className="logo">
+              <div className="icon-app"></div>
+              <span>Music</span>
+            </div>
+          </Link>
         </div>
         <div className="w-[70%]">
           <InputSearch />{" "}
