@@ -18,7 +18,7 @@ const PlaySong = () => {
           title={params.get("title")}
           frameborder="0"
           allowfullscreen
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope"
         ></iframe>
       </div>
 

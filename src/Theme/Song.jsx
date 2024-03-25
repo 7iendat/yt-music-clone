@@ -1,25 +1,49 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-const Song = ({title, link, cover, icon, singer}) => {
+import React from "react";
+import { Link } from "react-router-dom";
+const Song = ({ title, thumb, idSong, singer }) => {
+  const link = `watch/${idSong}?title=${title}`;
+
   return (
-    <div>
-         <div className=" ">
-            <Link to={link} className='hover:bg-slate-600 rounded-md p-2 flex items-center justify-start  mr-5 relative group'>
-              <div className='flex h-full relative justify-center items-center '>
-                <img src={cover} alt="" className='w-24 h-12 rounded-sm object-cover  bg-white  relative border border-gray-800' />
-                <div className="overflow-hidden hidden  absolute group-hover:block transition-all" ><FontAwesomeIcon icon={icon}/></div>
-              </div>
-              <div className='cursor-pointer pl-5 text-start -my-21 w-full h-full bg-transparent'>
-                  
-                <p className=' text-lg'>{title}</p>
-                <p className='text-sm'>{singer}</p>
+    <Link
+      to={link}
+      className=" w-80 h-20 text-ellipsis hover:bg-slate-600 rounded-md p-2 flex items-center justify-start  mr-5 relative group"
+    >
+      <div
+        style={{ height: "100%", width: "35%" }}
+        className="flex  relative justify-center items-center "
+      >
+        <div
+          style={{
+            backgroundImage: `url(${thumb})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            height: "100%",
+            width: "100%",
+          }}
+          alt=""
+          className=" rounded-sm object-cover  bg-white  relative border border-gray-800"
+        />
+        <div className="overflow-hidden hidden  absolute group-hover:block transition-all">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+        className=" cursor-pointer pl-5 text-start -my-21 w-full h-full bg-transparent "
+      >
+        <p className=" text-sm h-2/3 text-ellipsis overflow-hidden ... w-full ">
+          {title}
+        </p>
+        <p className="text-sm text-zinc-400 ">{singer}</p>
+      </div>
+    </Link>
+  );
+};
 
-              </div>
-            </Link>
-          </div>
-    </div>
-  )
-}
-
-export default Song
+export default Song;
