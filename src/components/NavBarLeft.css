@@ -66,7 +66,7 @@
     width: 20px;
     height: 20px;
      margin-right: 4px;
-    background-image: url(../../public/icons/plus-icon-v2.png);
+    background-image: url(../../public/icons/plus-plus.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -106,7 +106,7 @@
 .icon-text-child{
     width: 14px;
     height: 14px;
-    background-image: url("../../public/icons/pin-icon.png");
+    background-image: url("../../public/icons/push-pin-icon.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -116,7 +116,7 @@
     display: none;
     width: 26px;
     height: 26px;
-    background-image: url("../../public/icons/play-icon-v2.png");
+    background-image: url("../../public/icons/play-button.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

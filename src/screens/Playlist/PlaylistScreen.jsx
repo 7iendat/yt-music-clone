@@ -1,50 +1,24 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./PlaylistScreen.css";
-import axios from "axios";
-import Song from "../../components/Song";
+import { useNavigate } from "react-router-dom";
 
-const PlaylistScreen = () => {
-  const access_token = localStorage.getItem("access_token");
-  console.log("Access Token: ", access_token);
-  const key = process.env.REACT_APP_API_KEY;
-
-  const [dataPlaylist, setDataPlaylist] = useState([]);
-  useEffect(() => {
-    async function fecthData() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=25&mine=true&key=${key}`,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-
-            Accept: `application/json`,
-          },
-        }
-      );
-
-      setDataPlaylist(res.data.items);
-    }
-
-    fecthData();
-  }, []);
-
-  console.log("PLAYLIST", dataPlaylist);
+const Playlist = (props) => {
+  console.log("PROPS PLAYLIST", props);
+  const navigate = useNavigate();
   return (
-    <div className="playlist-screen">
-      {dataPlaylist.length > 0 ? (
-        <div className="playlist-item">
-          <h2 style={{ fontSize: "24px" }}>Danh sách phát</h2>
-          {dataPlaylist.map((item, index) => {
-            return <Song key={index} item={item} />;
-          })}
+    <Link to={`/playlist?list=${props.item.id}`} state={{playlistId: `${props.item.id}`}}>
+      {/* <PlaylistDetailScreen playlistId = {props.item.id}/> */}
+      <div className="list-music-liked">
+        <div className="list-music-liked-text">
+          <span>{props.item.snippet.title}</span>
+          <div className="text-child">
+            <span>{props.item.snippet.channelTitle}</span>
+          </div>
         </div>
-      ) : (
-        <>
-          <h1 style={{ color: "white" }}>Danh sách phát rỗng! Hãy tạo ngay nào!!!</h1>
-        </>
-      )}
-    </div>
+      <div className="list-music-icon"></div>
+      </div>
+    </Link>
   );
 };
 
-export default PlaylistScreen;
+export default Playlist;
