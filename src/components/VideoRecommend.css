@@ -1,0 +1,35 @@
+.video-recommend{
+    width: 96%;
+    height: 84px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+
+   display: flex;
+   align-items: center;
+}
+
+.video-recommend:hover{
+    cursor: pointer;
+    background-color: rgb(52, 52, 52);
+}
+
+.thumb{
+    width: 120px;
+    height: 80%;
+    background-color: red;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    margin: 0;
+    margin-left: 8px;
+
+}
+.title{
+    font-size: 16px;
+    margin-left: 9px;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
