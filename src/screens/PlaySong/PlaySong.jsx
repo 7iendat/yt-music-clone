@@ -2,7 +2,7 @@ import { useSearchParams, useParams } from "react-router-dom";
 import "./PlaySong.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ReactPlayer from "react-player";
+
 import VideoRecommend from "../../components/VideoRecommend";
 
 const PlaySong = () => {
@@ -22,13 +22,6 @@ const PlaySong = () => {
 
     setSongsRecommend(res.data.items);
   }
-
-  useEffect(() => {
-    fecthDataSongsRecommend();
-  }, []);
-
-  console.log("songs", songsRecommed);
-
   async function fecthData() {
     let res = await axios.get(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
@@ -44,36 +37,27 @@ const PlaySong = () => {
 
     setSong(res.data.items);
   }
+
   useEffect(() => {
     fecthData();
     fecthDataSong();
+    fecthDataSongsRecommend();
   }, []);
 
-  console.log("channel", channel);
-  console.log("song", song);
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
       <div className="playing">
-        <div className="video-playing">
+        <div className="video-playing" style={{ position: "relative" }}>
           <iframe
             width="680"
             height="440"
             src={urlPlaySong}
             title={params.get("title")}
-            frameborder="1"
-            allow="picture-in-picture;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share; fullscreen"
+            frameborder="0"
+            allow="picture-in-picture;autoplay"
           ></iframe>
-
-          {/* <ReactPlayer
-          width={680}
-          height={440}
-          url={urlPlaySong}
-          playing="true"
-          controls="true"
-          stopOnUnmount="true"
-        /> */}
         </div>
 
         <div className="more-infor">
@@ -181,12 +165,10 @@ const PlaySong = () => {
             <div> Loading...</div>
           )}
         </div>
-
-        {/* <div style={{ height: "100%", zIndex: "10" }}></div> */}
       </div>
     </div>
   ) : (
-    <>LOADING....</>
+    <>Loading...</>
   );
 };
 

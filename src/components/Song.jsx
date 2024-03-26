@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
 import "./Song.css";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
 const Song = (props) => {
   const history = useNavigate();
   const channelId = props.item.snippet.channelId;
-  console.log("channelId", channelId);
-  console.log("day", props);
 
   const handleClickSong = () => {
     history(
