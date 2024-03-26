@@ -1,8 +1,8 @@
 .play-song{
     z-index: 1;
-    position: absolute;
+    position: fixed;
     left: 251px;
-    top: 66px;
+    top: 62px;
     color: white;
     margin:auto ;
     display: block;
@@ -12,6 +12,7 @@
     padding-right: 6%;  
     
     background-color: rgb(24, 24, 24);
+    display: flex;
 }
 
 .video-playing{
@@ -49,4 +50,30 @@
    display: flex;
    flex-direction: column;
    margin-left: 10px;
+}
+
+.list-video-recommend{
+    z-index: 999;
+    flex: 1;
+    height: 98%;
+    width: 220px;
+    
+    margin: 8px;
+    border-radius: 20px;
+    border: .5px solid rgb(203, 203, 203);
+    padding: 10px;
+
+}
+
+.playing{
+    width: 704px;
+    height: 100%;
+}
+
+.recommend-item{
+   height: 92%;
+    z-index: -1000;
+
+    overflow-y: scroll;
+    scrollbar-color: white black ; /* Firefox */
 }
