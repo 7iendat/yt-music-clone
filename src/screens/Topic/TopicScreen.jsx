@@ -22,8 +22,6 @@ const TopicScreen = () => {
     fecthData();
   }, []);
 
-  console.log("songTopic", songTopic);
-
   return (
     <div className="topic-screen">
       <h2 style={{ fontSize: "24px" }}>Chủ đề {topicName}:</h2>

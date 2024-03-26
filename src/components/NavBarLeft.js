@@ -7,14 +7,13 @@ import { FaRegCompass } from "react-icons/fa";
 import { SiAirplayaudio } from "react-icons/si";
 import { MdLibraryMusic } from "react-icons/md";
 import axios from "axios";
-import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen"
+import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen";
 
 const NavBarLeft = (props) => {
   const access_token = localStorage.getItem("access_token");
   const key = process.env.REACT_APP_API_KEY;
   const [dataPlaylist, setDataPlaylist] = useState([]);
 
-  console.log("LEFT ACC:", access_token);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
@@ -38,13 +37,10 @@ const NavBarLeft = (props) => {
 
       setDataPlaylist(res.data.items);
     }
-    if(access_token !== null && props.profile !== null){
+    if (access_token !== null && props.profile !== null) {
       fecthData();
     }
   }, []);
-
-  console.log("PLAYLIST LEFT", dataPlaylist);
-
 
   return (
     <div className="nar-bar-left w-[16.3%]">
@@ -108,20 +104,6 @@ const NavBarLeft = (props) => {
               <div className="list-music-icon"></div>
             </div>
           </Link>
-          
-          {/* <Link to="/playlist">
-            {" "}
-            <div className="list-music-liked">
-              <div className="list-music-liked-text">
-                <span>Danh sách phát</span>
-                <div className="text-child">
-                  <div className="icon-text-child"></div>
-                  <span>Danh sách tự động</span>
-                </div>
-              </div>
-              <div className="list-music-icon"></div>
-            </div>
-          </Link> */}
 
           {dataPlaylist.map((item, index) => {
             return <PlaylistScreen key={index} item={item} />;

@@ -14,6 +14,7 @@ const HomeScreen = () => {
   const disc = "Đĩa nhạc đề xuất";
 
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
+  const [songNew, setSongNew] = useState([]);
   const key = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
@@ -26,7 +27,16 @@ const HomeScreen = () => {
     }
 
     fecthData();
+    fecthNewSong();
   }, []);
+
+  async function fecthNewSong() {
+    let res = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=viewCount&publishedAfter=2023-03-01T00%3A00%3A00Z&q=nh%E1%BA%A1c%20m%E1%BB%9Bi&regionCode=VN&type=video&videoDuration=medium&key=${key}`
+    );
+
+    setSongNew(res.data.items);
+  }
 
   return (
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
@@ -65,7 +75,7 @@ const HomeScreen = () => {
 
         <Trending dataMusicPopular={dataMusicPopular} />
         <Records />
-        <MusicTop />
+        <MusicTop songNew={songNew} />
 
         <Theme title={frequently} />
         <Theme title={recommend} />

@@ -2,7 +2,6 @@ import SimpleSlider from "./SlickTheme";
 import "./Theme.css";
 
 const Theme = (props) => {
-  console.log(props);
   return (
     <div className="theme">
       <div className="head-theme">

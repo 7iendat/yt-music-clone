@@ -2,7 +2,6 @@ import "./VideoRecommend.css";
 import { useNavigate } from "react-router-dom";
 
 const VideoRecommend = (props) => {
-  console.log("props songs", props);
   const history = useNavigate();
 
   const handleClickSong = () => {

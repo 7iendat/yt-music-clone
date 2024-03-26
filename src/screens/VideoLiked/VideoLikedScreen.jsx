@@ -5,7 +5,7 @@ import Song from "../../components/Song";
 
 const VideoLikedScreen = () => {
   const access_token = localStorage.getItem("access_token");
-  console.log("Access Token: ", access_token);
+
   const key = process.env.REACT_APP_API_KEY;
 
   const [videoLiked, setVideoLiked] = useState([]);
@@ -28,7 +28,6 @@ const VideoLikedScreen = () => {
     fecthData();
   }, []);
 
-  console.log("video", videoLiked);
   return (
     <div className="video-liked-screen">
       {videoLiked.length > 0 ? (

@@ -1,11 +1,9 @@
 import React from "react";
-import { songs } from "../utils/songs";
+
 import Song from "./Song";
 import "./Trending.css";
 
 const Trending = (props) => {
-  console.log("props", props.dataMusicPopular);
-
   return (
     <div className="text-white  max-w-[70vw]  mx-auto mt-8  ">
       {/*Title  */}
@@ -29,9 +27,6 @@ const Trending = (props) => {
             thumb={item.snippet.thumbnails.high.url}
             singer={item.snippet.channelTitle}
           />
-          // <div className="">
-
-          // </div>
         ))}
       </div>
     </div>

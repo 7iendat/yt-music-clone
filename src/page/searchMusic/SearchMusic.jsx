@@ -9,7 +9,6 @@ const SearchMusic = () => {
 
   const { keySearch } = useParams();
   const key = process.env.REACT_APP_API_KEY;
-  console.log(keySearch);
 
   useEffect(() => {
     async function fecthData() {
@@ -23,7 +22,6 @@ const SearchMusic = () => {
     fecthData();
   }, [keySearch]);
 
-  console.log("dataSongSearched", dataSongSearched);
   return (
     <div className="search-screen">
       <h2 style={{ fontSize: "24px" }}>Kết quả tìm kiếm:</h2>

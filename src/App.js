@@ -6,18 +6,13 @@ import NavBarTop from "./components/NavBarTop";
 import { useLocation } from "react-router-dom";
 import { matchPath } from "react-router-dom";
 
-// import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/Home/HomeScreen";
 import ExploreScreen from "./screens/Discover/discovers";
 import Library from "./screens/library/Library";
 import NotFound from "./page/notFound/NotFound";
 
-import {
-  googleLogout,
-  useGoogleLogin,
-  useGoogleOneTapLogin,
-} from "@react-oauth/google";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
 import SearchMusic from "./page/searchMusic/SearchMusic";
@@ -25,9 +20,8 @@ import PlaySong from "./screens/PlaySong/PlaySong";
 import TopicScreen from "./screens/Topic/TopicScreen";
 import { useNavigate } from "react-router-dom";
 
-import Author from "./page/author/Author";
 import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
-import PlaylistScreen from "./screens/Playlist/PlaylistScreen";
+
 import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
 
 function App() {
@@ -39,14 +33,6 @@ function App() {
     const login = useGoogleLogin({
       onSuccess: async (codeResponse) => {
         setUser(codeResponse);
-        // const userInfo = await axios.get(
-        //   "https://www.googleapis.com/oauth2/v3/userinfo",
-        //   {
-        //     headers: { Authorization: `Bearer ${codeResponse.access_token}` },
-        //   }
-        // );
-
-        // console.log(userInfo);
 
         localStorage.setItem("access_token", codeResponse.access_token);
       },
@@ -83,8 +69,6 @@ function App() {
       localStorage.removeItem("access_token");
       history("/");
     };
-    console.log("user is ", user);
-    console.log("profile is ", profile);
 
     //url path của trang web
     const location = useLocation();
