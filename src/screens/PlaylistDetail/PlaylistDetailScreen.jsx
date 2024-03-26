@@ -6,13 +6,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const PlaylistDetailScreen = () => {
   const access_token = localStorage.getItem("access_token");
-  console.log("Access Token: ", access_token);
+
   const key = process.env.REACT_APP_API_KEY;
   const [dataPlaylistItems, setDataPlaylistItems] = useState([]);
 
   const location = useLocation();
-  const {playlistId} = location.state;
-  console.log("PLAYLIST ID", playlistId);
+  const { playlistId } = location.state;
 
   useEffect(() => {
     async function fecthData() {
@@ -32,7 +31,6 @@ const PlaylistDetailScreen = () => {
 
     fecthData();
   }, []);
-  console.log("PLAYLIST", dataPlaylistItems);
 
   return (
     <div className="playlistdetail-screen">
@@ -45,7 +43,9 @@ const PlaylistDetailScreen = () => {
         </div>
       ) : (
         <>
-          <h1 style={{ color: "white" }}>Danh sách phát rỗng! Hãy tạo ngay nào!!!</h1>
+          <h1 style={{ color: "white" }}>
+            Danh sách phát rỗng! Hãy tạo ngay nào!!!
+          </h1>
         </>
       )}
     </div>

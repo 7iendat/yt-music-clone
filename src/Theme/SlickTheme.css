@@ -29,7 +29,7 @@
 
 .container-slider{margin: 0 !important;}
 
-.thumb{
+.thumb_slick{
     width: 95%;
     height: 160px;
     margin-left: auto;
@@ -42,7 +42,7 @@
 
 }
 
-.thumb:hover{
+.thumb_slick:hover{
     opacity: 0.6;
     cursor: pointer;
     
