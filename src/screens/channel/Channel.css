@@ -1,0 +1,32 @@
+.channel-screen{
+    z-index: 1;
+    position: fixed;
+    left: 251px;
+    top: 62px;
+    color: white;
+    margin:auto ;
+    display: block;
+    width:calc(100% - 251px);
+    height: calc(100vh - 66px);
+    padding-left: 6%;  
+    padding-right: 6%;  
+    
+
+    display: flex;
+}
+
+.video-of-channel{
+    width: 100%;
+    height: 84px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: .5 solid rgb(75, 75, 75);
+    
+}
+
+.video-of-channel:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}

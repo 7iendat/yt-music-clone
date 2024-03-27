@@ -7,6 +7,7 @@ import Trending from "../../Theme/Trending";
 import "./HomeScreen.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Singers from "../../Theme/Singers";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -16,6 +17,8 @@ const HomeScreen = () => {
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
   const [songNew, setSongNew] = useState([]);
   const key = process.env.REACT_APP_API_KEY;
+  const access_token_spotify = localStorage.getItem("access_token_spotify");
+  const [singers, setSingers] = useState([]);
 
   useEffect(() => {
     async function fecthData() {
@@ -29,6 +32,36 @@ const HomeScreen = () => {
     fecthData();
     fecthNewSong();
   }, []);
+  const BASE_URL = "https://api.spotify.com/v1";
+  const searchArtists = async (accessToken, query) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/search`, {
+        params: {
+          q: query,
+          type: "artist",
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data.artists.items;
+    } catch (error) {
+      console.error("Error searching artists:", error);
+      return [];
+    }
+  };
+  useEffect(() => {
+    const fetchDataSinger = async () => {
+      if (access_token_spotify) {
+        const query = 'genre:"vietnamese pop"';
+        const searchResult = await searchArtists(access_token_spotify, query);
+        setSingers(searchResult);
+      }
+    };
+    fetchDataSinger();
+  }, []);
+
+  console.log("singers", singers);
 
   async function fecthNewSong() {
     let res = await axios.get(
@@ -74,6 +107,11 @@ const HomeScreen = () => {
         </nav>
 
         <Trending dataMusicPopular={dataMusicPopular} />
+        {singers.length > 0 ? (
+          <Singers dataSingers={singers} />
+        ) : (
+          <>Loading...</>
+        )}
         <Records />
         <MusicTop songNew={songNew} />
 

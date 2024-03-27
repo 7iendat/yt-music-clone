@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
 
 import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
+import Channel from "./screens/channel/Channel";
 
 function App() {
   const MainLayout = ({ children }) => {
@@ -48,7 +49,7 @@ function App() {
             `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token_isChecked}`,
             {
               headers: {
-                Authorization: `Bearer ${user.access_token}`,
+                Authorization: `Bearer ${access_token_isChecked}`,
                 Accept: "application/json",
               },
             }
@@ -69,6 +70,45 @@ function App() {
       localStorage.removeItem("access_token");
       history("/");
     };
+
+    const auth = btoa(
+      `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_SECRET}`
+    );
+
+    console.log("auth", auth);
+
+    useEffect(() => {
+      const getAccessToken = async () => {
+        try {
+          const response = await axios.post(
+            "https://accounts.spotify.com/api/token",
+            null,
+            {
+              params: {
+                grant_type: "client_credentials",
+              },
+
+              headers: {
+                Authorization: `Basic ${auth}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              data: {
+                grant_type: "client_credentials",
+                client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+                client_secret: process.env.REACT_APP_SPOTIFY_SECRET,
+              },
+            }
+          );
+          const access_token_spotify = response.data.access_token;
+          if (access_token_spotify) {
+            localStorage.setItem("access_token_spotify", access_token_spotify);
+          }
+        } catch (error) {
+          console.error("Error getting access token:", error);
+        }
+      };
+      getAccessToken();
+    }, []);
 
     //url path của trang web
     const location = useLocation();
@@ -107,6 +147,7 @@ function App() {
           <Route path="/watch/:idSong" element={<PlaySong />} />
           <Route path="/topic/:topicName" element={<TopicScreen />} />
           <Route element={<VideoLikedScreen />} path="/video-liked" />
+          <Route element={<Channel />} path="/channel/:nameChannel" />
           <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
           <Route element={<NotFound />} path="*" />
         </Routes>
