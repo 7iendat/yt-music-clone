@@ -6,14 +6,20 @@ const Song = (props) => {
   const history = useNavigate();
   const channelId = props.item.snippet.channelId;
 
-  const handleClickSong = () => {
+  const handleClickReSong = () => {
+    history(
+      `/watch/${props.item.snippet.resourceId.videoId}?title=${props.item.snippet.title}&channel=${channelId}`
+    );
+  };  const handleClickSong = () => {
     history(
       `/watch/${props.item.id.videoId}?title=${props.item.snippet.title}&channel=${channelId}`
     );
   };
 
+  console.log("PROPSSS",props);
+
   return (
-    <div className="song" onClick={handleClickSong}>
+    <div className="song" onClick = {props.item.snippet.videoId ? handleClickSong : handleClickReSong}>
       <div
         className="thumb-song"
         style={{

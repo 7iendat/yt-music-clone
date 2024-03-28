@@ -30,7 +30,7 @@ const PlaylistDetailScreen = () => {
     }
 
     fecthData();
-  }, []);
+  }, [playlistId]);
 
   return (
     <div className="playlistdetail-screen">

@@ -44,6 +44,8 @@ const PlaySong = () => {
     fecthDataSongsRecommend();
   }, []);
 
+  console.log(songsRecommed);
+
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   return channel[0] !== undefined && song[0] !== undefined ? (

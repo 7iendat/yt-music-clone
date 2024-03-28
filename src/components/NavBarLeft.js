@@ -41,6 +41,7 @@ const NavBarLeft = (props) => {
       fecthData();
     }
   }, []);
+  console.log("dataPlaylist", dataPlaylist);
 
   return (
     <div className="nar-bar-left w-[16.3%]">
