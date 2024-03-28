@@ -6,7 +6,7 @@ const Theme = (props) => {
     <div className="theme">
       <div className="head-theme">
         <h1>{props.title}</h1>
-        <div className="more-view">Xem Thêm</div>
+        {/* <div className="more-view">Xem Thêm</div> */}
       </div>
       <div className="slider">
         <SimpleSlider

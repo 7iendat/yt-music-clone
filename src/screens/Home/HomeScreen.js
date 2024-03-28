@@ -23,7 +23,7 @@ const HomeScreen = () => {
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=${key}&regionCode=VN&maxResults=25&videoCategoryId=10`
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=${key}&regionCode=VN&maxResults=27&videoCategoryId=10`
       );
 
       setDataMusicPopular(res.data.items);
@@ -112,13 +112,13 @@ const HomeScreen = () => {
         ) : (
           <>Loading...</>
         )}
-        <Records />
+        <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         <MusicTop songNew={songNew} />
+        {/* <Records />
 
         <Theme title={frequently} />
         <Theme title={recommend} />
-        <Theme title={trending} dataMusicPopular={dataMusicPopular} />
-        <Theme title={disc} />
+        <Theme title={disc} /> */}
       </div>
     </div>
   );

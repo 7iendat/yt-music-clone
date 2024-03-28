@@ -7,7 +7,6 @@ import SongOfChannel from "./SongOfChannel";
 const Channel = () => {
   const { nameChannel } = useParams();
   const [channel, setChannel] = useState([]);
-  const [songOfChannel, setSongOfChannel] = useState([]);
 
   const key = process.env.REACT_APP_API_KEY;
 
@@ -19,19 +18,13 @@ const Channel = () => {
     setChannel(res.data.items);
   }
 
-  async function fecthDataSongOfChannel() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel[0].id.channelId}&maxResults=20&type=video&key=${key}`
-    );
-
-    setSongOfChannel(res.data.items);
-  }
+  
   useEffect(() => {
     fecthDataChannel();
-    fecthDataSongOfChannel();
   }, []);
 
-  console.log("son", songOfChannel);
+  console.log("chn", channel)
+
   return (
     <div className="channel-screen">
       {channel.length > 0 ? (
@@ -91,21 +84,8 @@ const Channel = () => {
           >
             Bài hát{" "}
           </h1>
-          {channel.length > 0 && songOfChannel.length > 0 ? (
-            <div
-              className="list-song"
-              style={{
-                width: "100%",
-                position: "absolute",
-                height: "300px",
-                overflowY: "scroll",
-                scrollbarColor: "gray black",
-              }}
-            >
-              {songOfChannel.map((item, index) => {
-                return <SongOfChannel key={index} item={item} />;
-              })}
-            </div>
+          {channel.length > 0 ? (
+            <SongOfChannel channelId = {channel}/>
           ) : (
             <h1>Loading...</h1>
           )}
