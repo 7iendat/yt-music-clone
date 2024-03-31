@@ -16,7 +16,7 @@
 .thumb{
     width: 120px;
     height: 80%;
-    background-color: red;
+    /* background-color: rgb(202, 202, 202); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -8,11 +8,14 @@ import { SiAirplayaudio } from "react-icons/si";
 import { MdLibraryMusic } from "react-icons/md";
 import axios from "axios";
 import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen";
+import ModalAddPlaylist from "./ModalAddPlaylist";
 
 const NavBarLeft = (props) => {
   const access_token = localStorage.getItem("access_token");
   const key = process.env.REACT_APP_API_KEY;
   const [dataPlaylist, setDataPlaylist] = useState([]);
+  const [dataPlaylistPrev, setDataPlaylistPrev] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const LinkActive = ({ isActive }) => {
     return {
@@ -22,6 +25,13 @@ const NavBarLeft = (props) => {
     };
   };
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
@@ -34,13 +44,16 @@ const NavBarLeft = (props) => {
           },
         }
       );
-
-      setDataPlaylist(res.data.items);
+      if (JSON.stringify(res.data.items) !== JSON.stringify(dataPlaylistPrev)) {
+        setDataPlaylist(res.data.items);
+        setDataPlaylistPrev(res.data.items);
+      }
     }
+
     if (access_token !== null && props.profile !== null) {
       fecthData();
     }
-  }, []);
+  }, [dataPlaylistPrev]);
   console.log("dataPlaylist", dataPlaylist);
 
   return (
@@ -85,7 +98,7 @@ const NavBarLeft = (props) => {
 
       <div className="bound"></div>
 
-      <div className="list-music">
+      <div className="list-music" onClick={handleOpenModal}>
         <div className="icon-add-list"></div>
         <span>Danh sách phát mới</span>
       </div>
@@ -119,6 +132,10 @@ const NavBarLeft = (props) => {
           Sign Up
         </div>
       )}
+      <ModalAddPlaylist
+        isOpen={modalIsOpen}
+        handleCloseModal={handleCloseModal}
+      />
     </div>
   );
 };
