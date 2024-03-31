@@ -3,3 +3,8 @@
     height: 100vh;
     z-index: 0;
 }
+
+.ReactModal__Overlay--after-open, .ReactModal__Overlay{
+    background-color: rgb(68, 68, 68,0.6) !important;
+    z-index: 1000000;
+  }

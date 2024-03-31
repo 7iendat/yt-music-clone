@@ -37,7 +37,8 @@ function App() {
 
         localStorage.setItem("access_token", codeResponse.access_token);
       },
-      scope: "openid https://www.googleapis.com/auth/youtube.readonly",
+      scope:
+        "profile openid https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/youtube.force-ssl",
       onError: (e) => console.log(e),
     });
 
@@ -74,8 +75,6 @@ function App() {
     const auth = btoa(
       `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_SECRET}`
     );
-
-    console.log("auth", auth);
 
     useEffect(() => {
       const getAccessToken = async () => {

@@ -11,3 +11,20 @@
     padding-left: 14%;
     padding-right: 14%;
 }
+
+.btn-delete-Playlist{
+    width: 120px;
+    height: 40px;
+    background-color: gray;
+    border-radius: 20px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.btn-delete-Playlist:hover{
+    background-color: rgb(153, 153, 153);
+    cursor: pointer;
+}
