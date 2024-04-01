@@ -1,0 +1,22 @@
+.btn{
+
+    border-radius: 20px;
+    width : 100px;
+    height: 40px;
+
+    border: 1px solid gray;
+
+}
+
+.btn:hover{
+  background-color: rgb(128, 128, 128);
+}
+
+.input-name{
+
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 8px;
+    width: 200px;
+    color: black;
+}

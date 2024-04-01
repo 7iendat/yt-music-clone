@@ -8,6 +8,7 @@ import "./HomeScreen.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
+import ModalAddPlaylist from "../../components/ModalAddPlaylist";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -15,6 +16,7 @@ const HomeScreen = () => {
   const disc = "Đĩa nhạc đề xuất";
 
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
+  const [dataMusicPopularPrev, setDataMusicPopularPrev] = useState([]);
   const [songNew, setSongNew] = useState([]);
   const key = process.env.REACT_APP_API_KEY;
   const access_token_spotify = localStorage.getItem("access_token_spotify");
@@ -26,12 +28,17 @@ const HomeScreen = () => {
         `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=${key}&regionCode=VN&maxResults=27&videoCategoryId=10`
       );
 
-      setDataMusicPopular(res.data.items);
+      if (
+        JSON.stringify(res.data.items) !== JSON.stringify(dataMusicPopularPrev)
+      ) {
+        setDataMusicPopular(res.data.items);
+        setDataMusicPopularPrev(res.data.items);
+      }
     }
 
     fecthData();
     fecthNewSong();
-  }, []);
+  }, [dataMusicPopularPrev]);
   const BASE_URL = "https://api.spotify.com/v1";
   const searchArtists = async (accessToken, query) => {
     try {

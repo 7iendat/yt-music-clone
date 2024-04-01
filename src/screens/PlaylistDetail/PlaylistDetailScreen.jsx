@@ -3,6 +3,7 @@ import "./PlaylistDetailScreen.css";
 import axios from "axios";
 import Song from "../../components/Song";
 import { useLocation, useNavigate } from "react-router-dom";
+import DialogDeletePlaylist from "./DialogDeletePlaylist";
 
 const PlaylistDetailScreen = () => {
   const access_token = localStorage.getItem("access_token");
@@ -12,7 +13,15 @@ const PlaylistDetailScreen = () => {
 
   const location = useLocation();
   const { playlistId } = location.state;
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
@@ -48,6 +57,14 @@ const PlaylistDetailScreen = () => {
           </h1>
         </>
       )}
+      <div onClick={handleOpenModal} className="btn-delete-Playlist">
+        Xóa playlist
+      </div>
+      <DialogDeletePlaylist
+        idPlaylist={playlistId}
+        isOpen={isOpen}
+        handleCloseModal={handleCloseModal}
+      />
     </div>
   );
 };
