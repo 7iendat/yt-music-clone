@@ -1,5 +1,5 @@
 import React from "react";
-import { recordes } from "../utils/records";
+import BeatLoader from "react-spinners/BeatLoader";
 import { Link } from "react-router-dom";
 
 import "./Singers.css";
@@ -50,7 +50,20 @@ const Singers = (props) => {
               </div>
             ))
           ) : (
-            <h1>Loading...</h1>
+            <BeatLoader
+              color="#f90200"
+              cssOverride={{
+                display: "flex",
+                width: "100%",
+                // margin: "0 auto",
+                alignItems: "center",
+                justifyContent: "center",
+                borderColor: "red",
+              }}
+              size={15}
+              aria-label="Loading "
+              data-testid="loader"
+            />
           )}
         </div>
       </div>

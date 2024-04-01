@@ -8,7 +8,7 @@ import "./HomeScreen.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
-import ModalAddPlaylist from "../../components/ModalAddPlaylist";
+import BeatLoader from "react-spinners/BeatLoader";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -117,7 +117,20 @@ const HomeScreen = () => {
         {singers.length > 0 ? (
           <Singers dataSingers={singers} />
         ) : (
-          <>Loading...</>
+          <BeatLoader
+            color="#f90200"
+            cssOverride={{
+              display: "flex",
+              width: "100%",
+              // margin: "0 auto",
+              alignItems: "center",
+              justifyContent: "center",
+              borderColor: "red",
+            }}
+            size={15}
+            aria-label="Loading "
+            data-testid="loader"
+          />
         )}
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         <MusicTop songNew={songNew} />
