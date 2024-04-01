@@ -10,16 +10,39 @@ const Song = (props) => {
     history(
       `/watch/${props.item.snippet.resourceId.videoId}?title=${props.item.snippet.title}&channel=${channelId}`
     );
-  };  const handleClickSong = () => {
+  };
+  const handleClickSong = () => {
+    history(
+      `/watch/${props.item.id}?title=${props.item.snippet.title}&channel=${channelId}`
+    );
+  };
+  const handleClickSongInSearchScreen = () => {
     history(
       `/watch/${props.item.id.videoId}?title=${props.item.snippet.title}&channel=${channelId}`
     );
   };
 
-  console.log("PROPSSS",props);
+  console.log("PROPSSS", props);
+
+  let functionChosed;
+  if (props.item.id.videoId) {
+    functionChosed = handleClickSongInSearchScreen;
+  } else if (props.item.id) {
+    functionChosed = handleClickSong;
+  } else {
+    functionChosed = handleClickReSong;
+  }
 
   return (
-    <div className="song" onClick = {props.item.snippet.videoId ? handleClickSong : handleClickReSong}>
+    <div
+      className="song"
+      onClick={functionChosed}
+      // props.item.id
+      //   ? handleClickSong
+      //   : props.item.id.videoId
+      //   ? handleClickSongInSearchScreen
+      //   : handleClickReSong
+    >
       <div
         className="thumb-song"
         style={{
