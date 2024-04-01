@@ -24,7 +24,7 @@ import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
 
 import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
 import Channel from "./screens/channel/Channel";
-
+import Author from "./page/author/Author"
 function App() {
   const MainLayout = ({ children }) => {
     const [user, setUser] = useState([]);
@@ -148,6 +148,7 @@ function App() {
           <Route element={<VideoLikedScreen />} path="/video-liked" />
           <Route element={<Channel />} path="/channel/:nameChannel" />
           <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
+          <Route element={<Author/>} path="/author/:idAuthor"/>
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
