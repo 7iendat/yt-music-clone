@@ -47,7 +47,7 @@ const GetAlbum = () => {
             className="channel-header"
             style={{
               width: "100%",
-              height: "360px",
+              height: "200px",
               display: "flex",
               // marginTop: "30px",
               alignItems: "center",
@@ -61,8 +61,8 @@ const GetAlbum = () => {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                width: "480px",
-                height: "360px",
+                width: "320px",
+                height: "180px",
                 // borderRadius: "50%",
                 marginRight: "50px",
               }}
@@ -101,6 +101,7 @@ const GetAlbum = () => {
               fontSize: "22px",
               marginTop: "14px",
               marginBottom: "10px",
+              fontWeight: "bold"
             }}
           >
             Danh sách phát{" "}
