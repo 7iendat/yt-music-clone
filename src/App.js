@@ -152,6 +152,7 @@ function App() {
           <Route element={<Channel />} path="/channel/:nameChannel" />
           <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
           <Route element={<Author/>} path="/author/:idAuthor"/>
+          <Route element={<GetAlbum />} path="/album/:albumName" />
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
