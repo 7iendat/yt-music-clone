@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import BeatLoader from "react-spinners/BeatLoader";
 const SongOfChannel = (props) => {
   console.log("channel", props);
   const history = useNavigate();
@@ -58,7 +58,20 @@ const SongOfChannel = (props) => {
       })}
     </div>
   ) : (
-    <h1>Loading...</h1>
+    <BeatLoader
+      color="#f90200"
+      cssOverride={{
+        display: "flex",
+        width: "100%",
+        // margin: "0 auto",
+        alignItems: "center",
+        justifyContent: "center",
+        borderColor: "red",
+      }}
+      size={15}
+      aria-label="Loading "
+      data-testid="loader"
+    />
   );
 };
 

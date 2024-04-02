@@ -9,7 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
 import ModalAddPlaylist from "../../components/ModalAddPlaylist";
-import Album from "../../Theme/Album"
+import BeatLoader from "react-spinners/BeatLoader";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -19,6 +19,7 @@ const HomeScreen = () => {
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
   const [dataMusicPopularPrev, setDataMusicPopularPrev] = useState([]);
   const [songNew, setSongNew] = useState([]);
+  const [songRecord, setSongRecord] =useState([])
   const key = process.env.REACT_APP_API_KEY;
   const access_token_spotify = localStorage.getItem("access_token_spotify");
   const [singers, setSingers] = useState([]);
@@ -36,10 +37,18 @@ const HomeScreen = () => {
         setDataMusicPopularPrev(res.data.items);
       }
     }
+    async function fechRecord() {
+      let res = await axios.get(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&key=${key}`
+      );
+  
+      setSongRecord(res.data.items);
+    }
 
     fecthData();
     fecthNewSong();
-  }, [dataMusicPopularPrev]);
+    fechRecord();
+  }, [dataMusicPopularPrev, songRecord ]);
   const BASE_URL = "https://api.spotify.com/v1";
   const searchArtists = async (accessToken, query) => {
     try {
@@ -78,7 +87,7 @@ const HomeScreen = () => {
 
     setSongNew(res.data.items);
   }
-
+  
   return (
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
       <div className="">
@@ -118,13 +127,26 @@ const HomeScreen = () => {
         {singers.length > 0 ? (
           <Singers dataSingers={singers} />
         ) : (
-          <>Loading...</>
+          <BeatLoader
+            color="#f90200"
+            cssOverride={{
+              display: "flex",
+              width: "100%",
+              // margin: "0 auto",
+              alignItems: "center",
+              justifyContent: "center",
+              borderColor: "red",
+            }}
+            size={15}
+            aria-label="Loading "
+            data-testid="loader"
+          />
         )}
         <Album />
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         <MusicTop songNew={songNew} />
-        {/* <Records />
-
+        <Records songRecord={songRecord}/>
+{/*
         <Theme title={frequently} />
         <Theme title={recommend} />
         <Theme title={disc} /> */}

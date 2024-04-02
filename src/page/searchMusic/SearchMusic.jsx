@@ -6,6 +6,7 @@ import axios from "axios";
 
 const SearchMusic = () => {
   const [dataSongSearched, setdataSongSearched] = useState([]);
+  const [dataSongSearchedPrev, setdataSongSearchedPrev] = useState([]);
 
   const { keySearch } = useParams();
   const key = process.env.REACT_APP_API_KEY;
@@ -16,11 +17,14 @@ const SearchMusic = () => {
         `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&q=${keySearch}&categoryId=10&maxResults=24&type=video&regionCode=VN`
       );
 
-      setdataSongSearched(res.data.items);
+      if (JSON.stringify(res.data.items) !== dataSongSearchedPrev) {
+        setdataSongSearched(res.data.items);
+        setdataSongSearchedPrev(res.data.items);
+      }
     }
 
     fecthData();
-  }, [keySearch]);
+  }, [dataSongSearchedPrev]);
 
   return (
     <div className="search-screen">
