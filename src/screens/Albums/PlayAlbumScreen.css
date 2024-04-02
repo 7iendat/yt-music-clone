@@ -77,14 +77,3 @@
     overflow-y: scroll;
     scrollbar-color: white black ; /* Firefox */
 }
-
-.btn-add-song-to-playlist{
-    
-    font-size: 20px;
-    margin-left: 150px;
-}
-
-.btn-add-song-to-playlist{
-    cursor: pointer;
- 
-}

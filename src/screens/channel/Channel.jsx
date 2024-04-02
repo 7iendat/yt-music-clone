@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import "./Channel.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import BeatLoader from "react-spinners/BeatLoader";
 
 import SongOfChannel from "./SongOfChannel";
 const Channel = () => {
@@ -18,12 +19,11 @@ const Channel = () => {
     setChannel(res.data.items);
   }
 
-  
   useEffect(() => {
     fecthDataChannel();
   }, []);
 
-  console.log("chn", channel)
+  console.log("chn", channel);
 
   return (
     <div className="channel-screen">
@@ -36,7 +36,7 @@ const Channel = () => {
             className="channel-header"
             style={{
               width: "100%",
-              height: "300px",
+              height: "200px",
               display: "flex",
               marginTop: "30px",
               alignItems: "center",
@@ -85,13 +85,39 @@ const Channel = () => {
             Bài hát{" "}
           </h1>
           {channel.length > 0 ? (
-            <SongOfChannel channelId = {channel}/>
+            <SongOfChannel channelId={channel} />
           ) : (
-            <h1>Loading...</h1>
+            <BeatLoader
+              color="#f90200"
+              cssOverride={{
+                display: "flex",
+                width: "100%",
+                // margin: "0 auto",
+                alignItems: "center",
+                justifyContent: "center",
+                borderColor: "red",
+              }}
+              size={15}
+              aria-label="Loading "
+              data-testid="loader"
+            />
           )}
         </div>
       ) : (
-        <h1>loading..</h1>
+        <BeatLoader
+          color="#f90200"
+          cssOverride={{
+            display: "flex",
+            width: "100%",
+            // margin: "0 auto",
+            alignItems: "center",
+            justifyContent: "center",
+            borderColor: "red",
+          }}
+          size={15}
+          aria-label="Loading "
+          data-testid="loader"
+        />
       )}
     </div>
   );

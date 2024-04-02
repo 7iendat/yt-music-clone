@@ -2,18 +2,119 @@ import { useSearchParams, useParams } from "react-router-dom";
 import "./PlaySong.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
+import DialogAddSongInPlaylist from "./DialogAddSongInPlaylist";
 
 const PlaySong = () => {
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
+  const [rating, setRating] = useState([]);
 
   const [channel, setChannel] = useState([]);
   const [song, setSong] = useState([]);
 
   const [songsRecommed, setSongsRecommend] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+  const [liked, setLiked] = useState(false);
+
+  const access_token = localStorage.getItem("access_token");
+
+  const handleClickBtnLike = () => {
+    console.log("check1", liked);
+    if (liked) {
+      setLiked(false);
+    } else {
+      setLiked(true);
+    }
+
+    console.log("check", liked);
+    if (!liked) {
+      handleLike();
+    } else {
+      handleNoneLikeOrDislike();
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=like`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
+
+  const handleNoneLikeOrDislike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=none`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
+
+  const [Disliked, setDisliked] = useState(false);
+  const handleClickBtnDislike = () => {
+    if (Disliked) {
+      setDisliked(false);
+    } else {
+      setDisliked(true);
+    }
+
+    if (!liked) {
+      setLiked(false);
+
+      handleDislike();
+    } else {
+      handleNoneLikeOrDislike();
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=dislike`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
 
   async function fecthDataSongsRecommend() {
     let res = await axios.get(
@@ -22,6 +123,7 @@ const PlaySong = () => {
 
     setSongsRecommend(res.data.items);
   }
+
   async function fecthData() {
     let res = await axios.get(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
@@ -38,13 +140,34 @@ const PlaySong = () => {
     setSong(res.data.items);
   }
 
+  async function fetchRatingOfSong() {
+    let res = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/videos/getRating?id=${idSong}&key=${process.env.REACT_APP_API_KEY}`,
+      {
+        headers: {
+          Authorization: "Bearer " + access_token,
+
+          Accept: `application/json`,
+        },
+      }
+    );
+    setRating(res.data.items);
+    if (res.data.items.length > 0 && res.data.items[0].rating === "like") {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    console.log("check2", liked);
+  }
+
   useEffect(() => {
-    fecthData();
     fecthDataSong();
     fecthDataSongsRecommend();
+    fecthData();
+    fetchRatingOfSong();
   }, []);
 
-  console.log(songsRecommed);
+  console.log("rating", rating);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
@@ -110,6 +233,7 @@ const PlaySong = () => {
                 }}
               >
                 <div
+                  onClick={handleClickBtnLike}
                   className="liked "
                   style={{
                     height: "100%",
@@ -123,14 +247,26 @@ const PlaySong = () => {
                     alignItems: "center",
                   }}
                 >
-                  <i class="fa-solid fa-thumbs-up"></i>
+                  {/* {rating.length > 0 && rating[0].rating === "like" && liked ? (
+                    <i class="fa-solid fa-thumbs-up"></i>
+                  ) : (
+                    <i class="fa-regular fa-thumbs-up"></i>
+                  )} */}
+
+                  {liked ? (
+                    <i class="fa-solid fa-thumbs-up"></i>
+                  ) : (
+                    <i class="fa-regular fa-thumbs-up"></i>
+                  )}
+
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
                     {song[0].statistics.likeCount}
                   </span>
                 </div>
                 &#124;
                 <i
-                  class="fa-solid fa-thumbs-down"
+                  onClick={handleClickBtnDislike}
+                  class="fa-regular fa-thumbs-down"
                   style={{
                     fontSize: "24px",
                     marginLeft: "auto",
@@ -139,6 +275,17 @@ const PlaySong = () => {
                   }}
                 ></i>
               </div>
+              <div
+                onClick={handleOpenModal}
+                className="btn-add-song-to-playlist"
+              >
+                <i class="fa-solid fa-list-check"></i>
+              </div>
+              <DialogAddSongInPlaylist
+                idSong={idSong}
+                isOpen={isOpen}
+                handleCloseModal={handleCloseModal}
+              />
             </div>
           </div>
         </div>
@@ -147,7 +294,7 @@ const PlaySong = () => {
         <h1
           style={{
             marginLeft: "10px",
-            marginBottom: "8px",
+            marginBottom: "10px",
             fontSize: "24px",
             zIndex: "10",
             height: "30px",
@@ -155,7 +302,7 @@ const PlaySong = () => {
             borderBottom: "1px solid #494949",
           }}
         >
-          Danh sách tương tự
+          Danh sách kết hợp
         </h1>
 
         <div className="recommend-item">
@@ -164,13 +311,39 @@ const PlaySong = () => {
               <VideoRecommend key={index} item={item} />
             ))
           ) : (
-            <div> Loading...</div>
+            <BeatLoader
+              color="#f90200"
+              cssOverride={{
+                display: "flex",
+                width: "100%",
+                // margin: "0 auto",
+                alignItems: "center",
+                justifyContent: "center",
+                borderColor: "red",
+              }}
+              size={15}
+              aria-label="Loading "
+              data-testid="loader"
+            />
           )}
         </div>
       </div>
     </div>
   ) : (
-    <>Loading...</>
+    <BeatLoader
+      color="#f90200"
+      cssOverride={{
+        display: "flex",
+        width: "100%",
+        // margin: "0 auto",
+        alignItems: "center",
+        justifyContent: "center",
+        borderColor: "red",
+      }}
+      size={15}
+      aria-label="Loading "
+      data-testid="loader"
+    />
   );
 };
 

@@ -21,10 +21,12 @@ import TopicScreen from "./screens/Topic/TopicScreen";
 import { useNavigate } from "react-router-dom";
 
 import VideoLikedScreen from "./screens/VideoLiked/VideoLikedScreen";
+import PlayAlbumScreen from "./screens/Albums/PlayAlbumScreen";
 
 import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
 import Channel from "./screens/channel/Channel";
-
+import GetAlbum from "./screens/Albums/GetAlbum";
+import Author from "./page/author/Author"
 function App() {
   const MainLayout = ({ children }) => {
     const [user, setUser] = useState([]);
@@ -144,10 +146,12 @@ function App() {
           <Route element={<Library />} path="/library" />
           <Route path="/search/:keySearch" element={<SearchMusic />} />
           <Route path="/watch/:idSong" element={<PlaySong />} />
+          <Route path="/watch/album/:idSong" element={<PlayAlbumScreen />} />
           <Route path="/topic/:topicName" element={<TopicScreen />} />
           <Route element={<VideoLikedScreen />} path="/video-liked" />
           <Route element={<Channel />} path="/channel/:nameChannel" />
           <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
+          <Route element={<Author/>} path="/author/:idAuthor"/>
           <Route element={<NotFound />} path="*" />
         </Routes>
       </MainLayout>
