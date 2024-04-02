@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
 import ModalAddPlaylist from "../../components/ModalAddPlaylist";
 import BeatLoader from "react-spinners/BeatLoader";
+import Album from "../../Theme/Album";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -37,18 +38,18 @@ const HomeScreen = () => {
         setDataMusicPopularPrev(res.data.items);
       }
     }
-    async function fechRecord() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&key=${key}`
-      );
+    // async function fechRecord() {
+    //   let res = await axios.get(
+    //     `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&key=${key}`
+    //   );
   
-      setSongRecord(res.data.items);
-    }
+    //   setSongRecord(res.data.items);
+    // }
 
     fecthData();
     fecthNewSong();
-    fechRecord();
-  }, [dataMusicPopularPrev, songRecord ]);
+    // fechRecord();
+  }, [dataMusicPopularPrev]);
   const BASE_URL = "https://api.spotify.com/v1";
   const searchArtists = async (accessToken, query) => {
     try {
@@ -145,7 +146,8 @@ const HomeScreen = () => {
         <Album />
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         <MusicTop songNew={songNew} />
-        <Records songRecord={songRecord}/>
+
+        {/* <Records songRecord={songRecord}/> */}
 {/*
         <Theme title={frequently} />
         <Theme title={recommend} />
