@@ -15,9 +15,10 @@ const PlayAlbumScreen = () => {
   const channelId = params.get("channel");
 
   const location = useLocation();
-  const { songs } = location.state;
-  console.log("ITEM SONG", songs);
-  console.log("SONGS LENGTH", songs.length);
+  const { songs, idx } = location.state;
+  // console.log("ITEM SONG", songs);
+  // console.log("SONGS LENGTH", songs.length);
+  console.log("CURPLAY INDEX", idx);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
@@ -66,7 +67,7 @@ const PlayAlbumScreen = () => {
           <div
             style={{ display: "flex", width: "700px", alignItems: "center" }}
           >
-            <div className="channel" style={{ width: "50%" }}>
+            {/* <div className="channel" style={{ width: "50%" }}>
               <div
                 className="channel-inf"
                 style={{
@@ -79,7 +80,7 @@ const PlayAlbumScreen = () => {
                   {channel[0].statistics.subscriberCount} Người đăng kí
                 </span>
               </div>
-            </div>
+            </div> */}
 
             <div
               className="statistics"
@@ -155,7 +156,7 @@ const PlayAlbumScreen = () => {
         <div className="recommend-item">
           {songs.length > 0 ? (
             songs.map((item, index) => (
-              <PlayListAlbum key={index} item={item} songs={songs} />
+              <PlayListAlbum key={index} item={item} songs={songs} curPlay = {idx} />
             ))
           ) : (
             <div> Loading...</div>

@@ -29,7 +29,7 @@ const SongOfAlbum = (props) => {
               "&channel=" +
               item.snippet.channelId
             }
-            state={{songs: props.dataAlbumItems}}
+            state={{songs: props.dataAlbumItems, idx:index}}
           >
             <div key={index} className="video-of-channel">
               <div
