@@ -13,7 +13,7 @@ const SongOfAlbum = (props) => {
       style={{
         width: "100%",
         position: "absolute",
-        height: "300px",
+        height: "350px",
         overflowY: "scroll",
         scrollbarColor: "gray black",
       }}
