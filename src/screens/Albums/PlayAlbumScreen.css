@@ -1,0 +1,79 @@
+.play-song{
+    z-index: 1;
+    position: fixed;
+    left: 251px;
+    top: 62px;
+    color: white;
+    margin:auto ;
+    display: block;
+    width:calc(100% - 251px);
+    height: calc(100vh - 66px);
+    padding-left: 6%;  
+    padding-right: 6%;  
+    
+    background-color: rgb(24, 24, 24);
+    display: flex;
+}
+
+.video-playing{
+    width: 680px;
+    height: 440px;
+    border: 1px solid black;
+    margin-top: 12px;
+    
+}
+
+.more-infor{
+    flex:1;
+    margin-top: 20px;
+}
+
+.channel{
+    display: flex;
+   
+    height: 50px;
+    align-items: center;
+
+}
+
+.channel-inf{
+    width: 40px;
+    height: 40px;
+    /* background-color: red; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.inf-singer{
+   display: flex;
+   flex-direction: column;
+   margin-left: 10px;
+}
+
+.list-video-recommend{
+    z-index: 999;
+    flex: 1;
+    height: 98%;
+    width: 220px;
+    
+    margin: 8px;
+    border-radius: 20px;
+    border: .5px solid rgb(203, 203, 203);
+    padding: 10px;
+
+}
+
+.playing{
+    width: 704px;
+    height: 100%;
+}
+
+.recommend-item{
+   height: 92%;
+    z-index: -1000;
+
+    overflow-y: scroll;
+    scrollbar-color: white black ; /* Firefox */
+}

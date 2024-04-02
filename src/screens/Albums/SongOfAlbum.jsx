@@ -2,26 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const SongOfChannel = (props) => {
-  console.log("channel", props);
-  const history = useNavigate();
-  const [songOfChannel, setSongOfChannel] = useState([]);
-  const key = process.env.REACT_APP_API_KEY;
+const SongOfAlbum = (props) => {
 
-  async function fecthDataSongOfChannel() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${props.channelId[0].id.channelId}&maxResults=50&type=video&key=${key}`
-    );
+  console.log("SongOfAlbum", props);
+  console.log("SongOfAlbum LENGHT", props.dataAlbumItems.length);
 
-    setSongOfChannel(res.data.items);
-  }
-  useEffect(() => {
-    fecthDataSongOfChannel();
-  }, []);
-
-  console.log("songlof", songOfChannel);
-
-  return songOfChannel.length > 0 ? (
+  return props.dataAlbumItems.length > 0 ? (
     <div
       className="list-song"
       style={{
@@ -32,17 +18,18 @@ const SongOfChannel = (props) => {
         scrollbarColor: "gray black",
       }}
     >
-      {songOfChannel.map((item, index) => {
+      {props.dataAlbumItems.map((item, index) => {
         return (
           <Link
             to={
-              "/watch/" +
-              item.id.videoId +
+              "/watch/album/" +
+              item.snippet.resourceId.videoId+
               "?title=" +
               item.snippet.title +
               "&channel=" +
               item.snippet.channelId
             }
+            state={{songs: props.dataAlbumItems}}
           >
             <div key={index} className="video-of-channel">
               <div
@@ -62,4 +49,4 @@ const SongOfChannel = (props) => {
   );
 };
 
-export default SongOfChannel;
+export default SongOfAlbum;

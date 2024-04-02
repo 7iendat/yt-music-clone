@@ -36,7 +36,7 @@ const Channel = () => {
             className="channel-header"
             style={{
               width: "100%",
-              height: "300px",
+              height: "200px",
               display: "flex",
               marginTop: "30px",
               alignItems: "center",

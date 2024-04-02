@@ -1,34 +1,25 @@
 import { useSearchParams, useParams } from "react-router-dom";
-import "./PlaySong.css";
+import "./PlayAlbumScreen.css";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import PlayListAlbum from "../Albums/PlayListAlbum";
 
 import VideoRecommend from "../../components/VideoRecommend";
 
-const PlaySong = () => {
+const PlayAlbumScreen = () => {
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
+  const [song, setSong] = useState([]);
+  const [channel, setChannel] = useState([]);
   const channelId = params.get("channel");
 
-  const [channel, setChannel] = useState([]);
-  const [song, setSong] = useState([]);
+  const location = useLocation();
+  const { songs } = location.state;
+  console.log("ITEM SONG", songs);
+  console.log("SONGS LENGTH", songs.length);
 
-  const [songsRecommed, setSongsRecommend] = useState([]);
-
-  async function fecthDataSongsRecommend() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet%20&channelId=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
-    );
-
-    setSongsRecommend(res.data.items);
-  }
-  async function fecthData() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
-    );
-
-    setChannel(res.data.items);
-  }
+  const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   async function fecthDataSong() {
     let res = await axios.get(
@@ -38,15 +29,18 @@ const PlaySong = () => {
     setSong(res.data.items);
   }
 
+  async function fecthDataChannel() {
+    let res = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
+    );
+
+    setChannel(res.data.items);
+  }
+
   useEffect(() => {
-    fecthData();
+    fecthDataChannel();
     fecthDataSong();
-    fecthDataSongsRecommend();
   }, []);
-
-  console.log(songsRecommed);
-
-  const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
@@ -147,21 +141,21 @@ const PlaySong = () => {
         <h1
           style={{
             marginLeft: "10px",
-            marginBottom: "10px",
+            marginBottom: "8px",
             fontSize: "24px",
             zIndex: "10",
             height: "30px",
             /* background-color: rgb(33 33 33); */
-            borderBottom: "1px solid #494949",
+            // borderBottom: "1px solid #494949",
           }}
         >
           Danh sách kết hợp
         </h1>
-
+        <hr/>
         <div className="recommend-item">
-          {songsRecommed.length > 0 ? (
-            songsRecommed.map((item, index) => (
-              <VideoRecommend key={index} item={item} />
+          {songs.length > 0 ? (
+            songs.map((item, index) => (
+              <PlayListAlbum key={index} item={item} songs={songs} />
             ))
           ) : (
             <div> Loading...</div>
@@ -174,4 +168,4 @@ const PlaySong = () => {
   );
 };
 
-export default PlaySong;
+export default PlayAlbumScreen;

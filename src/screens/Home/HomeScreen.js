@@ -9,6 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
 import ModalAddPlaylist from "../../components/ModalAddPlaylist";
+import Album from "../../Theme/Album"
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -72,7 +73,7 @@ const HomeScreen = () => {
 
   async function fecthNewSong() {
     let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=viewCount&publishedAfter=2023-03-01T00%3A00%3A00Z&q=nh%E1%BA%A1c%20m%E1%BB%9Bi&regionCode=VN&type=video&videoDuration=medium&key=${key}`
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=viewCount&publishedAfter=2024-01-01T00%3A00%3A00Z&q=nh%E1%BA%A1c%20m%E1%BB%9Bi&regionCode=VN&type=video&videoDuration=medium&key=${key}`
     );
 
     setSongNew(res.data.items);
@@ -119,6 +120,7 @@ const HomeScreen = () => {
         ) : (
           <>Loading...</>
         )}
+        <Album />
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         <MusicTop songNew={songNew} />
         {/* <Records />
