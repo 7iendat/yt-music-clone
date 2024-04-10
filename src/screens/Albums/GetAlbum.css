@@ -8,10 +8,8 @@
     display: block;
     width:calc(100% - 251px);
     height: calc(100vh - 66px);
-    padding-left: 6%;  
-    padding-right: 6%;  
-    
-
+    padding-left: 3%;  
+    padding-right: 2%;  
     display: flex;
 }
 

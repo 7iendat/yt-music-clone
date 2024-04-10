@@ -56,7 +56,7 @@ const DialogAddSongInPlaylist = (props) => {
       }
     } catch (error) {
       console.log(error);
-      alert("Thêm  vào playlist thất bài!");
+      alert("Thêm  vào playlist thất bại!");
     }
   };
 

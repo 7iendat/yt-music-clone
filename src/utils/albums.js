@@ -19,6 +19,7 @@ export const albumItems = [
         singer:"MCK",
         cover: "https://i.ytimg.com/vi/sYSvC8tOgKE/hqdefault.jpg",
         icon: faPlay,
+        background: "rgb(234, 32, 39)"
     },{
         title: "LOI CHOI",
         link: "/album/LOICHOI",
@@ -26,6 +27,7 @@ export const albumItems = [
         singer:"Wren Evans",
         cover:"https://i.ytimg.com/vi/B9otsRRe0BE/hqdefault.jpg",
         icon: faPlay,
+        background: "rgb(179, 57, 57)"
     },{
         title: "VŨ TRỤ CÒ BAY",
         link: "/album/VUTRUCOBAY",
@@ -33,13 +35,15 @@ export const albumItems = [
         singer:"Phương Mỹ Chi",
         cover:"https://i.ytimg.com/vi/jhln5b4wOfI/hqdefault.jpg",
         icon: faPlay,
+        background: "rgb(184, 233, 148)"
     },{
-        title: "ACPBDTDD",
+        title: "Ai Cũng Phải Bắt Đầu Từ Đâu Đó",
         link: "/album/AICUNGPHAIBATDAUTUDAUDO",
         id: "PLfxWNJNjpAS8WWuZ1Nh1ea4Va0DTQYl8d",
         singer:"HIEUTHUHAI",
         cover:"https://i.ytimg.com/vi/2rvMy0Itg1E/hqdefault.jpg",
         icon: faPlay,
+        background: "rgb(238, 90, 36)"
     },{
         title: "420ent Mixtape",
         link: "/album/420entMixtape",
@@ -47,6 +51,7 @@ export const albumItems = [
         singer:"Wxrdie",
         cover:"https://i.ytimg.com/vi/ZPTHCmUehHA/maxresdefault.jpg",
         icon: faPlay,
+        background: "rgb(243, 104, 224)"
     },{
         title: "ái",
         link: "/album/ai",
@@ -54,6 +59,7 @@ export const albumItems = [
         singer:"Tlinh",
         cover: "https://i.ytimg.com/vi/82ZTNQNEQgE/maxresdefault.jpg",
         icon: faPlay,
+        background: "rgb(220, 221, 225)"
     },{
         title: "Đánh Đổi",
         link: "/album/DanhDoi",
@@ -61,5 +67,6 @@ export const albumItems = [
         singer:"Obito",
         cover:"https://i.ytimg.com/vi/PKEqsBIW41k/maxresdefault.jpg",
         icon: faPlay,
+        background: "rgb(60, 99, 130)"
     },
 ]

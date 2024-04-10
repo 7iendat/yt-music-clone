@@ -20,6 +20,87 @@ const PlayAlbumScreen = () => {
   // console.log("SONGS LENGTH", songs.length);
   console.log("CURPLAY INDEX", idx);
 
+  const [liked, setLiked] = useState(false);
+  const [Disliked, setDisliked] = useState(false);
+
+  const access_token = localStorage.getItem("access_token");
+
+  const handleLike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=like`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
+
+  const handleNoneLikeOrDislike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=none`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      if (access_token) {
+        let response = axios.post(
+          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=dislike`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Error liking video:", error);
+    }
+  };
+
+  const handleClickBtnLike = async () => {
+    if (liked) {
+      setLiked(false);
+      handleNoneLikeOrDislike();
+    } else {
+      setLiked(true);
+      setDisliked(false);
+      handleLike();
+    }
+  };
+
+  const handleClickBtnDislike = async () => {
+    if (Disliked) {
+      setDisliked(false);
+      handleNoneLikeOrDislike();
+    } else {
+      setDisliked(true);
+      setLiked(false);
+      handleDislike();
+    }
+  };
+
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   async function fecthDataSong() {
@@ -67,7 +148,7 @@ const PlayAlbumScreen = () => {
           <div
             style={{ display: "flex", width: "700px", alignItems: "center" }}
           >
-            {/* <div className="channel" style={{ width: "50%" }}>
+            <div className="channel" style={{ width: "50%" }}>
               <div
                 className="channel-inf"
                 style={{
@@ -76,11 +157,11 @@ const PlayAlbumScreen = () => {
               ></div>
               <div className="inf-singer">
                 <span>{channel[0].snippet.title}</span>
-                <span style={{ color: "gray", fontSize: "13px" }}>
+                {/* <span style={{ color: "gray", fontSize: "13px" }}>
                   {channel[0].statistics.subscriberCount} Người đăng kí
-                </span>
+                </span> */}
               </div>
-            </div> */}
+            </div>
 
             <div
               className="statistics"
@@ -118,21 +199,34 @@ const PlayAlbumScreen = () => {
                     alignItems: "center",
                   }}
                 >
-                  <i class="fa-solid fa-thumbs-up"></i>
+                  {liked ? (
+                    <i class="fa-solid fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                  ) : (
+                    <i class="fa-regular fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                  )}
+
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
                     {song[0].statistics.likeCount}
                   </span>
                 </div>
                 &#124;
-                <i
-                  class="fa-solid fa-thumbs-down"
+                <div
+                  className="disliked "
                   style={{
                     fontSize: "24px",
                     marginLeft: "auto",
                     marginRight: "auto",
                     cursor: "pointer",
                   }}
-                ></i>
+                >
+
+                  {Disliked ? (
+                    <i class="fa-solid fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                  ) : (
+                    <i class="fa-regular fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                  )}
+                </div>
+                
               </div>
             </div>
           </div>

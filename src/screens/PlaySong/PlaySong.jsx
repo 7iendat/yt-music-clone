@@ -26,24 +26,9 @@ const PlaySong = () => {
     setIsOpen(false);
   };
   const [liked, setLiked] = useState(false);
+  const [Disliked, setDisliked] = useState(false);
 
   const access_token = localStorage.getItem("access_token");
-
-  const handleClickBtnLike = () => {
-    console.log("check1", liked);
-    if (liked) {
-      setLiked(false);
-    } else {
-      setLiked(true);
-    }
-
-    console.log("check", liked);
-    if (!liked) {
-      handleLike();
-    } else {
-      handleNoneLikeOrDislike();
-    }
-  };
 
   const handleLike = async () => {
     try {
@@ -81,23 +66,6 @@ const PlaySong = () => {
     }
   };
 
-  const [Disliked, setDisliked] = useState(false);
-  const handleClickBtnDislike = () => {
-    if (Disliked) {
-      setDisliked(false);
-    } else {
-      setDisliked(true);
-    }
-
-    if (!liked) {
-      setLiked(false);
-
-      handleDislike();
-    } else {
-      handleNoneLikeOrDislike();
-    }
-  };
-
   const handleDislike = async () => {
     try {
       if (access_token) {
@@ -113,6 +81,28 @@ const PlaySong = () => {
       }
     } catch (error) {
       console.error("Error liking video:", error);
+    }
+  };
+
+  const handleClickBtnLike = async () => {
+    if (liked) {
+      setLiked(false);
+      handleNoneLikeOrDislike();
+    } else {
+      setLiked(true);
+      setDisliked(false);
+      handleLike();
+    }
+  };
+
+  const handleClickBtnDislike = async () => {
+    if (Disliked) {
+      setDisliked(false);
+      handleNoneLikeOrDislike();
+    } else {
+      setDisliked(true);
+      setLiked(false);
+      handleDislike();
     }
   };
 
@@ -204,9 +194,9 @@ const PlaySong = () => {
               ></div>
               <div className="inf-singer">
                 <span>{channel[0].snippet.title}</span>
-                <span style={{ color: "gray", fontSize: "13px" }}>
+                {/* <span style={{ color: "gray", fontSize: "13px" }}>
                   {channel[0].statistics.subscriberCount} Người đăng kí
-                </span>
+                </span> */}
               </div>
             </div>
 
@@ -233,7 +223,6 @@ const PlaySong = () => {
                 }}
               >
                 <div
-                  onClick={handleClickBtnLike}
                   className="liked "
                   style={{
                     height: "100%",
@@ -247,16 +236,10 @@ const PlaySong = () => {
                     alignItems: "center",
                   }}
                 >
-                  {/* {rating.length > 0 && rating[0].rating === "like" && liked ? (
-                    <i class="fa-solid fa-thumbs-up"></i>
-                  ) : (
-                    <i class="fa-regular fa-thumbs-up"></i>
-                  )} */}
-
                   {liked ? (
-                    <i class="fa-solid fa-thumbs-up"></i>
+                    <i class="fa-solid fa-thumbs-up" onClick={handleClickBtnLike}></i>
                   ) : (
-                    <i class="fa-regular fa-thumbs-up"></i>
+                    <i class="fa-regular fa-thumbs-up" onClick={handleClickBtnLike}></i>
                   )}
 
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
@@ -264,16 +247,23 @@ const PlaySong = () => {
                   </span>
                 </div>
                 &#124;
-                <i
-                  onClick={handleClickBtnDislike}
-                  class="fa-regular fa-thumbs-down"
+                <div
+                  className="disliked "
                   style={{
                     fontSize: "24px",
                     marginLeft: "auto",
                     marginRight: "auto",
                     cursor: "pointer",
                   }}
-                ></i>
+                >
+
+                  {Disliked ? (
+                    <i class="fa-solid fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                  ) : (
+                    <i class="fa-regular fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                  )}
+                </div>
+                
               </div>
               <div
                 onClick={handleOpenModal}
@@ -294,17 +284,17 @@ const PlaySong = () => {
         <h1
           style={{
             marginLeft: "10px",
-            marginBottom: "10px",
+            marginBottom: "8px",
             fontSize: "24px",
             zIndex: "10",
             height: "30px",
             /* background-color: rgb(33 33 33); */
-            borderBottom: "1px solid #494949",
+            // borderBottom: "1px solid #494949",
           }}
         >
           Danh sách kết hợp
         </h1>
-
+        <hr/>
         <div className="recommend-item">
           {songsRecommed.length > 0 ? (
             songsRecommed.map((item, index) => (
