@@ -37,7 +37,14 @@ const GetAlbum = () => {
   console.log("INFO ALBUM: ", infoAlbum);
 
   return (
-    <div className="channel-screen">
+    <div className="channel-screen"
+      style={{
+        background: `linear-gradient(to top, black, ${infoAlbum.background})`,
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+      }}
+    >
       {dataAlbumItems.length > 0 ? (
         <div
           className="channel-info"
@@ -74,7 +81,6 @@ const GetAlbum = () => {
               </h1>
               <span
                 style={{
-                  color: "gray",
                   fontSize: "30px",
                 }}
               >
@@ -83,7 +89,6 @@ const GetAlbum = () => {
               </span>
               <div
                 style={{
-                  color: "gray",
                   fontSize: "20px",
                 }}
               >
@@ -92,9 +97,7 @@ const GetAlbum = () => {
               </div>
             </div>
           </div>
-          <div
-            style={{ width: "100%", height: "1px", backgroundColor: "gray" }}
-          ></div>
+          <hr/>
 
           <h1
             style={{

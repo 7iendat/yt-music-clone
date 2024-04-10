@@ -58,7 +58,7 @@ const NavBarLeft = (props) => {
   return (
     <div className="nar-bar-left w-[16.3%]">
       <div className="pb-[20px]">
-        <NavLink style={LinkActive} to="/">
+        <NavLink style={LinkActive} to="/" className="z-40">
           <div className="option">
             <div className="icon-option ">
               <FontAwesomeIcon icon={faHome} />
@@ -67,7 +67,7 @@ const NavBarLeft = (props) => {
           </div>
         </NavLink>
 
-        <NavLink style={LinkActive} to="/discover">
+        <NavLink style={LinkActive} to="/discover" className="z-40">
           <div className="option">
             <div className="icon-option text-[20px]">
               <FaRegCompass />
@@ -76,7 +76,7 @@ const NavBarLeft = (props) => {
           </div>
         </NavLink>
 
-        <NavLink style={LinkActive} to="/library">
+        <NavLink style={LinkActive} to="/library" className="z-40">
           <div className="option">
             <div className="icon-option lib">
               <MdLibraryMusic />
@@ -85,7 +85,7 @@ const NavBarLeft = (props) => {
           </div>
         </NavLink>
 
-        <NavLink style={LinkActive} to="/upgrade">
+        <NavLink style={LinkActive} to="/upgrade" className="z-40">
           <div className="option">
             <div className="icon-option update">
               <SiAirplayaudio />

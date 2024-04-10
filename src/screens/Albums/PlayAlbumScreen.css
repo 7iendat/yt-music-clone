@@ -76,4 +76,6 @@
 
     overflow-y: scroll;
     scrollbar-color: white black ; /* Firefox */
+    scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
 }
