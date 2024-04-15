@@ -47,7 +47,7 @@ const PlaylistDetailScreen = () => {
         <div className="playlist-item">
           <h2 style={{ fontSize: "24px" }}>Danh sách phát</h2>
           {dataPlaylistItems.map((item, index) => {
-            return <Song key={index} item={item} />;
+            return <Song key={index} item={item} playlistItem = {dataPlaylistItems} />;
           })}
         </div>
       ) : (

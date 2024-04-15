@@ -102,8 +102,7 @@ console.log("kkk",selectedPlaylist)
         console.log("Playlist created:", res.data);
         alert("Thêm vào playlist thành công!");
         props.handleCloseModal();
-        history("/");
-        window.location.reload();
+        // history("/");
       }
     } catch (error) {
       console.log(error);
