@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
-import DialogAddSongInPlaylist from "./DialogAddSongInPlaylist";
+import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PlaySong = () => {
   const [params, setParams] = useSearchParams();
@@ -17,6 +18,7 @@ const PlaySong = () => {
 
   const [songsRecommed, setSongsRecommend] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [likecount, setLikeCount] = useState(0);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -25,10 +27,12 @@ const PlaySong = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
   const [liked, setLiked] = useState(false);
   const [Disliked, setDisliked] = useState(false);
 
   const access_token = localStorage.getItem("access_token");
+  console.log("ChannelID", channelId);
 
   const handleLike = async () => {
     try {
@@ -87,9 +91,11 @@ const PlaySong = () => {
   const handleClickBtnLike = async () => {
     if (liked) {
       setLiked(false);
+      setLikeCount(likecount - 1);
       handleNoneLikeOrDislike();
     } else {
       setLiked(true);
+      setLikeCount(likecount + 1);
       setDisliked(false);
       handleLike();
     }
@@ -102,6 +108,7 @@ const PlaySong = () => {
     } else {
       setDisliked(true);
       setLiked(false);
+      setLikeCount(likecount - 1);
       handleDislike();
     }
   };
@@ -128,6 +135,12 @@ const PlaySong = () => {
     );
 
     setSong(res.data.items);
+    if(res.data.items[0] !== undefined){
+      if(res.data.items[0] !== undefined){
+        setLikeCount(Number(res.data.items[0].statistics.likeCount))
+
+      }
+    }
   }
 
   async function fetchRatingOfSong() {
@@ -243,7 +256,7 @@ const PlaySong = () => {
                   )}
 
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
-                    {song[0].statistics.likeCount}
+                    {likecount}
                   </span>
                 </div>
                 &#124;
@@ -271,7 +284,7 @@ const PlaySong = () => {
               >
                 <i class="fa-solid fa-list-check"></i>
               </div>
-              <DialogAddSongInPlaylist
+              <DialogAddSongPlaylist
                 idSong={idSong}
                 isOpen={isOpen}
                 handleCloseModal={handleCloseModal}

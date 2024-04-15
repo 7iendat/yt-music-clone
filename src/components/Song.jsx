@@ -8,7 +8,8 @@ const Song = (props) => {
 
   const handleClickReSong = () => {
     history(
-      `/watch/${props.item.snippet.resourceId.videoId}?title=${props.item.snippet.title}&channel=${channelId}`
+      `/watch/${props.item.snippet.resourceId.videoId}?title=${props.item.snippet.title}&channel=${props.item.snippet.videoOwnerChannelId
+      }`
     );
   };
   const handleClickSong = () => {
@@ -27,10 +28,10 @@ const Song = (props) => {
   let functionChosed;
   if (props.item.id.videoId) {
     functionChosed = handleClickSongInSearchScreen;
-  } else if (props.item.id) {
-    functionChosed = handleClickSong;
-  } else {
+  } else if (props.item.snippet.resourceId.videoId) {
     functionChosed = handleClickReSong;
+  } else {
+    functionChosed = handleClickSong;
   }
 
   return (
