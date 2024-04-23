@@ -19,7 +19,12 @@ const SimpleSlider = (props) => {
     <Slider {...settings} className="container-slider">
       {props.dataMusicPopular ? (
         props.dataMusicPopular?.map((item, index) => {
-          return <SongTRending key={index} data={item} />;
+          return <SongTRending key={index} 
+          idSong={item.id}
+          channelId={item.channelId}
+          title={item.title}
+          thumb={item.thumbnails}
+          singer={item.channelTitle} />;
         })
       ) : (
         <BeatLoader

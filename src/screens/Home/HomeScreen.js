@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
 import ModalAddPlaylist from "../../components/ModalAddPlaylist";
 import BeatLoader from "react-spinners/BeatLoader";
-import Album from "../../Theme/Album";
+import axiosClient from "../../api/axiosClient";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -27,29 +27,22 @@ const HomeScreen = () => {
 
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=${key}&regionCode=VN&maxResults=27&videoCategoryId=10`
+      let res = await axiosClient.get(`/musics`
       );
 
       if (
-        JSON.stringify(res.data.items) !== JSON.stringify(dataMusicPopularPrev)
+        JSON.stringify(res.data) !== JSON.stringify(dataMusicPopularPrev)
       ) {
-        setDataMusicPopular(res.data.items);
-        setDataMusicPopularPrev(res.data.items);
+        setDataMusicPopular(res.data);
+        setDataMusicPopularPrev(res.data);
       }
     }
-    // async function fechRecord() {
-    //   let res = await axios.get(
-    //     `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&key=${key}`
-    //   );
-  
-    //   setSongRecord(res.data.items);
-    // }
+    
 
     fecthData();
     fecthNewSong();
     // fechRecord();
-  }, [dataMusicPopularPrev]);
+  }, [dataMusicPopularPrev, songRecord ]);
   const BASE_URL = "https://api.spotify.com/v1";
   const searchArtists = async (accessToken, query) => {
     try {
@@ -82,11 +75,9 @@ const HomeScreen = () => {
   console.log("singers", singers);
 
   async function fecthNewSong() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=viewCount&publishedAfter=2024-01-01T00%3A00%3A00Z&q=nh%E1%BA%A1c%20m%E1%BB%9Bi&regionCode=VN&type=video&videoDuration=medium&key=${key}`
-    );
+    let res = await axiosClient.get(`/musics`);
 
-    setSongNew(res.data.items);
+    setSongNew(res.data);
   }
   
   return (
@@ -143,10 +134,9 @@ const HomeScreen = () => {
             data-testid="loader"
           />
         )}
-        <Album />
+        {/* <Album /> */}
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
-        <MusicTop songNew={songNew} />
-
+        {/* <MusicTop songNew={songNew} /> */}
         {/* <Records songRecord={songRecord}/> */}
 {/*
         <Theme title={frequently} />

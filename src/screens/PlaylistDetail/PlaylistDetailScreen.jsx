@@ -4,6 +4,7 @@ import axios from "axios";
 import Song from "../../components/Song";
 import { useLocation, useNavigate } from "react-router-dom";
 import DialogDeletePlaylist from "./DialogDeletePlaylist";
+import axiosClient from "../../api/axiosClient";
 
 const PlaylistDetailScreen = () => {
   const access_token = localStorage.getItem("access_token");
@@ -24,18 +25,11 @@ const PlaylistDetailScreen = () => {
   };
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${key}`,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-
-            Accept: `application/json`,
-          },
-        }
+      let res = await axiosClient.get(`/playlistItems`
+        // `/playlistItems/${playlistId}`
       );
 
-      setDataPlaylistItems(res.data.items);
+      setDataPlaylistItems(res.data);
     }
 
     fecthData();

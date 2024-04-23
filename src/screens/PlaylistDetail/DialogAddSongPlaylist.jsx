@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import "../../components/ModalAddPlaylist.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../../api/axiosClient";
 
 
 const customStyles = {
@@ -41,63 +42,41 @@ const DialogAddSongPlaylist = (props) => {
 
   // ham check box
   const handleChecked = (playlistId) => {
-    setSelectedPlaylist(prev =>{
-      const isChecked =  selectedPlaylist.includes(playlistId);
-      if(isChecked){
+    setSelectedPlaylist(prev => {
+      const isChecked = selectedPlaylist.includes(playlistId);
+      if (isChecked) {
         return selectedPlaylist.filter(id => id !== playlistId)
-      }else{
-        return [...prev,playlistId]
+      } else {
+        return [...prev, playlistId]
       }
     })
   }
   // http get
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=20&mine=true&key=${key}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            Accept: "application/json",
-          },
-        }
-
-      )
+      let res = await axiosClient.get(`/playlist`);
       setDataPlaylist(res.data.items)
 
     };
     fecthData();
   }, [])
-console.log("kkk",idSong)
-console.log("kkk",selectedPlaylist)
+
   //http Post
   const handleAddSongPlaylist = async (e) => {
     e.preventDefault();
-    
-    
+
+
     try {
-      
+
       if (access_token) {
-      
-          let res = await axios.post(
-            `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}`,
-            {
-              snippet: {
-                playlistId: `${selectedPlaylist}`,
-                resourceId: {
-                  kind: 'youtube#video',
-                  videoId: `${idSong}`
-                }
-              }
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${access_token}`,
-                Accept: "application/json",
-              },
-            }
-          );
-          
+
+        let res = await axios.post(`playlist`,
+          {
+            playlistId: `${selectedPlaylist}`,
+            videoId: `${idSong}`
+          }
+        );
+
         setDataPlaylist([res.data, ...dataPlaylist]);
         console.log("Playlist created:", res.data);
         alert("Thêm vào playlist thành công!");
@@ -134,7 +113,7 @@ console.log("kkk",selectedPlaylist)
                 checked={selectedPlaylist.includes(addMusicPlaylist.id)}
                 onChange={() => handleChecked(addMusicPlaylist.id)}
               />
-              {addMusicPlaylist.snippet.title}
+              {addMusicPlaylist.title}
             </label>
           </div>
         ))}
