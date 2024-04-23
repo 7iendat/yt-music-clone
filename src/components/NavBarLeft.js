@@ -9,6 +9,7 @@ import { MdLibraryMusic } from "react-icons/md";
 import axios from "axios";
 import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen";
 import ModalAddPlaylist from "./ModalAddPlaylist";
+import axiosClient from "../api/axiosClient";
 
 const NavBarLeft = (props) => {
   const access_token = localStorage.getItem("access_token");
@@ -34,19 +35,11 @@ const NavBarLeft = (props) => {
   };
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=25&mine=true&key=${key}`,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-
-            Accept: `application/json`,
-          },
-        }
+      let res = await axiosClient.get(`/playlists`
       );
-      if (JSON.stringify(res.data.items) !== JSON.stringify(dataPlaylistPrev)) {
-        setDataPlaylist(res.data.items);
-        setDataPlaylistPrev(res.data.items);
+      if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
+        setDataPlaylist(res.data);
+        setDataPlaylistPrev(res.data);
       }
     }
 
@@ -121,7 +114,6 @@ const NavBarLeft = (props) => {
           {dataPlaylist.map((item, index) => {
             return <PlaylistScreen key={index} item={item} />;
           })}
-
           <div className="btn-logout" onClick={props.logOut}>
             Log Out
           </div>
