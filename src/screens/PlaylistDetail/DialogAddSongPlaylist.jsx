@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 
 import Modal from "react-modal";
 import "../../components/ModalAddPlaylist.css";
@@ -54,8 +54,8 @@ const DialogAddSongPlaylist = (props) => {
   // http get
   useEffect(() => {
     async function fecthData() {
-      let res = await axiosClient.get(`/playlist`);
-      setDataPlaylist(res.data.items)
+      let res = await axiosClient.get(`/playlists`);
+      setDataPlaylist(res.data)
 
     };
     fecthData();
@@ -70,10 +70,10 @@ const DialogAddSongPlaylist = (props) => {
 
       if (access_token) {
 
-        let res = await axios.post(`playlist`,
+        let res = await axiosClient.post(`/playlistItems`,
           {
             playlistId: `${selectedPlaylist}`,
-            videoId: `${idSong}`
+            musicId: `${idSong}`
           }
         );
 
