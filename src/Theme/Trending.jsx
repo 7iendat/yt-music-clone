@@ -22,10 +22,10 @@ const Trending = (props) => {
           <Song
             key={index}
             idSong={item.id}
-            channelId={item.channelId}
-            title={item.title}
-            thumb={item.thumbnails}
-            singer={item.channelTitle}
+            channelId={item.snippet.channelId}
+            title={item.snippet.localized.title}
+            thumb={item.snippet.thumbnails.high.url}
+            singer={item.snippet.channelTitle}
           />
         ))}
       </div>

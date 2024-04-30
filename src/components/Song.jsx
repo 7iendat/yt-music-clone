@@ -46,19 +46,19 @@ const Song = (props) => {
       <div
         className="thumb-song"
         style={{
-          backgroundImage: `url(${props.item.thumbnails})`,
+          backgroundImage: `url(${props.item.music.thumbnails})`,
         }}
       ></div>
       <div className="detail-song">
-        <span className="name-song">{props.item.title}</span>
+        <span className="name-song">{props.item.music.title}</span>
         <div className="information-song">
           <div className="chanel-singer">
             <span style={{ color: "gray", fontSize: "14px" }}>
-              {props.item.channelTitle}
+              {props.item.music.channelTitle}
             </span>
           </div>
           <span className="custom-decripton">
-            Mô tả: {props.item.description}
+            Mô tả: {props.item.music.description}
           </span>
         </div>
       </div>

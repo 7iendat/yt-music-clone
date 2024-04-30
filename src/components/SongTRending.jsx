@@ -3,7 +3,7 @@ const SongTRending = (props) => {
   const history = useNavigate();
   const handleClickSong = () => {
     history(
-      `/watch/${props.idSong}?title=${props.title}&channel=${props.channelId}`
+      `/watch/${props.data.id}?title=${props.data.snippet.title}&channel=${props.data.snippet.channelId}`
     );
   };
   return (
@@ -11,20 +11,20 @@ const SongTRending = (props) => {
       <div
         className="thumb_slick"
         style={{
-          backgroundImage: `url(${props.thumb})`,
+          backgroundImage: `url(${props.data.snippet.thumbnails.high.url})`,
         }}
       ></div>
       <div className="infor">
         <span style={{ fontSize: "14px" }}>
-          {props.title}
+          {props.data.snippet.localized.title}
         </span>
         <div className="description">
           <span style={{ fontSize: "12px" }}>
-            {props.channelTitle}
+            {props.data.snippet.channelTitle}
           </span>
           .
           <span style={{ marginLeft: "4px", fontSize: "14px" }}>
-            Lượt xem: 
+            Lượt xem: {props.data.statistics.viewCount}
           </span>
         </div>
       </div>

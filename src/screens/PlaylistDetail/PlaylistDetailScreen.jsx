@@ -25,16 +25,13 @@ const PlaylistDetailScreen = () => {
   };
   useEffect(() => {
     async function fecthData() {
-      let res = await axiosClient.get(`/playlistItems`
-        // `/playlistItems/${playlistId}`
-      );
-
+      let res = await axiosClient.get(`/playlists/playlistItem/${playlistId}`);
       setDataPlaylistItems(res.data);
     }
 
     fecthData();
   }, [playlistId]);
-
+  console.log("item playlist" , dataPlaylistItems)
   return (
     <div className="playlistdetail-screen">
       {dataPlaylistItems.length > 0 ? (
