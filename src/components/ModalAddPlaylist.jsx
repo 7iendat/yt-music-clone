@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Modal from "react-modal";
 import "./ModalAddPlaylist.css";
-import axios from "axios";
+import axiosClient from "../api/axiosClient";
 
 const customStyles = {
   content: {
@@ -35,22 +35,13 @@ const ModalAddPlaylist = (props) => {
   const handleCreatePlaylist = async (e) => {
     e.preventDefault();
     const access_token = localStorage.getItem("access_token");
-    const key = process.env.REACT_APP_API_KEY;
+
     try {
       if (access_token) {
-        const response = await axios.post(
-          "https://www.googleapis.com/youtube/v3/playlists?part=snippet",
+        const response = await axiosClient.post(`/playlist`,
           {
-            snippet: {
               title: `${namePlaylist}`,
-            },
           },
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              Accept: "application/json",
-            },
-          }
         );
         console.log("Playlist created:", response.data);
         alert("Tạo playlist thành công!");

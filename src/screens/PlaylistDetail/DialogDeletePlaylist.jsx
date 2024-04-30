@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import "../../components/ModalAddPlaylist.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../../api/axiosClient";
 
 const customStyles = {
   content: {
@@ -27,7 +28,7 @@ function afterOpenModal() {
 
 const DialogDeletePlaylist = (props) => {
   const history = useNavigate();
-
+  const idPlaylist = props.idPlaylist;
   const afterCloseModal = () => {
     props.handleCloseModal();
   };
@@ -38,15 +39,8 @@ const DialogDeletePlaylist = (props) => {
 
     try {
       if (access_token) {
-        await axios.delete(
-          `https://youtube.googleapis.com/youtube/v3/playlists?id=${props.idPlaylist}`,
-
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              Accept: "application/json",
-            },
-          }
+        await axiosClient.delete(
+          `/playlist/${idPlaylist}`
         );
 
         alert("Xoa playlist thành công!");
