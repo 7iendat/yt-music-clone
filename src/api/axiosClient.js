@@ -1,6 +1,6 @@
 import axios from 'axios'
 import apiConfig from './apiConfig'
-const axiosClient = axios.create({
+ const axiosClient = axios.create({
     baseURL:  apiConfig.baseURL,
     headers:{
         'Access-Control-Allow-Origin': '*',
@@ -9,4 +9,7 @@ const axiosClient = axios.create({
         'Access-Control-Allow-Credentials' : true
     }
 });
+export const axiosMusic = axios.create({
+    baseURL: 'https://www.googleapis.com/youtube/v3'
+})
 export default axiosClient;
