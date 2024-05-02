@@ -3,9 +3,12 @@ import { FaChromecast } from "react-icons/fa6";
 
 import "./NavBarTop.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 
-const NavBarTop = (props) => {
+const NavBarTop = () => {
   const access_token = localStorage.getItem("access_token");
+  const user = useContext(AuthContext);
 
   return (
     <div className="w-full">
@@ -27,12 +30,12 @@ const NavBarTop = (props) => {
           <div className="connect-device">
             <FaChromecast />
           </div>
-          {access_token !== null && props.profile !== null ? (
+          {access_token !== null || Object.keys(user).length !== 0 ? (
             <div className="profile">
-              <img src={props.profile.picture} />
+              <img src={user?.picture ? user?.picture : null} />
             </div>
           ) : (
-            <div className="btn-login1" onClick={props.login}>
+            <div className="btn-login1" onClick={null}>
               Sign Up
             </div>
           )}

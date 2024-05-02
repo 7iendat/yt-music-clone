@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./NavBarLeft.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -10,14 +10,22 @@ import axios from "axios";
 import PlaylistScreen from "../../src/screens/Playlist/PlaylistScreen";
 import ModalAddPlaylist from "./ModalAddPlaylist";
 import axiosClient from "../api/axiosClient";
+import LoginScreen from "../screens/Auth/Login";
+import firebase from "../firebase/config";
+import { googleLogout } from "@react-oauth/google";
+import { AuthContext } from "../Context/AuthProvider";
 
-const NavBarLeft = (props) => {
+const NavBarLeft = () => {
   const access_token = localStorage.getItem("access_token");
   const key = process.env.REACT_APP_API_KEY;
   const [dataPlaylist, setDataPlaylist] = useState([]);
   const [dataPlaylistPrev, setDataPlaylistPrev] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalLoginIsOpen, setLoginIsOpen] = useState(false);
+  const navigate = useNavigate();
 
+  const user = useContext(AuthContext);
+  console.log(user);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
@@ -33,21 +41,37 @@ const NavBarLeft = (props) => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
+  const handleOpenLoginModal = () => {
+    setLoginIsOpen(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setLoginIsOpen(false);
+  };
+
   useEffect(() => {
     async function fecthData() {
-      let res = await axiosClient.get(`/playlists`
-      );
+      let res = await axiosClient.get(`/playlists`);
       if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
         setDataPlaylist(res.data);
         setDataPlaylistPrev(res.data);
       }
     }
 
-    if (access_token !== null && props.profile !== null) {
+    if (access_token !== null) {
       fecthData();
     }
   }, [dataPlaylistPrev]);
 
+  const logOut = () => {
+    googleLogout();
+
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("isLoginWithAcc");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className="nar-bar-left w-[16.3%]">
       <div className="pb-[20px]">
@@ -95,7 +119,7 @@ const NavBarLeft = (props) => {
         <span>Danh sách phát mới</span>
       </div>
 
-      {access_token !== null && props.profile !== null ? (
+      {access_token !== null || Object.keys(user).length !== 0 ? (
         <>
           <Link to="/video-liked">
             {" "}
@@ -114,18 +138,23 @@ const NavBarLeft = (props) => {
           {dataPlaylist.map((item, index) => {
             return <PlaylistScreen key={index} item={item} />;
           })}
-          <div className="btn-logout" onClick={props.logOut}>
+          <div className="btn-logout" onClick={() => logOut()}>
             Log Out
           </div>
         </>
       ) : (
-        <div className="btn-login" onClick={props.login}>
+        <div className="btn-login" onClick={() => handleOpenLoginModal()}>
           Sign Up
         </div>
       )}
       <ModalAddPlaylist
         isOpen={modalIsOpen}
         handleCloseModal={handleCloseModal}
+      />
+
+      <LoginScreen
+        isOpen={modalLoginIsOpen}
+        handleCloseLoginModal={handleCloseLoginModal}
       />
     </div>
   );
