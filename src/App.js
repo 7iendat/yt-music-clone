@@ -12,7 +12,11 @@ import ExploreScreen from "./screens/Discover/discovers";
 import Library from "./screens/library/Library";
 import NotFound from "./page/notFound/NotFound";
 
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import {
+  googleLogout,
+  GoogleOAuthProvider,
+  useGoogleLogin,
+} from "@react-oauth/google";
 import axios from "axios";
 
 import SearchMusic from "./page/searchMusic/SearchMusic";
@@ -26,54 +30,10 @@ import PlayAlbumScreen from "./screens/Albums/PlayAlbumScreen";
 import PlaylistDetailScreen from "./screens/PlaylistDetail/PlaylistDetailScreen";
 import Channel from "./screens/channel/Channel";
 import GetAlbum from "./screens/Albums/GetAlbum";
-import Author from "./page/author/Author"
+import Author from "./page/author/Author";
+import AuthProvider from "./Context/AuthProvider";
 function App() {
   const MainLayout = ({ children }) => {
-    const [user, setUser] = useState([]);
-    const [profile, setProfile] = useState([]);
-    const history = useNavigate();
-
-    const login = useGoogleLogin({
-      onSuccess: async (codeResponse) => {
-        setUser(codeResponse);
-
-        localStorage.setItem("access_token", codeResponse.access_token);
-      },
-      scope:
-        "profile openid https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/youtube.force-ssl",
-      onError: (e) => console.log(e),
-    });
-
-    const access_token_isChecked = localStorage.getItem("access_token");
-    useEffect(() => {
-      if (access_token_isChecked) {
-        axios
-          .get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token_isChecked}`,
-            {
-              headers: {
-                Authorization: `Bearer ${access_token_isChecked}`,
-                Accept: "application/json",
-              },
-            }
-          )
-          .then((res) => {
-            setProfile(res.data);
-          })
-          .catch((err) => console.log(err));
-      }
-    }, [access_token_isChecked]);
-
-    // log out function to log the user out of google and set the profile array to null
-    const logOut = () => {
-      googleLogout();
-      setProfile(null);
-      localStorage.removeItem("user");
-      setUser(null);
-      localStorage.removeItem("access_token");
-      history("/");
-    };
-
     const auth = btoa(
       `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}:${process.env.REACT_APP_SPOTIFY_SECRET}`
     );
@@ -130,32 +90,39 @@ function App() {
     //nếu không thì trả về children xài cùng header và footer
     return (
       <>
-        <NavBarTop login={login} profile={profile} logOut={logOut} />
-        <NavBarLeft login={login} profile={profile} logOut={logOut} />
+        <NavBarTop />
+        <NavBarLeft />
         {children}
       </>
     );
   };
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
-          <Route element={<HomeScreen />} path="/" />
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+        <AuthProvider>
+          <MainLayout>
+            <Routes>
+              <Route element={<HomeScreen />} path="/" />
 
-          <Route element={<ExploreScreen />} path="/discover" />
-          <Route element={<Library />} path="/library" />
-          <Route path="/search/:keySearch" element={<SearchMusic />} />
-          <Route path="/watch/:idSong" element={<PlaySong />} />
-          <Route path="/watch/album/:idSong" element={<PlayAlbumScreen />} />
-          <Route path="/topic/:topicName" element={<TopicScreen />} />
-          <Route element={<VideoLikedScreen />} path="/video-liked" />
-          <Route element={<Channel />} path="/channel/:nameChannel" />
-          <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
-          <Route element={<Author/>} path="/author/:idAuthor"/>
-          <Route element={<GetAlbum />} path="/album/:albumName" />
-          <Route element={<NotFound />} path="*" />
-        </Routes>
-      </MainLayout>
+              <Route element={<ExploreScreen />} path="/discover" />
+              <Route element={<Library />} path="/library" />
+              <Route path="/search/:keySearch" element={<SearchMusic />} />
+              <Route path="/watch/:idSong" element={<PlaySong />} />
+              <Route
+                path="/watch/album/:idSong"
+                element={<PlayAlbumScreen />}
+              />
+              <Route path="/topic/:topicName" element={<TopicScreen />} />
+              <Route element={<VideoLikedScreen />} path="/video-liked" />
+              <Route element={<Channel />} path="/channel/:nameChannel" />
+              <Route element={<PlaylistDetailScreen />} path="/playlist/*" />
+              <Route element={<Author />} path="/author/:idAuthor" />
+              <Route element={<GetAlbum />} path="/album/:albumName" />
+              <Route element={<NotFound />} path="*" />
+            </Routes>
+          </MainLayout>
+        </AuthProvider>
+      </GoogleOAuthProvider>
     </BrowserRouter>
   );
 }
