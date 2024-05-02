@@ -1,5 +1,3 @@
-import MusicTop from "../../Theme/MusicTop";
-import Records from "../../Theme/Records";
 import React, { useState, useEffect } from "react";
 
 import Theme from "../../Theme/Theme";
@@ -9,6 +7,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Singers from "../../Theme/Singers";
 import BeatLoader from "react-spinners/BeatLoader";
+import MusicTop from "../../Theme/MusicTop";
+import Album from "../../Theme/Album";
+import  axiosClient, { axiosMusic } from "../../api/axiosClient";
 const HomeScreen = () => {
   const frequently = "Chào mừng";
   const recommend = "Video nhạc đề xuất";
@@ -18,14 +19,24 @@ const HomeScreen = () => {
   const [dataMusicPopular, setDataMusicPopular] = useState([]);
   const [dataMusicPopularPrev, setDataMusicPopularPrev] = useState([]);
   const [songNew, setSongNew] = useState([]);
+  const [songRecord, setSongRecord] =useState([])
   const key = process.env.REACT_APP_API_KEY;
   const access_token_spotify = localStorage.getItem("access_token_spotify");
   const [singers, setSingers] = useState([]);
 
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&key=${key}&regionCode=VN&maxResults=27&videoCategoryId=10`
+      let res = await axiosMusic.get(`/videos?`,
+      {
+        params: {
+          key: key,
+          part: 'snippet,contentDetails,statistics',
+          chart: 'mostPopular',
+          regionCode: 'VN',
+          maxResults:27,
+          videoCategoryId: 10
+        }
+      }
       );
 
       if (
@@ -35,10 +46,12 @@ const HomeScreen = () => {
         setDataMusicPopularPrev(res.data.items);
       }
     }
+    
 
     fecthData();
-    fecthNewSong();
-  }, [dataMusicPopularPrev]);
+    // fecthNewSong();
+    // fechRecord();
+  }, [dataMusicPopularPrev, songRecord ]);
   const BASE_URL = "https://api.spotify.com/v1";
   const searchArtists = async (accessToken, query) => {
     try {
@@ -70,14 +83,26 @@ const HomeScreen = () => {
 
   console.log("singers", singers);
 
-  async function fecthNewSong() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=viewCount&publishedAfter=2023-03-01T00%3A00%3A00Z&q=nh%E1%BA%A1c%20m%E1%BB%9Bi&regionCode=VN&type=video&videoDuration=medium&key=${key}`
-    );
+  // async function fecthNewSong() {
+  //   let res = await axiosMusic.get(`/search`,
+  //   {   
+  //     params:{
+  //       part: 'snippet',
+  //       maxResults:30,
+  //       order:'viewCount',
+  //       publishedAfter: '2024-01-01T00,3A00,3A00Z',
+  //       q:'nh,E1,BA,A1c,20m,E1,BB,9Bi',
+  //       regionCode:'VN',
+  //       type: 'video',
+  //       videoDuration:'medium',
+  //       key:key
+  //     }
+  //   }
+  // );
 
-    setSongNew(res.data.items);
-  }
-
+  //   setSongNew(res.data.items);
+  // }
+  
   return (
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
       <div className="">
@@ -132,10 +157,11 @@ const HomeScreen = () => {
             data-testid="loader"
           />
         )}
+        <Album />
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
-        <MusicTop songNew={songNew} />
-        {/* <Records />
-
+        {/* <MusicTop songNew={songNew} /> */}
+        {/* <Records songRecord={songRecord}/> */}
+{/*
         <Theme title={frequently} />
         <Theme title={recommend} />
         <Theme title={disc} /> */}

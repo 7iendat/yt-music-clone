@@ -1,22 +1,28 @@
 import { useSearchParams, useParams } from "react-router-dom";
-import "./PlaySong.css";
+import "./PlayAlbumScreen.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import BeatLoader from "react-spinners/BeatLoader";
-import VideoRecommend from "../../components/VideoRecommend";
-import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import PlayListAlbum from "../Albums/PlayListAlbum";
+import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
+import BeatLoader from "react-spinners/BeatLoader";
 
-const PlaySong = () => {
+const PlayAlbumScreen = () => {
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
-  const channelId = params.get("channel");
-  const [rating, setRating] = useState([]);
-
-  const [channel, setChannel] = useState([]);
   const [song, setSong] = useState([]);
+  const [channel, setChannel] = useState([]);
+  const channelId = params.get("channel");
 
-  const [songsRecommed, setSongsRecommend] = useState([]);
+  const location = useLocation();
+  const { songs, idx } = location.state;
+  // console.log("ITEM SONG", songs);
+  // console.log("SONGS LENGTH", songs.length);
+  console.log("CURPLAY INDEX", idx);
+
+  const [liked, setLiked] = useState(false);
+  const [Disliked, setDisliked] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
   const [likecount, setLikeCount] = useState(0);
 
@@ -28,11 +34,7 @@ const PlaySong = () => {
     setIsOpen(false);
   };
 
-  const [liked, setLiked] = useState(false);
-  const [Disliked, setDisliked] = useState(false);
-
   const access_token = localStorage.getItem("access_token");
-  console.log("ChannelID", channelId);
 
   const handleLike = async () => {
     try {
@@ -113,21 +115,7 @@ const PlaySong = () => {
     }
   };
 
-  async function fecthDataSongsRecommend() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet%20&channelId=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
-    );
-
-    setSongsRecommend(res.data.items);
-  }
-
-  async function fecthData() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
-    );
-
-    setChannel(res.data.items);
-  }
+  const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   async function fecthDataSong() {
     let res = await axios.get(
@@ -135,44 +123,21 @@ const PlaySong = () => {
     );
 
     setSong(res.data.items);
-    if(res.data.items[0] !== undefined){
-      if(res.data.items[0] !== undefined){
-        setLikeCount(Number(res.data.items[0].statistics.likeCount))
-
-      }
-    }
+    setLikeCount(Number(res.data.items[0].statistics.likeCount))
   }
 
-  async function fetchRatingOfSong() {
+  async function fecthDataChannel() {
     let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/videos/getRating?id=${idSong}&key=${process.env.REACT_APP_API_KEY}`,
-      {
-        headers: {
-          Authorization: "Bearer " + access_token,
-
-          Accept: `application/json`,
-        },
-      }
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&maxResults=25&key=${process.env.REACT_APP_API_KEY}`
     );
-    setRating(res.data.items);
-    if (res.data.items.length > 0 && res.data.items[0].rating === "like") {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
-    console.log("check2", liked);
+
+    setChannel(res.data.items);
   }
 
   useEffect(() => {
+    fecthDataChannel();
     fecthDataSong();
-    fecthDataSongsRecommend();
-    fecthData();
-    fetchRatingOfSong();
   }, []);
-
-  console.log("rating", rating);
-
-  const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
@@ -309,45 +274,19 @@ const PlaySong = () => {
         </h1>
         <hr/>
         <div className="recommend-item">
-          {songsRecommed.length > 0 ? (
-            songsRecommed.map((item, index) => (
-              <VideoRecommend key={index} item={item} />
+          {songs.length > 0 ? (
+            songs.map((item, index) => (
+              <PlayListAlbum key={index} item={item} songs={songs} curPlay = {idx} />
             ))
           ) : (
-            <BeatLoader
-              color="#f90200"
-              cssOverride={{
-                display: "flex",
-                width: "100%",
-                // margin: "0 auto",
-                alignItems: "center",
-                justifyContent: "center",
-                borderColor: "red",
-              }}
-              size={15}
-              aria-label="Loading "
-              data-testid="loader"
-            />
+            <div> Loading...</div>
           )}
         </div>
       </div>
     </div>
   ) : (
-    <BeatLoader
-      color="#f90200"
-      cssOverride={{
-        display: "flex",
-        width: "100%",
-        // margin: "0 auto",
-        alignItems: "center",
-        justifyContent: "center",
-        borderColor: "red",
-      }}
-      size={15}
-      aria-label="Loading "
-      data-testid="loader"
-    />
+    <>Loading...</>
   );
 };
 
-export default PlaySong;
+export default PlayAlbumScreen;

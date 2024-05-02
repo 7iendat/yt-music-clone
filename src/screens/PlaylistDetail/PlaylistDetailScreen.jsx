@@ -4,6 +4,7 @@ import axios from "axios";
 import Song from "../../components/Song";
 import { useLocation, useNavigate } from "react-router-dom";
 import DialogDeletePlaylist from "./DialogDeletePlaylist";
+import axiosClient from "../../api/axiosClient";
 
 const PlaylistDetailScreen = () => {
   const access_token = localStorage.getItem("access_token");
@@ -24,30 +25,20 @@ const PlaylistDetailScreen = () => {
   };
   useEffect(() => {
     async function fecthData() {
-      let res = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${key}`,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-
-            Accept: `application/json`,
-          },
-        }
-      );
-
-      setDataPlaylistItems(res.data.items);
+      let res = await axiosClient.get(`/playlists/playlistItem/${playlistId}`);
+      setDataPlaylistItems(res.data);
     }
 
     fecthData();
   }, [playlistId]);
-
+  console.log("item playlist" , dataPlaylistItems)
   return (
     <div className="playlistdetail-screen">
       {dataPlaylistItems.length > 0 ? (
         <div className="playlist-item">
           <h2 style={{ fontSize: "24px" }}>Danh sách phát</h2>
           {dataPlaylistItems.map((item, index) => {
-            return <Song key={index} item={item} />;
+            return <Song key={index} item={item} playlistItem = {dataPlaylistItems} />;
           })}
         </div>
       ) : (

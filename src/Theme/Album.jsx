@@ -1,35 +1,34 @@
 import React from 'react'
-import { recordes } from '../utils/records'
+// import { recordes } from '../utils/records'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./Records.css"
-import axios from 'axios'
-const Records = (props) => {
-  const key = process.env.REACT_APP_API_KEY;
+import { albumItems } from '../utils/albums'
+const Album = () => {
   return (
     <div className='text-white  max-w-[70vw]  mx-auto mt-8  '>
       {/*Title  */}
       <div className=''>
         <div>
-          <p className='text-[32px] font-bold'>Đĩa đơn và đĩa nhạc mới</p>
+          <p className='text-[32px] font-bold'>Những Album nhạc đình đám</p>
         </div>
       </div>
       {/* Music */}
       <div className='w-[94%] h-full mx-auto my-0 mt-6  ml-6'>
         {/*   */}
         <div className='category-div categories-scoll Records-scrollbox '>
-          {props.songRecord?.map((songs) => (
+          {albumItems?.map((item) => (
             <div className=''>
-              <Link to={songs.link} className='  mr-1 group relative'>
+              <Link to={item.link} className='mr-1 group relative' state={{infoAlbum: item}}>
                 <div className='relative'>
-                  <img src={songs.snippet.thumbnails.standard.url} alt='' className='' />
+                  <img src={item.cover} alt='' className='w-64 h-32' />
                   <div className='absolute bottom-[20%] right-[10%] overflow-hidden hidden  w-[35px] h-[35px] bg-black border-[1px] border-solid border-stone-800 rounded-full  group-hover:block'>
-                    <FontAwesomeIcon icon={songs.icon} className='pl-3 pt-2'/>
+                    <FontAwesomeIcon icon={item.icon} className='pl-3 pt-2'/>
                   </div>
                 </div>
                 <div className=''>
-                  <p className='w-40 text-wrap'>{songs.snippet.title}</p>
-                  <Link to='/'><p className='hover:underline ' >{songs.singer}</p></Link>
+                  <p className='w-40 text-wrap font-bold text-center'>{item.title}</p>
+                  <p className='text-center font-light' >{item.singer}</p>
                   
                 </div>
 
@@ -43,4 +42,4 @@ const Records = (props) => {
   )
 }
 
-export default Records
+export default Album

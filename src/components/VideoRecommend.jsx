@@ -6,7 +6,7 @@ const VideoRecommend = (props) => {
 
   const handleClickSong = () => {
     history(
-      `/watch/${props.item.id.videoId}?title=${props.item.snippet.title}&channel=${props.item.snippet.channelId}`
+      `/watch/${props.item.videoId}?title=${props.item.title}&channel=${props.item.channelId}`
     );
   };
   return (
@@ -14,10 +14,10 @@ const VideoRecommend = (props) => {
       <div
         className="thumb"
         style={{
-          backgroundImage: `url(${props.item.snippet.thumbnails.high.url})`,
+          backgroundImage: `url(${props.item.thumbnails})`,
         }}
       ></div>
-      <div className="title">{props.item.snippet.title}</div>
+      <div className="title">{props.item.title}</div>
     </div>
   );
 };
