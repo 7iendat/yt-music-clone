@@ -171,6 +171,7 @@ const PlaySong = () => {
   }, []);
 
   console.log("rating", rating);
+  console.log("Song recom: ", songsRecommed);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
