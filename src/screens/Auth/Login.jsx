@@ -47,6 +47,7 @@ const LoginScreen = (props) => {
         if (data.code === 200) {
           if (data.data.roleId === 1) {
             localStorage.setItem("isLoginWithAcc", true);
+
             history("/");
             props.handleCloseLoginModal();
             window.location.reload();
@@ -80,6 +81,7 @@ const LoginScreen = (props) => {
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       localStorage.setItem("access_token", codeResponse.access_token);
+
       props.handleCloseLoginModal();
       history("/");
       window.location.reload();
