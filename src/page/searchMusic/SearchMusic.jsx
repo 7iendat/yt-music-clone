@@ -24,7 +24,7 @@ const SearchMusic = () => {
     }
 
     fecthData();
-  }, [dataSongSearchedPrev]);
+  }, []);
 
   return (
     <div className="search-screen">
