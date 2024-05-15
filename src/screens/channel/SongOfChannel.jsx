@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 const SongOfChannel = (props) => {
-  console.log("channel", props);
+  // console.log("channel", props);
   const history = useNavigate();
   const [songOfChannel, setSongOfChannel] = useState([]);
   const key = process.env.REACT_APP_API_KEY;
 
   async function fecthDataSongOfChannel() {
     let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${props.channelId[0].id.channelId}&maxResults=50&type=video&key=${key}`
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${props.channelId}&maxResults=50&type=video&key=${key}`
     );
 
     setSongOfChannel(res.data.items);
@@ -19,7 +19,7 @@ const SongOfChannel = (props) => {
     fecthDataSongOfChannel();
   }, []);
 
-  console.log("songlof", songOfChannel);
+  // console.log("songlof", songOfChannel);
 
   return songOfChannel.length > 0 ? (
     <div

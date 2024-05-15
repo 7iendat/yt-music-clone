@@ -5,7 +5,7 @@ const PlayListAlbum = (props) => {
   const history = useNavigate();
   // console.log("PLAY LIST ALBUM", props.item);
   const pos = props.item.snippet.position;
-  console.log("INDEX", pos);
+  // console.log("INDEX", pos);
 
   const handleClickSong = () => {
     history(

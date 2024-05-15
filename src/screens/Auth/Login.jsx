@@ -60,7 +60,7 @@ const LoginScreen = (props) => {
           handleCheckUI();
         } else {
           setError(data.message);
-          console.log("data", data);
+          // console.log("data", data);
         }
       })
       .catch((e) => console.log(e));
@@ -266,7 +266,7 @@ const LoginScreen = (props) => {
         style={{}}
         className="border-[20px] border-transparent rounded-[20px] dark:bg-gray-900 bg-white shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
       >
-        <h1 className="pt-8 pb-6 font-bold dark:text-gray-400 text-5xl text-center cursor-default">
+        <h1 className="pt-8 pb-6 font-bold dark:text-black text-5xl text-center cursor-default">
           {isLoginUI ? "Log in" : "Sign up"}
         </h1>
         <form onSubmit={handleFormSubmit}>

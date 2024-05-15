@@ -43,7 +43,7 @@ const ModalAddPlaylist = (props) => {
               title: `${namePlaylist}`,
           },
         );
-        console.log("Playlist created:", response.data);
+        // console.log("Playlist created:", response.data);
         alert("Tạo playlist thành công!");
         props.handleCloseModal();
         window.location.reload();

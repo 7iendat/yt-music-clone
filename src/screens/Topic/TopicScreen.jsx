@@ -26,7 +26,15 @@ const TopicScreen = () => {
     <div className="topic-screen">
       <h2 style={{ fontSize: "24px" }}>Chủ đề {topicName}:</h2>
       {songTopic.map((item, index) => {
-        return <Song key={index} item={item} />;
+        return <Song 
+          key={index} 
+          videoId={item.id.videoId} 
+          title={item.snippet.title} 
+          channelId={item.snippet.channelId} 
+          thumbnails={item.snippet.thumbnails.high.url} 
+          channelTitle={item.snippet.channelTitle} 
+          description={item.snippet.description}
+        />;
       })}
     </div>
   );

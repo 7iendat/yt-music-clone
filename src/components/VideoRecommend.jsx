@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 const VideoRecommend = (props) => {
   const history = useNavigate();
-  console.log("Prop song recom: ", props.item);
+  // console.log("Prop song recom: ", props.item);
   const handleClickSong = () => {
     history(
-      `/watch/${props.item.id.videoId}?title=${props.item.snippet.title}&channel=${props.item.snippet.channelId}`
+      `/watch/${props.videoId}?title=${props.title}&channel=${props.channelId}`
     );
   };
   return (
@@ -14,10 +14,10 @@ const VideoRecommend = (props) => {
       <div
         className="thumb"
         style={{
-          backgroundImage: `url(${props.item.snippet.thumbnails.high.url})`,
+          backgroundImage: `url(${props.thumbnails})`,
         }}
       ></div>
-      <div className="title">{props.item.snippet.title}</div>
+      <div className="title">{props.title}</div>
     </div>
   );
 };
