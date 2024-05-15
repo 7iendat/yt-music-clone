@@ -24,7 +24,9 @@ const AuthProvider = ({ children }) => {
 
   const access_token_isChecked = localStorage.getItem("access_token");
   const isLoginWithAcc = localStorage.getItem("isLoginWithAcc");
+
   useEffect(() => {
+    console.log("chehk");
     if (access_token_isChecked) {
       axios
         .get(
@@ -36,16 +38,75 @@ const AuthProvider = ({ children }) => {
             },
           }
         )
-        .then((res) => {
+        .then(async (res) => {
           if (res) {
             setUser(res.data);
             // console.log("user", res.data);
+            await fetch(
+              `http://localhost:5050/api/get-user-by-name/${res.data.name}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+              }
+            )
+              .then((res1) => res1.json())
+              .then((data) => {
+                console.log(data);
+                if (data.isExisted) {
+                  return;
+                } else {
+                  setUser(res.data);
+                  fetch(`http://localhost:5050/api/create-new-user`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                      userName: res.data.name,
+                      password: "0",
+                      email: res.data.email,
+                      isLoginGoogle: true,
+                      image: res.data.picture,
+                      displayName: res.data.name,
+                    }),
+                  })
+                    .then((res) => console.log(res))
+                    .catch((e) => console.log(e));
 
+                  return;
+                }
+              })
+              .catch((e) => console.log(e));
+
+            //   if (!isExisted) {
+            //     console.log("check", isExisted);
+            //     fetch(`http://localhost:5050/api/create-new-user`, {
+            //       method: "POST",
+            //       headers: {
+            //         "Content-Type": "application/json",
+            //       },
+            //       credentials: "include",
+            //       body: JSON.stringify({
+            //         userName: res.data.name,
+            //         password: "0",
+            //         email: res.data.email,
+            //         isLoginGoogle: true,
+            //         image: res.data.picture,
+            //         displayName: res.data.name,
+            //       }),
+            //     })
+            //       .then((res) => console.log(res))
+            //       .catch((e) => console.log(e));
+            //   }
             return;
           }
           setUser({});
         })
-        .catch((err) => console.log(err));
+        .catch((e) => console.log(e));
     }
 
     if (isLoginWithAcc === "true") {
