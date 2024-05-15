@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./Singers.css";
 const Singers = (props) => {
-  console.log("singers", props);
+  // console.log("singers", props);
   return (
     <div className="text-white  max-w-[70vw]  mx-auto mt-8  ">
       {/*Title  */}

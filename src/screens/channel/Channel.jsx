@@ -23,7 +23,7 @@ const Channel = () => {
     fecthDataChannel();
   }, []);
 
-  console.log("chn", channel);
+  // console.log("chn", channel);
 
   return (
     <div className="channel-screen">
@@ -85,7 +85,7 @@ const Channel = () => {
             Bài hát{" "}
           </h1>
           {channel.length > 0 ? (
-            <SongOfChannel channelId={channel} />
+            <SongOfChannel channelId={channel[0].id.channelId} />
           ) : (
             <BeatLoader
               color="#f90200"

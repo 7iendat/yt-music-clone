@@ -18,7 +18,7 @@ const NavBarTop = () => {
           <Link to="/">
             <div className="logo">
               <div className="icon-app"></div>
-              <span>Music</span>
+              <span >ZMusic</span>
             </div>
           </Link>
         </div>

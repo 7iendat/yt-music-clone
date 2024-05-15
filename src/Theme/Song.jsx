@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Song = ({ title, thumb, idSong, singer, channelId }) => {
-  const link = `watch/${idSong}?title=${title}&channel=${channelId}`;
+const Song = (props) => {
+  const link = `watch/${props.videoId}?title=${props.title}&channel=${props.channelId}`;
 
   return (
     <Link
@@ -14,7 +14,7 @@ const Song = ({ title, thumb, idSong, singer, channelId }) => {
       >
         <div
           style={{
-            backgroundImage: `url(${thumb})`,
+            backgroundImage: `url(${props.thumbnails})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -38,9 +38,9 @@ const Song = ({ title, thumb, idSong, singer, channelId }) => {
         className=" cursor-pointer pl-5 text-start -my-21 w-full h-full bg-transparent "
       >
         <p className=" text-sm h-2/3 text-ellipsis overflow-hidden ... w-full ">
-          {title}
+          {props.title}
         </p>
-        <p className="text-sm text-zinc-400 ">{singer}</p>
+        <p className="text-sm text-zinc-400 ">{props.channelTitle}</p>
       </div>
     </Link>
   );

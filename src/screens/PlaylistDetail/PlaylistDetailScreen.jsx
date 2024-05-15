@@ -31,7 +31,7 @@ const PlaylistDetailScreen = () => {
 
     fecthData();
   }, [playlistId]);
-  console.log("item playlist" , dataPlaylistItems)
+  // console.log("item playlist" , dataPlaylistItems)
   return (
     <div className="playlistdetail-screen">
       {dataPlaylistItems.length > 0 ? (

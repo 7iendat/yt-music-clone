@@ -4,8 +4,8 @@ import axios from "axios";
 
 const SongOfAlbum = (props) => {
 
-  console.log("SongOfAlbum", props);
-  console.log("SongOfAlbum LENGHT", props.dataAlbumItems.length);
+  // console.log("SongOfAlbum", props);
+  // console.log("SongOfAlbum LENGHT", props.dataAlbumItems.length);
 
   return props.dataAlbumItems.length > 0 ? (
     <div
