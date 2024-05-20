@@ -40,6 +40,8 @@ const AuthProvider = ({ children }) => {
         )
         .then(async (res) => {
           if (res) {
+            setUser(res.data);
+            // console.log("user", res.data);
             await fetch(
               `http://localhost:5050/api/get-user-by-name/${res.data.name}`,
               {

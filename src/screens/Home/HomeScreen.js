@@ -81,7 +81,7 @@ const HomeScreen = () => {
     fetchDataSinger();
   }, []);
 
-  console.log("singers", singers);
+  // console.log("singers", singers);
 
   // async function fecthNewSong() {
   //   let res = await axiosMusic.get(`/search`,

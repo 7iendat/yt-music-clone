@@ -33,8 +33,8 @@ const GetAlbum = () => {
     fecthData();
   }, []);
 
-  console.log("ALBUM: ", dataAlbumItems);
-  console.log("INFO ALBUM: ", infoAlbum);
+  // console.log("ALBUM: ", dataAlbumItems);
+  // console.log("INFO ALBUM: ", infoAlbum);
 
   return (
     <div className="channel-screen"

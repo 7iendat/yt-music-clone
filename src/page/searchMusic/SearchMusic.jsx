@@ -11,6 +11,8 @@ const SearchMusic = () => {
   const { keySearch } = useParams();
   const key = process.env.REACT_APP_API_KEY;
 
+  console.log("dataSongSearched", dataSongSearched);
+
   useEffect(() => {
     async function fecthData() {
       let res = await axios.get(
@@ -30,7 +32,15 @@ const SearchMusic = () => {
     <div className="search-screen">
       <h2 style={{ fontSize: "24px" }}>Kết quả tìm kiếm:</h2>
       {dataSongSearched.map((item, index) => {
-        return <Song key={index} item={item} />;
+        return <Song 
+          key={index} 
+          videoId={item.id.videoId} 
+          title={item.snippet.title} 
+          channelId={item.snippet.channelId} 
+          thumbnails={item.snippet.thumbnails.high.url} 
+          channelTitle={item.snippet.channelTitle} 
+          description={item.snippet.description}
+        />;
       })}
     </div>
   );

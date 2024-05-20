@@ -18,7 +18,7 @@ const PlayAlbumScreen = () => {
   const { songs, idx } = location.state;
   // console.log("ITEM SONG", songs);
   // console.log("SONGS LENGTH", songs.length);
-  console.log("CURPLAY INDEX", idx);
+  // console.log("CURPLAY INDEX", idx);
 
   const [liked, setLiked] = useState(false);
   const [Disliked, setDisliked] = useState(false);

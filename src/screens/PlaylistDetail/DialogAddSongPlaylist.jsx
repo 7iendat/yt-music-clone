@@ -78,7 +78,7 @@ const DialogAddSongPlaylist = (props) => {
         );
 
         setDataPlaylist([res.data, ...dataPlaylist]);
-        console.log("Playlist created:", res.data);
+        // console.log("Playlist created:", res.data);
         alert("Thêm vào playlist thành công!");
         props.handleCloseModal();
         // history("/");

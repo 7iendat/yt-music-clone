@@ -4,61 +4,34 @@ import { useNavigate } from "react-router-dom";
 
 const Song = (props) => {
   const history = useNavigate();
-  const channelId = props.item.channelId;
 
-  const handleClickReSong = () => {
-    history(
-      `/watch/${props.item.videoId}?title=${props.item.title}&channel=${channelId}`
-    );
-  };
   const handleClickSong = () => {
     history(
-      `/watch/${props.item.id}?title=${props.item.title}&channel=${channelId}`
+      `/watch/${props.videoId}?title=${props.title}&channel=${props.channelId}`
     );
   };
-  const handleClickSongInSearchScreen = () => {
-    history(
-      `/watch/${props.item.videoId}?title=${props.item.title}&channel=${channelId}`
-    );
-  };
-
-  console.log("PROPSSS", props);
-
-  let functionChosed;
-  if (props.item.id.videoId) {
-    functionChosed = handleClickSongInSearchScreen;
-  } else if (props.item.videoId) {
-    functionChosed = handleClickReSong;
-  } else {
-    functionChosed = handleClickSong;
-  }
+  // console.log("PROPSSS", props);
 
   return (
     <div
       className="song"
-      onClick={functionChosed}
-      // props.item.id
-      //   ? handleClickSong
-      //   : props.item.id.videoId
-      //   ? handleClickSongInSearchScreen
-      //   : handleClickReSong
-    >
+      onClick={handleClickSong}>
       <div
         className="thumb-song"
         style={{
-          backgroundImage: `url(${props.item.music.thumbnails})`,
+          backgroundImage: `url(${props.thumbnails})`,
         }}
       ></div>
       <div className="detail-song">
-        <span className="name-song">{props.item.music.title}</span>
+        <span className="name-song">{props.title}</span>
         <div className="information-song">
           <div className="chanel-singer">
             <span style={{ color: "gray", fontSize: "14px" }}>
-              {props.item.music.channelTitle}
+              {props.channelTitle}
             </span>
           </div>
           <span className="custom-decripton">
-            Mô tả: {props.item.music.description}
+            Mô tả: {props.description}
           </span>
         </div>
       </div>

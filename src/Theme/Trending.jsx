@@ -21,11 +21,11 @@ const Trending = (props) => {
         {props.dataMusicPopular?.map((item, index) => (
           <Song
             key={index}
-            idSong={item.id}
+            videoId={item.id}
             channelId={item.snippet.channelId}
             title={item.snippet.localized.title}
-            thumb={item.snippet.thumbnails.high.url}
-            singer={item.snippet.channelTitle}
+            thumbnails={item.snippet.thumbnails.high.url}
+            channelTitle={item.snippet.channelTitle}
           />
         ))}
       </div>

@@ -32,7 +32,7 @@ const PlaySong = () => {
   const [Disliked, setDisliked] = useState(false);
 
   const access_token = localStorage.getItem("access_token");
-  console.log("ChannelID", channelId);
+  // console.log("ChannelID", channelId);
 
   const handleLike = async () => {
     try {
@@ -160,7 +160,7 @@ const PlaySong = () => {
     } else {
       setLiked(false);
     }
-    console.log("check2", liked);
+    // console.log("check2", liked);
   }
 
   useEffect(() => {
@@ -170,7 +170,8 @@ const PlaySong = () => {
     fetchRatingOfSong();
   }, []);
 
-  console.log("rating", rating);
+  // console.log("rating", rating);
+  // console.log("Song recom: ", songsRecommed);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
 
@@ -311,7 +312,13 @@ const PlaySong = () => {
         <div className="recommend-item">
           {songsRecommed.length > 0 ? (
             songsRecommed.map((item, index) => (
-              <VideoRecommend key={index} item={item} />
+              <VideoRecommend 
+                key={index} 
+                videoId={item.id.videoId} 
+                title={item.snippet.title} 
+                channelId={item.snippet.channelId}
+                thumbnails={item.snippet.thumbnails.high.url} 
+              />
             ))
           ) : (
             <BeatLoader
