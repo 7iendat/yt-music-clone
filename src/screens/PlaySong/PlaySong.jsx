@@ -5,18 +5,25 @@ import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
 import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
-import { useLocation, useNavigate } from "react-router-dom";
-
-const PlaySong = () => {
+import { useLocation } from "react-router-dom";
+import axiosClient from "../../api/axiosClient";
+import Song from "../../Theme/Song";
+// import VideoRecommendPlaylist from "../../components/VideoRecommendPlaylist"
+const PlaySong = (props) => {
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
+  const location = useLocation();
+  // const { playlistId } = location.state || {};
+  // const { playlistId } = location.state || {};
+
   const [rating, setRating] = useState([]);
 
   const [channel, setChannel] = useState([]);
-  const [song, setSong] = useState([]);
+  const [song, setSong] = useState();
 
   const [songsRecommed, setSongsRecommend] = useState([]);
+  // const [songsRecommedPlaylist, setSongsRecommendPlaylist] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [likecount, setLikeCount] = useState(0);
 
@@ -120,6 +127,10 @@ const PlaySong = () => {
 
     setSongsRecommend(res.data.items);
   }
+  // async function fecthDataSongsRecommendPlaylist() {
+  //   let res = await axiosClient.get(`/playlists/playlistItem/${playlistId}`);
+  //   setSongsRecommendPlaylist(res.data)
+  // }
 
   async function fecthData() {
     let res = await axios.get(
@@ -135,12 +146,12 @@ const PlaySong = () => {
     );
 
     setSong(res.data.items);
-    if(res.data.items[0] !== undefined){
-      if(res.data.items[0] !== undefined){
-        setLikeCount(Number(res.data.items[0].statistics.likeCount))
-
+    if (res.data.items[0] !== undefined) {
+      if (res.data.items[0] !== undefined) {
+        setLikeCount(Number(res.data.items[0].statistics.likeCount));
       }
     }
+    // console.log('list Song: ', res.data.items);
   }
 
   async function fetchRatingOfSong() {
@@ -166,6 +177,7 @@ const PlaySong = () => {
   useEffect(() => {
     fecthDataSong();
     fecthDataSongsRecommend();
+    // fecthDataSongsRecommendPlaylist();
     fecthData();
     fetchRatingOfSong();
   }, []);
@@ -174,7 +186,7 @@ const PlaySong = () => {
   // console.log("Song recom: ", songsRecommed);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
-
+  // console.log();
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
       <div className="playing">
@@ -251,9 +263,15 @@ const PlaySong = () => {
                   }}
                 >
                   {liked ? (
-                    <i class="fa-solid fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                    <i
+                      class="fa-solid fa-thumbs-up"
+                      onClick={handleClickBtnLike}
+                    ></i>
                   ) : (
-                    <i class="fa-regular fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                    <i
+                      class="fa-regular fa-thumbs-up"
+                      onClick={handleClickBtnLike}
+                    ></i>
                   )}
 
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
@@ -270,14 +288,18 @@ const PlaySong = () => {
                     cursor: "pointer",
                   }}
                 >
-
                   {Disliked ? (
-                    <i class="fa-solid fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                    <i
+                      class="fa-solid fa-thumbs-down"
+                      onClick={handleClickBtnDislike}
+                    ></i>
                   ) : (
-                    <i class="fa-regular fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                    <i
+                      class="fa-regular fa-thumbs-down"
+                      onClick={handleClickBtnDislike}
+                    ></i>
                   )}
                 </div>
-                
               </div>
               <div
                 onClick={handleOpenModal}
@@ -285,11 +307,13 @@ const PlaySong = () => {
               >
                 <i class="fa-solid fa-list-check"></i>
               </div>
-              <DialogAddSongPlaylist
-                idSong={idSong}
-                isOpen={isOpen}
-                handleCloseModal={handleCloseModal}
-              />
+      
+                <DialogAddSongPlaylist
+                  idSong={idSong}
+                  isOpen={isOpen}
+                  handleCloseModal={handleCloseModal}
+                  Song={song[0]}
+                />
             </div>
           </div>
         </div>
@@ -308,16 +332,16 @@ const PlaySong = () => {
         >
           Danh sách kết hợp
         </h1>
-        <hr/>
+        <hr />
         <div className="recommend-item">
           {songsRecommed.length > 0 ? (
             songsRecommed.map((item, index) => (
-              <VideoRecommend 
-                key={index} 
-                videoId={item.id.videoId} 
-                title={item.snippet.title} 
+              <VideoRecommend
+                key={index}
+                videoId={item.id.videoId}
+                title={item.snippet.title}
                 channelId={item.snippet.channelId}
-                thumbnails={item.snippet.thumbnails.high.url} 
+                thumbnails={item.snippet.thumbnails.high.url}
               />
             ))
           ) : (

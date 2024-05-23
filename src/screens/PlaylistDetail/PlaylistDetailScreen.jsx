@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import "./PlaylistDetailScreen.css";
 import axios from "axios";
 import Song from "../../components/Song";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import DialogDeletePlaylist from "./DialogDeletePlaylist";
 import axiosClient from "../../api/axiosClient";
 
 const PlaylistDetailScreen = () => {
-  const access_token = localStorage.getItem("access_token");
-
-  const key = process.env.REACT_APP_API_KEY;
   const [dataPlaylistItems, setDataPlaylistItems] = useState([]);
 
   const location = useLocation();
@@ -37,7 +34,7 @@ const PlaylistDetailScreen = () => {
       {dataPlaylistItems.length > 0 ? (
         <div className="playlist-item">
           <h2 style={{ fontSize: "24px" }}>Danh sách phát</h2>
-          {dataPlaylistItems.map((item, index) => {
+          {dataPlaylistItems?.map((item, index) => {
             return <Song key={index} item={item} playlistItem = {dataPlaylistItems} />;
           })}
         </div>
