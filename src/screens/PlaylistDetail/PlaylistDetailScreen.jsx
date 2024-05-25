@@ -7,7 +7,8 @@ import DialogDeletePlaylist from "./DialogDeletePlaylist";
 import axiosClient from "../../api/axiosClient";
 import { MdEdit } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import {UpdateTitlePlaylist} from "./ButtonModalPlaylist";
+import  UpdateTitlePlaylist  from "./ButtonModalPlaylist";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const PlaylistDetailScreen = () => {
   const [dataPlaylistItems, setDataPlaylistItems] = useState([]);
@@ -65,13 +66,21 @@ const PlaylistDetailScreen = () => {
                   <MdEdit className="mr-2 text-[18px] " />
                   Chỉnh sửa danh sách phát
                 </button>
-                <UpdateTitlePlaylist 
-                modalIsOpen={modalIsOpen}
-                closeModal={closeModal}
+                <UpdateTitlePlaylist
+                  modalIsOpen={modalIsOpen}
+                  closeModal={closeModal}
+                  playlistId={playlistId}
+                  title={title}
                 />
-                <button>
-                  <BsThreeDotsVertical className="text-[20px] ml-4" />
+
+                <button onClick={handleOpenModal} className="">
+                  <RiDeleteBin6Line className="text-[20px] ml-4" />
                 </button>
+                <DialogDeletePlaylist
+                  idPlaylist={playlistId}
+                  isOpen={isOpen}
+                  handleCloseModal={handleCloseModal}
+                />
               </div>
             </div>
           </div>
@@ -92,16 +101,16 @@ const PlaylistDetailScreen = () => {
           <h1 style={{ color: "white" }}>
             Danh sách phát rỗng! Hãy tạo ngay nào!!!
           </h1>
+          <div onClick={handleOpenModal} className="btn-delete-Playlist">
+            Xóa playlist
+          </div>
+          <DialogDeletePlaylist
+            idPlaylist={playlistId}
+            isOpen={isOpen}
+            handleCloseModal={handleCloseModal}
+          />
         </>
       )}
-      <div onClick={handleOpenModal} className="btn-delete-Playlist">
-        Xóa playlist
-      </div>
-      <DialogDeletePlaylist
-        idPlaylist={playlistId}
-        isOpen={isOpen}
-        handleCloseModal={handleCloseModal}
-      />
     </div>
   );
 };
