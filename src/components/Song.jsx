@@ -20,7 +20,7 @@ const Song = (props) => {
       className="song"
       onClick={handleClickSongInSearchScreen}>
       <div
-        className="thumb-song"
+        className="thumb-song "
         style={{
           backgroundImage: `url(${props.item.music.thumbnails}), url(${props.thumbnails})`
         }}
@@ -46,6 +46,12 @@ const Song = (props) => {
         </div>
       </div>
     </div>
+    // <div className=""  onClick={handleClickSongInSearchScreen}>
+    //   <div>
+        
+    //   </div>
+
+    // </div>
   );
 };
 

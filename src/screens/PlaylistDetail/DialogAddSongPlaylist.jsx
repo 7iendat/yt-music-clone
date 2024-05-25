@@ -76,7 +76,7 @@ const DialogAddSongPlaylist = (props) => {
           channelId:  `${props.Song.snippet.channelId}`,
           title:`${ props.Song.snippet.title}`,
           description: `${props.Song.snippet.description}`,
-          thumbnails:`${props.Song.snippet.thumbnails.medium.url}` ,
+          thumbnails:`${props.Song.snippet.thumbnails.standard.url}` ,
           channelTitle:`${props.Song.snippet.channelTitle}` 
         });
         setSaveMusic ([response.data, ...saveMusic]);
