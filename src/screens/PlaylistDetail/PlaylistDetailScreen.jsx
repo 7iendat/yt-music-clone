@@ -7,7 +7,7 @@ import DialogDeletePlaylist from "./DialogDeletePlaylist";
 import axiosClient from "../../api/axiosClient";
 import { MdEdit } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import  UpdateTitlePlaylist  from "./ButtonModalPlaylist";
+import UpdateTitlePlaylist from "./ButtonModalPlaylist";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const PlaylistDetailScreen = () => {
@@ -41,6 +41,7 @@ const PlaylistDetailScreen = () => {
     fecthData();
   }, [playlistId]);
   // console.log("item playlist" , dataPlaylistItems)
+
   return (
     // <div className="playlistdetail-screen">
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
@@ -57,7 +58,7 @@ const PlaylistDetailScreen = () => {
             </div>
             <div className="pt-6">
               <div className="text-[40px] font-medium ">{title}</div>
-              {/* <div>{user}</div> */}
+
               <div className="flex pt-10">
                 <button
                   onClick={openModal}
@@ -72,9 +73,8 @@ const PlaylistDetailScreen = () => {
                   playlistId={playlistId}
                   title={title}
                 />
-
-                <button onClick={handleOpenModal} className="">
-                  <RiDeleteBin6Line className="text-[20px] ml-4" />
+                <button onClick={handleOpenModal} className="text-center">
+                  <RiDeleteBin6Line className="text-[20px] ml-4 " />
                 </button>
                 <DialogDeletePlaylist
                   idPlaylist={playlistId}
