@@ -39,18 +39,22 @@ const DialogDeletePlaylist = (props) => {
 
     try {
       if (access_token) {
+        
+        await axiosClient.delete(
+          `/playlistDelete/${idPlaylist}`
+        );
         await axiosClient.delete(
           `/playlist/${idPlaylist}`
         );
 
-        alert("Xoa playlist thành công!");
+        alert("Xóa playlist thành công!");
         props.handleCloseModal();
         history("/");
         window.location.reload();
       }
     } catch (error) {
       console.log(error);
-      alert("Xoa playlist thất bài!");
+      alert("Xóa playlist thất bài!");
     }
   };
 

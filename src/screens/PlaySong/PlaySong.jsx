@@ -6,22 +6,29 @@ import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
 import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
 
+
 import Comment from "../../components/Comment";
 import { Avatar } from "antd";
 import AuthProvider, { AuthContext } from "../../Context/AuthProvider";
 
 const PlaySong = () => {
+
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
+  const location = useLocation();
+  // const { playlistId } = location.state || {};
+  // const { playlistId } = location.state || {};
+
   const [rating, setRating] = useState([]);
 
   const [comments, setComments] = useState();
 
   const [channel, setChannel] = useState([]);
-  const [song, setSong] = useState([]);
+  const [song, setSong] = useState();
 
   const [songsRecommed, setSongsRecommend] = useState([]);
+  // const [songsRecommedPlaylist, setSongsRecommendPlaylist] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [likecount, setLikeCount] = useState(0);
   const { image } = useContext(AuthContext);
@@ -127,6 +134,10 @@ const PlaySong = () => {
 
     setSongsRecommend(res.data.items);
   }
+  // async function fecthDataSongsRecommendPlaylist() {
+  //   let res = await axiosClient.get(`/playlists/playlistItem/${playlistId}`);
+  //   setSongsRecommendPlaylist(res.data)
+  // }
 
   async function fecthData() {
     let res = await axios.get(
@@ -147,6 +158,7 @@ const PlaySong = () => {
         setLikeCount(Number(res.data.items[0].statistics.likeCount));
       }
     }
+    // console.log('list Song: ', res.data.items);
   }
 
   async function fetchRatingOfSong() {
@@ -194,6 +206,7 @@ const PlaySong = () => {
   useEffect(() => {
     fecthDataSong();
     fecthDataSongsRecommend();
+    // fecthDataSongsRecommendPlaylist();
     fecthData();
     fetchRatingOfSong();
     fetchCommentOfVideo();
@@ -233,7 +246,7 @@ const PlaySong = () => {
   // console.log("Song recom: ", songsRecommed);
 
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
-
+  // console.log();
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
       <div className="playing">
@@ -354,11 +367,13 @@ const PlaySong = () => {
               >
                 <i class="fa-solid fa-list-check"></i>
               </div>
-              <DialogAddSongPlaylist
-                idSong={idSong}
-                isOpen={isOpen}
-                handleCloseModal={handleCloseModal}
-              />
+      
+                <DialogAddSongPlaylist
+                  idSong={idSong}
+                  isOpen={isOpen}
+                  handleCloseModal={handleCloseModal}
+                  Song={song[0]}
+                />
             </div>
           </div>
 
