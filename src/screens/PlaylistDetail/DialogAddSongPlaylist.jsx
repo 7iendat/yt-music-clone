@@ -5,7 +5,7 @@ import "../../components/ModalAddPlaylist.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
-
+import Song from "../../Theme/Song";
 
 const customStyles = {
   content: {
@@ -27,14 +27,17 @@ function afterOpenModal() {
   subtitle.style.color = "#f00";
 }
 
-
 const DialogAddSongPlaylist = (props) => {
-  const history = useNavigate();
+  // const history = useNavigate();
   const [dataPlaylist, setDataPlaylist] = useState([]);
-  const [selectedPlaylist, setSelectedPlaylist] = useState([]);
+  const [selectedPlaylist, setSelectedPlaylist] = useState('');
+  const [addPlaylist, setAddPlaylist ] = useState([]);
+  const [saveMusic, setSaveMusic] = useState("");
   const key = process.env.REACT_APP_API_KEY;
   const access_token = localStorage.getItem("access_token");
-  const idSong = props.idSong;
+  // const idSong = props.idSong;
+  //  const videoID = props.videoId;
+
   const afterCloseModal = () => {
     setSelectedPlaylist([]);
     props.handleCloseModal();
@@ -42,58 +45,66 @@ const DialogAddSongPlaylist = (props) => {
 
   // ham check box
   const handleChecked = (playlistId) => {
-    setSelectedPlaylist(prev => {
+    console.log('id playlist: ',playlistId)
+    setSelectedPlaylist((prev) => {
       const isChecked = selectedPlaylist.includes(playlistId);
       if (isChecked) {
-        return selectedPlaylist.filter(id => id !== playlistId)
+        return selectedPlaylist.filter((id) => id !== playlistId);
       } else {
-        return [...prev, playlistId]
+        return [...prev, playlistId];
       }
-    })
-  }
+    });
+  };
   // http get
   useEffect(() => {
     async function fecthData() {
       let res = await axiosClient.get(`/playlists`);
-      setDataPlaylist(res.data)
-
-    };
+      setDataPlaylist(res.data);
+    }
     fecthData();
-  }, [])
+  }, []);
+
 
   //http Post
   const handleAddSongPlaylist = async (e) => {
     e.preventDefault();
-
-
     try {
-
       if (access_token) {
+        
+        let response = await axiosClient.post(`/music`, {
+          videoId: `${props.Song.id}`,
+          channelId:  `${props.Song.snippet.channelId}`,
+          title:`${ props.Song.snippet.title}`,
+          description: `${props.Song.snippet.description}`,
+          thumbnails:`${props.Song.snippet.thumbnails.standard.url}` ,
+          channelTitle:`${props.Song.snippet.channelTitle}` 
+        });
+        setSaveMusic ([response.data, ...saveMusic]);
+        console.log("Thêm bài hát  thành công!");
+        const newMusic = response.data;
+        console.log("id song : ",newMusic.id);
+        console.log("id song 1 : ",selectedPlaylist);
 
-        let res = await axiosClient.post(`/playlistItems`,
-          {
-            playlistId: `${selectedPlaylist}`,
-            musicId: `${idSong}`
-          }
-        );
 
-        setDataPlaylist([res.data, ...dataPlaylist]);
-        // console.log("Playlist created:", res.data);
+        let res = await axiosClient.post(`/playlistItems`, {
+          playlistId: `${selectedPlaylist}`,
+          musicId: `${newMusic.id}`,
+        });
+        setAddPlaylist([res.data, ...addPlaylist]);
         alert("Thêm vào playlist thành công!");
         props.handleCloseModal();
-        // history("/");
       }
     } catch (error) {
       console.log(error);
       alert("Thêm  vào playlist thất bài!");
     }
   };
+ 
 
   return (
     <Modal
       afterOpenModal={afterOpenModal}
       isOpen={props.isOpen}
-      // onRequestClose={closeModal}
       style={customStyles}
     >
       <h2
@@ -102,22 +113,20 @@ const DialogAddSongPlaylist = (props) => {
       >
         Thêm Vào playlist
       </h2>
-      {/* <button onClick={closeModal}>close</button> */}
 
       <form onSubmit={handleAddSongPlaylist}>
-        {dataPlaylist?.map((addMusicPlaylist) => (
-          <div key={addMusicPlaylist.id}>
-            <label className=" text-white flex" >
+        {dataPlaylist?.map((item,index) => (
+          <div >
+            <label className=" text-white flex">
               <input
                 type="checkbox"
-                checked={selectedPlaylist.includes(addMusicPlaylist.id)}
-                onChange={() => handleChecked(addMusicPlaylist.id)}
+                checked={selectedPlaylist.includes(item.id)}
+                onChange={() => handleChecked(item.id)}
               />
-              {addMusicPlaylist.title}
+              {item.title}
             </label>
           </div>
         ))}
-
       </form>
       <div
         style={{
@@ -128,10 +137,13 @@ const DialogAddSongPlaylist = (props) => {
           marginTop: "20px",
         }}
       >
-        <button type="submit" className="btn" onClick={handleAddSongPlaylist} >Thêm</button>
-        <button className="btn" onClick={afterCloseModal}>Hủy</button>
+        <button type="submit" className="btn" onClick={handleAddSongPlaylist}>
+          Thêm
+        </button>
+        <button className="btn" onClick={afterCloseModal}>
+          Hủy
+        </button>
       </div>
-
     </Modal>
   );
 };
