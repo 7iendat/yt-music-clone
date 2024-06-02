@@ -6,17 +6,15 @@ import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
 import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
 
-
 import Comment from "../../components/Comment";
 import { Avatar } from "antd";
 import AuthProvider, { AuthContext } from "../../Context/AuthProvider";
 
 const PlaySong = () => {
-
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
-  const location = useLocation();
+
   // const { playlistId } = location.state || {};
   // const { playlistId } = location.state || {};
 
@@ -367,13 +365,13 @@ const PlaySong = () => {
               >
                 <i class="fa-solid fa-list-check"></i>
               </div>
-      
-                <DialogAddSongPlaylist
-                  idSong={idSong}
-                  isOpen={isOpen}
-                  handleCloseModal={handleCloseModal}
-                  Song={song[0]}
-                />
+
+              <DialogAddSongPlaylist
+                idSong={idSong}
+                isOpen={isOpen}
+                handleCloseModal={handleCloseModal}
+                Song={song[0]}
+              />
             </div>
           </div>
 
