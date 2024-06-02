@@ -13,6 +13,9 @@
     
     background-color: rgb(24, 24, 24);
     display: flex;
+    overflow-y: scroll;
+    scrollbar-color: white black;
+  
 }
 
 .video-playing{
