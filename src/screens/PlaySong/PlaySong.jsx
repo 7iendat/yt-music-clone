@@ -1,15 +1,18 @@
 import { useSearchParams, useParams } from "react-router-dom";
 import "./PlaySong.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 import VideoRecommend from "../../components/VideoRecommend";
 import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
-import { useLocation } from "react-router-dom";
-import axiosClient from "../../api/axiosClient";
-import Song from "../../Theme/Song";
-// import VideoRecommendPlaylist from "../../components/VideoRecommendPlaylist"
-const PlaySong = (props) => {
+
+
+import Comment from "../../components/Comment";
+import { Avatar } from "antd";
+import AuthProvider, { AuthContext } from "../../Context/AuthProvider";
+
+const PlaySong = () => {
+
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
@@ -19,6 +22,8 @@ const PlaySong = (props) => {
 
   const [rating, setRating] = useState([]);
 
+  const [comments, setComments] = useState();
+
   const [channel, setChannel] = useState([]);
   const [song, setSong] = useState();
 
@@ -26,6 +31,8 @@ const PlaySong = (props) => {
   // const [songsRecommedPlaylist, setSongsRecommendPlaylist] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [likecount, setLikeCount] = useState(0);
+  const { image } = useContext(AuthContext);
+  const [cmt, setCmt] = useState("");
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -174,13 +181,66 @@ const PlaySong = (props) => {
     // console.log("check2", liked);
   }
 
+  async function fetchCommentOfVideo() {
+    try {
+      let res = await axios.get(
+        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Cid&order=time&videoId=${idSong}&key=${process.env.REACT_APP_API_KEY}`,
+        {
+          headers: {
+            Authorization: "Bearer " + access_token,
+
+            Accept: `application/json`,
+          },
+        }
+      );
+      if (res) {
+        setComments(res.data.items);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log("error");
+    }
+  }
+
   useEffect(() => {
     fecthDataSong();
     fecthDataSongsRecommend();
     // fecthDataSongsRecommendPlaylist();
     fecthData();
     fetchRatingOfSong();
+    fetchCommentOfVideo();
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    insertComment(cmt);
+    console.log("com", cmt);
+  };
+
+  const insertComment = async (text) => {
+    try {
+      let res = await axios.post(
+        `https://youtube.googleapis.com/youtube/v3/comments?key=${process.env.REACT_APP_API_KEY}`,
+        {
+          headers: {
+            Authorization: "Bearer " + access_token,
+
+            Accept: `application/json`,
+          },
+          data: {
+            snippet: {
+              textDisplay: text,
+              textOriginal: text,
+            },
+          },
+        }
+      );
+      console.log("d", res);
+    } catch (error) {
+      console.log("error");
+    }
+  };
 
   // console.log("rating", rating);
   // console.log("Song recom: ", songsRecommed);
@@ -316,6 +376,69 @@ const PlaySong = (props) => {
                 />
             </div>
           </div>
+
+          <h2
+            style={{ marginTop: "20px", fontSize: "22px", fontWeight: "bold" }}
+          >
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <div style={{ width: "40px" }}>
+                <Avatar src={image} size="large">
+                  {image ? "" : "?"}
+                </Avatar>
+              </div>
+              <div
+                style={{
+                  marginLeft: "10px",
+                  width: "100%",
+                }}
+              >
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    name="comment"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      borderBottom: "1px solid #ffffff",
+                      width: "500px",
+                      color: "white",
+                      fontSize: "15px",
+                      padding: "7px",
+                    }}
+                    placeholder="Nhập bình luận"
+                    value={cmt}
+                    onChange={(e) => setCmt(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    style={{
+                      marginLeft: "8px",
+                      borderRadius: "10px",
+                      fontSize: "18px",
+                      background: "gray",
+                      padding: "5px",
+                    }}
+                  >
+                    Bình luận
+                  </button>
+                </form>
+              </div>
+            </div>
+            Bình luận
+          </h2>
+          {comments?.map((cmt, idx) => {
+            return (
+              <Comment key={idx} value={cmt.snippet.topLevelComment.snippet} />
+            );
+          })}
         </div>
       </div>
       <div className="list-video-recommend">
