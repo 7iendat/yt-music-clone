@@ -45,7 +45,7 @@ const LoginScreen = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 200) {
-          if (data.data.roleId === 1) {
+          if (data.data.roleId === 2) {
             localStorage.setItem("isLoginWithAcc", true);
 
             history("/");

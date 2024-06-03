@@ -66,8 +66,9 @@ const AuthProvider = ({ children }) => {
                     },
                     credentials: "include",
                     body: JSON.stringify({
-                      userName: res.data.name,
+                      userName: res.data.email,
                       password: "0",
+                      roleId: 2,
                       email: res.data.email,
                       isLoginGoogle: true,
                       image: res.data.picture,
