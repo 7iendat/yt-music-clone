@@ -299,44 +299,40 @@ const PlaySong = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-
                   backgroundColor: "#3d3c3c",
                   width: "150px",
                   height: "100%",
                   borderRadius: "20px",
                 }}
               >
-                <div
-                  className="liked "
-                  style={{
-                    height: "100%",
-                    width: "50%",
-                    fontSize: "24px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyItems: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <div>
                   {liked ? (
-                    <i
-                      class="fa-solid fa-thumbs-up"
-                      onClick={handleClickBtnLike}
-                    ></i>
+                    <div onClick={handleClickBtnLike} style={{ cursor: "pointer"}}>
+                      <i
+                        class="fa-solid fa-heart" 
+                        style={{
+                          color: "#63E6BE"
+                        }}
+                      ></i>
+                      <span style={{ fontSize: "17px", marginLeft: "7px", color:"#63E6BE", fontWeight: "bold"}}>
+                        Đã yêu thích
+                      </span>
+                    </div>
                   ) : (
-                    <i
-                      class="fa-regular fa-thumbs-up"
-                      onClick={handleClickBtnLike}
-                    ></i>
+                    <div onClick={handleClickBtnLike} style={{ cursor: "pointer"}}>
+                      <i
+                        class="fa-regular fa-heart" 
+                        style={{
+                          color: "#ffffff"
+                        }}
+                      ></i>
+                      <span style={{ fontSize: "17px", marginLeft: "7px", fontWeight: "bold"}}>
+                        Yêu thích
+                      </span>
+                    </div>
                   )}
-
-                  <span style={{ fontSize: "14px", marginLeft: "7px" }}>
-                    {likecount}
-                  </span>
                 </div>
-                &#124;
+                {/* &#124;
                 <div
                   className="disliked "
                   style={{
@@ -357,7 +353,7 @@ const PlaySong = () => {
                       onClick={handleClickBtnDislike}
                     ></i>
                   )}
-                </div>
+                </div> */}
               </div>
               <div
                 onClick={handleOpenModal}
