@@ -40,10 +40,9 @@ const AuthProvider = ({ children }) => {
         )
         .then(async (res) => {
           if (res) {
-            setUser(res.data);
             // console.log("user", res.data);
             await fetch(
-              `http://localhost:5050/api/get-user-by-name/${res.data.name}`,
+              `http://localhost:5050/api/get-user-by-name/${res.data.email}`,
               {
                 method: "GET",
                 headers: {
@@ -54,11 +53,13 @@ const AuthProvider = ({ children }) => {
             )
               .then((res1) => res1.json())
               .then((data) => {
-                console.log(data);
+                // console.log("user:", data);
                 if (data.isExisted) {
+                  setUser(data.user);
                   return;
                 } else {
                   setUser(res.data);
+                  console.log("i", user);
                   fetch(`http://localhost:5050/api/create-new-user`, {
                     method: "POST",
                     headers: {

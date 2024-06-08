@@ -5,6 +5,7 @@ import "./NavBarTop.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+import { Avatar } from "antd";
 
 const NavBarTop = () => {
   const access_token = localStorage.getItem("access_token");
@@ -18,7 +19,7 @@ const NavBarTop = () => {
           <Link to="/">
             <div className="logo">
               <div className="icon-app"></div>
-              <span >ZMusic</span>
+              <span>ZMusic</span>
             </div>
           </Link>
         </div>
@@ -31,9 +32,13 @@ const NavBarTop = () => {
             <FaChromecast />
           </div>
           {access_token !== null || Object.keys(user).length !== 0 ? (
-            <div className="profile">
-              <img src={user?.picture ? user?.picture : null} />
-            </div>
+            <Avatar
+              style={{ marginLeft: "20px" }}
+              size="large"
+              src={user?.image}
+            >
+              {user?.image ? "" : user?.userName?.charAt(0)?.toUpperCase()}
+            </Avatar>
           ) : (
             <div className="btn-login1" onClick={null}>
               Sign Up
