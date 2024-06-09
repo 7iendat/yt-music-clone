@@ -309,7 +309,7 @@ const PlaySong = () => {
                   {liked ? (
                     <div onClick={handleClickBtnLike} style={{ cursor: "pointer"}}>
                       <i
-                        class="fa-solid fa-heart" 
+                        className="fa-solid fa-heart" 
                         style={{
                           color: "#63E6BE"
                         }}
@@ -321,7 +321,7 @@ const PlaySong = () => {
                   ) : (
                     <div onClick={handleClickBtnLike} style={{ cursor: "pointer"}}>
                       <i
-                        class="fa-regular fa-heart" 
+                        className="fa-regular fa-heart" 
                         style={{
                           color: "#ffffff"
                         }}
@@ -344,12 +344,12 @@ const PlaySong = () => {
                 >
                   {Disliked ? (
                     <i
-                      class="fa-solid fa-thumbs-down"
+                      className="fa-solid fa-thumbs-down"
                       onClick={handleClickBtnDislike}
                     ></i>
                   ) : (
                     <i
-                      class="fa-regular fa-thumbs-down"
+                      className="fa-regular fa-thumbs-down"
                       onClick={handleClickBtnDislike}
                     ></i>
                   )}
@@ -359,7 +359,7 @@ const PlaySong = () => {
                 onClick={handleOpenModal}
                 className="btn-add-song-to-playlist"
               >
-                <i class="fa-solid fa-list-check"></i>
+                <i className="fa-solid fa-list-check"></i>
               </div>
 
               <DialogAddSongPlaylist

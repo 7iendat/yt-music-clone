@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useContext, useState } from "react";
 
 import Modal from "react-modal";
 import "./ModalAddPlaylist.css";
 import axiosClient from "../api/axiosClient";
-
+import { AuthContext } from "../Context/AuthProvider";
 const customStyles = {
   content: {
     top: "50%",
@@ -26,7 +26,7 @@ function afterOpenModal() {
 
 const ModalAddPlaylist = (props) => {
   const [namePlaylist, setNamePlaylist] = useState("");
-
+  const user = useContext(AuthContext);
   const afterCloseModal = () => {
     setNamePlaylist("");
     props.handleCloseModal();
@@ -41,6 +41,7 @@ const ModalAddPlaylist = (props) => {
         const response = await axiosClient.post(`/playlist`,
           {
               title: `${namePlaylist}`,
+              userId: `${user.id}`
           },
         );
         // console.log("Playlist created:", response.data);
