@@ -30,8 +30,8 @@ function afterOpenModal() {
 const DialogAddSongPlaylist = (props) => {
   // const history = useNavigate();
   const [dataPlaylist, setDataPlaylist] = useState([]);
-  const [selectedPlaylist, setSelectedPlaylist] = useState('');
-  const [addPlaylist, setAddPlaylist ] = useState([]);
+  const [selectedPlaylist, setSelectedPlaylist] = useState([]);
+  const [addPlaylist, setAddPlaylist] = useState([]);
   const [saveMusic, setSaveMusic] = useState("");
   const key = process.env.REACT_APP_API_KEY;
   const access_token = localStorage.getItem("access_token");
@@ -65,27 +65,24 @@ const DialogAddSongPlaylist = (props) => {
     fecthData();
   }, [user]);
 
-
   //http Post
   const handleAddSongPlaylist = async (e) => {
     e.preventDefault();
     try {
       if (access_token) {
-        
         let response = await axiosClient.post(`/music`, {
           videoId: `${props.Song.id}`,
-          channelId:  `${props.Song.snippet.channelId}`,
-          title:`${ props.Song.snippet.title}`,
+          channelId: `${props.Song.snippet.channelId}`,
+          title: `${props.Song.snippet.title}`,
           description: `${props.Song.snippet.description}`,
-          thumbnails:`${props.Song.snippet.thumbnails.standard.url}` ,
-          channelTitle:`${props.Song.snippet.channelTitle}` 
+          thumbnails: `${props.Song.snippet.thumbnails.standard.url}`,
+          channelTitle: `${props.Song.snippet.channelTitle}`,
         });
-        setSaveMusic ([response.data, ...saveMusic]);
+        setSaveMusic([response.data, ...saveMusic]);
         console.log("Thêm bài hát  thành công!");
         const newMusic = response.data;
-        console.log("id song : ",newMusic.id);
-        console.log("id song 1 : ",selectedPlaylist);
-
+        console.log("id song : ", newMusic.id);
+        console.log("id song 1 : ", selectedPlaylist);
 
         let res = await axiosClient.post(`/playlistItems`, {
           playlistId: `${selectedPlaylist}`,
@@ -97,10 +94,13 @@ const DialogAddSongPlaylist = (props) => {
       }
     } catch (error) {
       console.log(error);
-      alert("Thêm  vào playlist thất bài!");
+      if (error.response && error.response.status === 400) {
+        alert("Bài hát đã có trong playlist!");
+      } else{
+        alert("Thêm  vào playlist thất bài!");
+      }
     }
   };
- 
 
   return (
     <Modal
@@ -116,13 +116,13 @@ const DialogAddSongPlaylist = (props) => {
       </h2>
 
       <form onSubmit={handleAddSongPlaylist}>
-        {dataPlaylist?.map((item,index) => (
+        {dataPlaylist?.map((item, index) => (
           <div >
             <label className=" text-white flex">
               <input
                 type="checkbox"
                 checked={selectedPlaylist.includes(item.id)}
-                onChange={() => handleChecked(item.id)}
+                onChange={()=>handleChecked(item.id)}
               />
               {item.title}
             </label>
