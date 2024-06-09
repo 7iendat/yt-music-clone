@@ -11,7 +11,7 @@ const SearchMusic = () => {
   const { keySearch } = useParams();
   const key = process.env.REACT_APP_API_KEY;
 
-  console.log("dataSongSearched", dataSongSearched);
+  // console.log("dataSongSearched", dataSongSearched);
 
   useEffect(() => {
     async function fecthData() {

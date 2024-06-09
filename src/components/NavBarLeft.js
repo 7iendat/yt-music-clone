@@ -25,7 +25,7 @@ const NavBarLeft = () => {
   const navigate = useNavigate();
 
   const user = useContext(AuthContext);
-  // console.log("dvsvdssv", user.id);
+  // console.log(user);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
