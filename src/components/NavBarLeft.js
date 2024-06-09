@@ -52,7 +52,7 @@ const NavBarLeft = () => {
 
   useEffect(() => {
     async function fecthData() {
-      if (!user && !user?.id) {
+      if (  user?.id) {
         let res = await axiosClient.get(`/playlists/${user.id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const NavBarLeft = () => {
         }
       }
     }
-    if (access_token !== null) {
+    if (access_token) {
       fecthData();
     }
   }, [dataPlaylistPrev, user, access_token]);
