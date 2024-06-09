@@ -9,28 +9,30 @@ import DialogAddSongPlaylist from "../PlaylistDetail/DialogAddSongPlaylist";
 import Comment from "../../components/Comment";
 import { Avatar } from "antd";
 import AuthProvider, { AuthContext } from "../../Context/AuthProvider";
+import axiosClient from "../../api/axiosClient";
 
 const PlaySong = () => {
   const [params, setParams] = useSearchParams();
   const { idSong } = useParams();
   const channelId = params.get("channel");
-
-  // const { playlistId } = location.state || {};
-  // const { playlistId } = location.state || {};
-
-  const [rating, setRating] = useState([]);
-
   const [comments, setComments] = useState();
 
   const [channel, setChannel] = useState([]);
-  const [song, setSong] = useState();
+  const [song, setSong] = useState([]);
 
   const [songsRecommed, setSongsRecommend] = useState([]);
-  // const [songsRecommedPlaylist, setSongsRecommendPlaylist] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [likecount, setLikeCount] = useState(0);
   const { image } = useContext(AuthContext);
   const [cmt, setCmt] = useState("");
+  const [dataLikedPlaylist, setLikedDataPlaylist] = useState({});
+  const [addPlaylist, setAddPlaylist ] = useState([]);
+  const [saveMusic, setSaveMusic] = useState("");
+  const [liked, setLiked] = useState(false);
+
+  const user = useContext(AuthContext);
+  console.log("USER", user);
+  console.log("USER ID", user.id);
+
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -40,60 +42,29 @@ const PlaySong = () => {
     setIsOpen(false);
   };
 
-  const [liked, setLiked] = useState(false);
-  const [Disliked, setDisliked] = useState(false);
-
   const access_token = localStorage.getItem("access_token");
-  // console.log("ChannelID", channelId);
+
+  // console.log("USER PLAYSONG", user);
 
   const handleLike = async () => {
     try {
-      if (access_token) {
-        let response = axios.post(
-          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=like`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        );
-      }
-    } catch (error) {
-      console.error("Error liking video:", error);
-    }
-  };
+      if (user !== undefined && dataLikedPlaylist !== undefined && song[0] !== undefined) {
+        let response = await axiosClient.post(`/music`, {
+          videoId: `${song[0].id}`,
+          channelId:  `${song[0].snippet.channelId}`,
+          title:`${song[0].snippet.title}`,
+          description: `${song[0].snippet.description}`,
+          thumbnails:`${song[0].snippet.thumbnails.standard.url}` ,
+          channelTitle:`${song[0].snippet.channelTitle}` 
+        });
+        setSaveMusic ([response.data, ...saveMusic]);
+        const newMusic = response.data;
 
-  const handleNoneLikeOrDislike = async () => {
-    try {
-      if (access_token) {
-        let response = axios.post(
-          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=none`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        );
-      }
-    } catch (error) {
-      console.error("Error liking video:", error);
-    }
-  };
-
-  const handleDislike = async () => {
-    try {
-      if (access_token) {
-        let response = axios.post(
-          `https://www.googleapis.com/youtube/v3/videos/rate?id=${idSong}&rating=dislike`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        );
+        let res = await axiosClient.post(`/playlistItems`, {
+          playlistId: `${dataLikedPlaylist.id}`,
+          musicId: `${newMusic.id}`,
+        });
+        setAddPlaylist([res.data, ...addPlaylist]);
       }
     } catch (error) {
       console.error("Error liking video:", error);
@@ -103,25 +74,9 @@ const PlaySong = () => {
   const handleClickBtnLike = async () => {
     if (liked) {
       setLiked(false);
-      setLikeCount(likecount - 1);
-      handleNoneLikeOrDislike();
     } else {
       setLiked(true);
-      setLikeCount(likecount + 1);
-      setDisliked(false);
       handleLike();
-    }
-  };
-
-  const handleClickBtnDislike = async () => {
-    if (Disliked) {
-      setDisliked(false);
-      handleNoneLikeOrDislike();
-    } else {
-      setDisliked(true);
-      setLiked(false);
-      setLikeCount(likecount - 1);
-      handleDislike();
     }
   };
 
@@ -132,10 +87,6 @@ const PlaySong = () => {
 
     setSongsRecommend(res.data.items);
   }
-  // async function fecthDataSongsRecommendPlaylist() {
-  //   let res = await axiosClient.get(`/playlists/playlistItem/${playlistId}`);
-  //   setSongsRecommendPlaylist(res.data)
-  // }
 
   async function fecthData() {
     let res = await axios.get(
@@ -151,32 +102,6 @@ const PlaySong = () => {
     );
 
     setSong(res.data.items);
-    if (res.data.items[0] !== undefined) {
-      if (res.data.items[0] !== undefined) {
-        setLikeCount(Number(res.data.items[0].statistics.likeCount));
-      }
-    }
-    // console.log('list Song: ', res.data.items);
-  }
-
-  async function fetchRatingOfSong() {
-    let res = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/videos/getRating?id=${idSong}&key=${process.env.REACT_APP_API_KEY}`,
-      {
-        headers: {
-          Authorization: "Bearer " + access_token,
-
-          Accept: `application/json`,
-        },
-      }
-    );
-    setRating(res.data.items);
-    if (res.data.items.length > 0 && res.data.items[0].rating === "like") {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
-    // console.log("check2", liked);
   }
 
   async function fetchCommentOfVideo() {
@@ -201,19 +126,43 @@ const PlaySong = () => {
     }
   }
 
+  async function fetchDataLikedPlaylist(){
+    try{
+      let result = await axios.get(
+        `http://localhost:5050/playlists/liked/${user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      console.log("RESULT", result.data[0]);
+      setLikedDataPlaylist(result.data[0]);
+    }catch (error){
+      console.log("error fetchLikedPlaylist");
+    }
+  }
+
   useEffect(() => {
     fecthDataSong();
     fecthDataSongsRecommend();
-    // fecthDataSongsRecommendPlaylist();
     fecthData();
-    fetchRatingOfSong();
     fetchCommentOfVideo();
+    fetchDataLikedPlaylist();
+  
   }, []);
+
+  console.log("SONG", song[0]);
+  // console.log("SONG ID", song[0]);
+  console.log("LIKED PLAYLIST", dataLikedPlaylist);
+  // console.log("LIKED PLAYLIST ID", dataLikedPlaylist.id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     insertComment(cmt);
-    console.log("com", cmt);
+    // console.log("com", cmt);
   };
 
   const insertComment = async (text) => {
@@ -240,11 +189,7 @@ const PlaySong = () => {
     }
   };
 
-  // console.log("rating", rating);
-  // console.log("Song recom: ", songsRecommed);
-
   const urlPlaySong = `https://www.youtube.com/embed/${idSong}?rel=0&amp;autoplay=1`;
-  // console.log();
   return channel[0] !== undefined && song[0] !== undefined ? (
     <div className="play-song">
       <div className="playing">
@@ -278,9 +223,6 @@ const PlaySong = () => {
               ></div>
               <div className="inf-singer">
                 <span>{channel[0].snippet.title}</span>
-                {/* <span style={{ color: "gray", fontSize: "13px" }}>
-                  {channel[0].statistics.subscriberCount} Người đăng kí
-                </span> */}
               </div>
             </div>
 
@@ -332,28 +274,6 @@ const PlaySong = () => {
                     </div>
                   )}
                 </div>
-                {/* &#124;
-                <div
-                  className="disliked "
-                  style={{
-                    fontSize: "24px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    cursor: "pointer",
-                  }}
-                >
-                  {Disliked ? (
-                    <i
-                      class="fa-solid fa-thumbs-down"
-                      onClick={handleClickBtnDislike}
-                    ></i>
-                  ) : (
-                    <i
-                      class="fa-regular fa-thumbs-down"
-                      onClick={handleClickBtnDislike}
-                    ></i>
-                  )}
-                </div> */}
               </div>
               <div
                 onClick={handleOpenModal}
@@ -443,8 +363,6 @@ const PlaySong = () => {
             fontSize: "24px",
             zIndex: "10",
             height: "30px",
-            /* background-color: rgb(33 33 33); */
-            // borderBottom: "1px solid #494949",
           }}
         >
           Danh sách kết hợp
