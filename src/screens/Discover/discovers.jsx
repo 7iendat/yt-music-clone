@@ -7,15 +7,15 @@ const discover = () => {
         <div className="container">
             <div className="row block">
                 <button className="Release flex flex-row items-center">
-                    <div className="p-[10px] font-semibold"><i class="fa-solid fa-music "></i></div>
+                    <div className="p-[10px] font-semibold"><i className="fa-solid fa-music "></i></div>
                     <span>Bản Phát Hành Mới</span>
                 </button>
                 <button className="Release flex flex-row items-center">
-                    <div className="p-[10px] font-semibold"><i class="fa-solid fa-arrow-trend-up "></i></div>
+                    <div className="p-[10px] font-semibold"><i className="fa-solid fa-arrow-trend-up "></i></div>
                     <span>Bảng Xếp Hạng</span>
                 </button>
                 <button className="Release flex flex-row items-center">
-                    <div className="p-[10px] font-semibold"><i class="fa-regular fa-face-smile "></i></div>
+                    <div className="p-[10px] font-semibold"><i className="fa-regular fa-face-smile "></i></div>
                     <span>Tâm Trạng và Thể Loại</span>
                 </button>
             </div>

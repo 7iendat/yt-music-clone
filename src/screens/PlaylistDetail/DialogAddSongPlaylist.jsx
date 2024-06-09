@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
 import Modal from "react-modal";
 import "../../components/ModalAddPlaylist.css";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axiosClient";
 import Song from "../../Theme/Song";
-
+import { AuthContext } from "../../Context/AuthProvider";
 const customStyles = {
   content: {
     top: "50%",
@@ -35,9 +35,10 @@ const DialogAddSongPlaylist = (props) => {
   const [saveMusic, setSaveMusic] = useState("");
   const key = process.env.REACT_APP_API_KEY;
   const access_token = localStorage.getItem("access_token");
+  const user = useContext(AuthContext);
+  console.log(user);
   // const idSong = props.idSong;
   //  const videoID = props.videoId;
-
   const afterCloseModal = () => {
     setSelectedPlaylist([]);
     props.handleCloseModal();
@@ -58,11 +59,11 @@ const DialogAddSongPlaylist = (props) => {
   // http get
   useEffect(() => {
     async function fecthData() {
-      let res = await axiosClient.get(`/playlists`);
+      let res = await axiosClient.get(`/playlists/${user.id}`);
       setDataPlaylist(res.data);
     }
     fecthData();
-  }, []);
+  }, [user]);
 
 
   //http Post

@@ -17,8 +17,8 @@ const Album = () => {
       <div className='w-[94%] h-full mx-auto my-0 mt-6  ml-6'>
         {/*   */}
         <div className='category-div categories-scoll Records-scrollbox '>
-          {albumItems?.map((item) => (
-            <div className=''>
+          {albumItems?.map((item, index) => (
+            <div className=''key={index} >
               <Link to={item.link} className='mr-1 group relative' state={{infoAlbum: item}}>
                 <div className='relative'>
                   <img src={item.cover} alt='' className='w-64 h-32' />

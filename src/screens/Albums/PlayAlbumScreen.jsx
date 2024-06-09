@@ -215,9 +215,9 @@ const PlayAlbumScreen = () => {
                   }}
                 >
                   {liked ? (
-                    <i class="fa-solid fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                    <i className="fa-solid fa-thumbs-up" onClick={handleClickBtnLike}></i>
                   ) : (
-                    <i class="fa-regular fa-thumbs-up" onClick={handleClickBtnLike}></i>
+                    <i className="fa-regular fa-thumbs-up" onClick={handleClickBtnLike}></i>
                   )}
 
                   <span style={{ fontSize: "14px", marginLeft: "7px" }}>
@@ -236,9 +236,9 @@ const PlayAlbumScreen = () => {
                 >
 
                   {Disliked ? (
-                    <i class="fa-solid fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                    <i className="fa-solid fa-thumbs-down" onClick={handleClickBtnDislike}></i>
                   ) : (
-                    <i class="fa-regular fa-thumbs-down" onClick={handleClickBtnDislike}></i>
+                    <i className="fa-regular fa-thumbs-down" onClick={handleClickBtnDislike}></i>
                   )}
                 </div>
                 
@@ -247,7 +247,7 @@ const PlayAlbumScreen = () => {
                 onClick={handleOpenModal}
                 className="btn-add-song-to-playlist"
               >
-                <i class="fa-solid fa-list-check"></i>
+                <i className="fa-solid fa-list-check"></i>
               </div>
               <DialogAddSongPlaylist
                 idSong={idSong}

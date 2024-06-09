@@ -25,7 +25,7 @@ const Song = (props) => {
           className=" rounded-sm object-cover  bg-white  relative border border-gray-800"
         />
         <div className="overflow-hidden hidden  absolute group-hover:block transition-all">
-          <i class="fa fa-play" aria-hidden="true"></i>
+          <i className="fa fa-play" aria-hidden="true"></i>
         </div>
       </div>
       <div
