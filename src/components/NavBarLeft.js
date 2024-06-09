@@ -52,17 +52,24 @@ const NavBarLeft = () => {
 
   useEffect(() => {
     async function fecthData() {
-      let res = await axiosClient.get(`/playlists`);
-      if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
-        setDataPlaylist(res.data);
-        setDataPlaylistPrev(res.data);
+      if (  user?.id) {
+        let res = await axiosClient.get(`/playlists/${user.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // credentials: "include",
+          withCredentials: true,
+        });
+        if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
+          setDataPlaylist(res.data);
+          setDataPlaylistPrev(res.data);
+        }
       }
     }
-
-    if (access_token !== null) {
+    if (access_token) {
       fecthData();
     }
-  }, [dataPlaylistPrev]);
+  }, [dataPlaylistPrev, user, access_token]);
 
   const logOut = () => {
     googleLogout();

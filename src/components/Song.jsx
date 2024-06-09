@@ -22,7 +22,7 @@ const Song = (props) => {
       <div
         className="thumb-song "
         style={{
-          backgroundImage: `url(${props.item.music.thumbnails}), url(${props.thumbnails})`
+          backgroundImage: `url(${props?.item.music.thumbnails}), url(${props.thumbnails})`
         }}
       ></div>
       <div className="detail-song">
