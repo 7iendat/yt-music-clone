@@ -12,7 +12,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const PlaylistDetailScreen = () => {
   const [dataPlaylistItems, setDataPlaylistItems] = useState([]);
-
   const location = useLocation();
   const { playlistId, title } = location.state;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -39,13 +38,14 @@ const PlaylistDetailScreen = () => {
     }
 
     fecthData();
-  }, [playlistId]);
+    
+  }, [playlistId, title]);
   // console.log("item playlist" , dataPlaylistItems)
 
   return (
     // <div className="playlistdetail-screen">
     <div className="home-screen pl-[80px] text-white px-10  max-w-[78vw]  mx-auto ">
-      {dataPlaylistItems.length > 0 ? (
+      {dataPlaylistItems?.length > 0 ? (
         <div className="playlist-item">
           {/* <h2 style={{ fontSize: "24px" }}>Danh sách phát</h2> */}
           <div className="flex p-10">
