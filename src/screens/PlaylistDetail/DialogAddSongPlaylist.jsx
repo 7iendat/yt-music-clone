@@ -30,11 +30,7 @@ function afterOpenModal() {
 const DialogAddSongPlaylist = (props) => {
   // const history = useNavigate();
   const [dataPlaylist, setDataPlaylist] = useState([]);
-<<<<<<< Updated upstream
   const [selectedPlaylist, setSelectedPlaylist] = useState([]);
-=======
-  const [selectedPlaylist, setSelectedPlaylist] = useState("");
->>>>>>> Stashed changes
   const [addPlaylist, setAddPlaylist] = useState([]);
   const [saveMusic, setSaveMusic] = useState("");
   const key = process.env.REACT_APP_API_KEY;
