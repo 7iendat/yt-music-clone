@@ -10,6 +10,7 @@ import Comment from "../../components/Comment";
 import { Avatar } from "antd";
 import AuthProvider, { AuthContext } from "../../Context/AuthProvider";
 import axiosClient from "../../api/axiosClient";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 const PlaySong = () => {
   const [params, setParams] = useSearchParams();
@@ -24,14 +25,18 @@ const PlaySong = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { image } = useContext(AuthContext);
   const [cmt, setCmt] = useState("");
-  const [dataLikedPlaylist, setLikedDataPlaylist] = useState({});
+  const [dataLikedPlaylist, setLikedDataPlaylist] = useState([]);
   const [addPlaylist, setAddPlaylist ] = useState([]);
   const [saveMusic, setSaveMusic] = useState("");
   const [liked, setLiked] = useState(false);
+  const [songFromDb, setSongFromDb] = useState([]);
+  let len = dataLikedPlaylist.length;
+  let musicId = 0;
 
   const user = useContext(AuthContext);
-  console.log("USER", user);
-  console.log("USER ID", user.id);
+  // console.log("USER", user);
+  // console.log("USER ID", user.id);
+
 
 
   const handleOpenModal = () => {
@@ -48,7 +53,7 @@ const PlaySong = () => {
 
   const handleLike = async () => {
     try {
-      if (user !== undefined && dataLikedPlaylist !== undefined && song[0] !== undefined) {
+      if (user !== undefined && dataLikedPlaylist.length > 0 && song[0] !== undefined) {
         let response = await axiosClient.post(`/music`, {
           videoId: `${song[0].id}`,
           channelId:  `${song[0].snippet.channelId}`,
@@ -61,24 +66,38 @@ const PlaySong = () => {
         const newMusic = response.data;
 
         let res = await axiosClient.post(`/playlistItems`, {
-          playlistId: `${dataLikedPlaylist.id}`,
+          playlistId: `${dataLikedPlaylist[0].id}`,
           musicId: `${newMusic.id}`,
         });
         setAddPlaylist([res.data, ...addPlaylist]);
       }
     } catch (error) {
-      console.error("Error liking video:", error);
+      console.log(error);
+    }
+  };
+
+  const handleDislike = async () => {
+    try{
+      if(musicId > 0 && dataLikedPlaylist.length > 0){
+        const res = await axiosClient.put(`/playlistItems/${dataLikedPlaylist[0].id}/${musicId}`,{
+          isDelete: 1,
+        });
+      }
+    }catch (error){
+      console.log(error);
     }
   };
 
   const handleClickBtnLike = async () => {
     if (liked) {
       setLiked(false);
+      handleDislike();
     } else {
       setLiked(true);
       handleLike();
     }
   };
+
 
   async function fecthDataSongsRecommend() {
     let res = await axios.get(
@@ -138,26 +157,71 @@ const PlaySong = () => {
           credentials: "include",
         }
       );
-      console.log("RESULT", result.data[0]);
-      setLikedDataPlaylist(result.data[0]);
+      // console.log("RESULT", result.data[0]);
+      setLikedDataPlaylist(result.data);
     }catch (error){
       console.log("error fetchLikedPlaylist");
     }
   }
 
+  // async function fetchDataSongInDb(){
+  //   try{
+  //     if(song[0] !== undefined && dataLikedPlaylist.length > 0){
+  //       let result = await axios.get(
+  //         `http://localhost:5050/playlists/playlistItem/${dataLikedPlaylist[0].id}/${song[0].id}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           credentials: "include",
+  //         }
+  //       );
+  //       console.log("SONG FROM DB 1", result);
+  //     }
+  //   }catch (error){
+  //     console.log("error fetchDataSongInDb");
+  //   }
+  // }
+
+  async function fecthDataFromDb() {
+    if(song[0] !== undefined && dataLikedPlaylist.length > 0){
+      let res = await axiosClient.get(`playlists/playlistItem/${dataLikedPlaylist[0].id}/${song[0].id}`);
+      // console.log("SONG FROM DB 2", res);
+      if(res.data.length > 0){
+        setLiked(true);
+        // console.log("MUSIC ID", res.data[0].musicId);
+        musicId = res.data[0].musicId;
+      }
+      else{
+        setLiked(false);
+      }
+    }
+  }
+
   useEffect(() => {
     fecthDataSong();
+    fetchDataLikedPlaylist();
+    // fetchDataSongInDb();
+    // fecthDataFromDb();
     fecthDataSongsRecommend();
     fecthData();
     fetchCommentOfVideo();
-    fetchDataLikedPlaylist();
-  
+
   }, []);
 
-  console.log("SONG", song[0]);
+  useEffect(() => {
+    // fetchDataSongInDb();
+    fecthDataFromDb();
+  })
+
+  // console.log("SONG", song[0]);
   // console.log("SONG ID", song[0]);
-  console.log("LIKED PLAYLIST", dataLikedPlaylist);
+  // console.log("LIKED PLAYLIST", dataLikedPlaylist);
+  // console.log("LIKED PLAYLIST ID", dataLikedPlaylist[0].id);
+  // console.log("LENGTH", len);
   // console.log("LIKED PLAYLIST ID", dataLikedPlaylist.id);
+  // console.log("SONG FROM DBBB", songFromDb);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -183,7 +247,7 @@ const PlaySong = () => {
           },
         }
       );
-      console.log("d", res);
+      // console.log("d", res);
     } catch (error) {
       console.log("error");
     }
