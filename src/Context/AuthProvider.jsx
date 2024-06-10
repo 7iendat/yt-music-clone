@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
   const isLoginWithAcc = localStorage.getItem("isLoginWithAcc");
 
   useEffect(() => {
-    // console.log("chehk");
+    console.log("chehk");
     if (access_token_isChecked) {
       axios
         .get(

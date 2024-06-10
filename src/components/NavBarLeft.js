@@ -25,7 +25,7 @@ const NavBarLeft = () => {
   const navigate = useNavigate();
 
   const user = useContext(AuthContext);
-  // console.log(user);
+  console.log(user);
   const LinkActive = ({ isActive }) => {
     return {
       fontWeight: isActive ? "bold" : "normal",
@@ -52,24 +52,18 @@ const NavBarLeft = () => {
 
   useEffect(() => {
     async function fecthData() {
-      if (  user?.id) {
-        let res = await axiosClient.get(`/playlists/${user.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // credentials: "include",
-          withCredentials: true,
-        });
-        if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
-          setDataPlaylist(res.data);
-          setDataPlaylistPrev(res.data);
-        }
+      let res = await axiosClient.get(`/playlists/${user.id}`);
+      if (JSON.stringify(res.data) !== JSON.stringify(dataPlaylistPrev)) {
+        console.log("KEIRY", res.data);
+        setDataPlaylist(res.data);
+        setDataPlaylistPrev(res.data);
       }
     }
-    if (access_token) {
+
+    if (access_token !== null) {
       fecthData();
     }
-  }, [dataPlaylistPrev, user, access_token]);
+  }, [dataPlaylistPrev]);
 
   const logOut = () => {
     googleLogout();
@@ -141,10 +135,19 @@ const NavBarLeft = () => {
               <div className="list-music-icon"></div>
             </div>
           </Link>
-
+{/* 
           {dataPlaylist.map((item, index) => {
             return <PlaylistScreen key={index} item={item} />;
-          })}
+          })} */}
+
+          {dataPlaylist.length > 0 ? (
+            dataPlaylist.map((item, index) => (
+              <PlaylistScreen key={index} item={item} />
+            ))
+          ) : (
+            <div></div>
+          )}
+
           <div className="btn-logout" onClick={() => logOut()}>
             Log Out
           </div>

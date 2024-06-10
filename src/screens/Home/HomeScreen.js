@@ -157,7 +157,7 @@ const HomeScreen = () => {
             data-testid="loader"
           />
         )}
-        <Album />
+        {/* <Album /> */}
         <Theme title={trending} dataMusicPopular={dataMusicPopular} />
         {/* <MusicTop songNew={songNew} /> */}
         {/* <Records songRecord={songRecord}/> */}

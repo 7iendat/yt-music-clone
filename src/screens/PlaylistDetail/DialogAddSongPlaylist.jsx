@@ -30,13 +30,17 @@ function afterOpenModal() {
 const DialogAddSongPlaylist = (props) => {
   // const history = useNavigate();
   const [dataPlaylist, setDataPlaylist] = useState([]);
+<<<<<<< Updated upstream
   const [selectedPlaylist, setSelectedPlaylist] = useState([]);
+=======
+  const [selectedPlaylist, setSelectedPlaylist] = useState("");
+>>>>>>> Stashed changes
   const [addPlaylist, setAddPlaylist] = useState([]);
   const [saveMusic, setSaveMusic] = useState("");
   const key = process.env.REACT_APP_API_KEY;
   const access_token = localStorage.getItem("access_token");
   const user = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   // const idSong = props.idSong;
   //  const videoID = props.videoId;
   const afterCloseModal = () => {
@@ -46,7 +50,7 @@ const DialogAddSongPlaylist = (props) => {
 
   // ham check box
   const handleChecked = (playlistId) => {
-    console.log('id playlist: ',playlistId)
+    // console.log("id playlist: ", playlistId);
     setSelectedPlaylist((prev) => {
       const isChecked = selectedPlaylist.includes(playlistId);
       if (isChecked) {
@@ -60,7 +64,9 @@ const DialogAddSongPlaylist = (props) => {
   useEffect(() => {
     async function fecthData() {
       let res = await axiosClient.get(`/playlists/${user.id}`);
-      setDataPlaylist(res.data);
+      if (!res.data?.error) {
+        setDataPlaylist(res.data);
+      }
     }
     fecthData();
   }, [user]);
@@ -117,7 +123,7 @@ const DialogAddSongPlaylist = (props) => {
 
       <form onSubmit={handleAddSongPlaylist}>
         {dataPlaylist?.map((item, index) => (
-          <div >
+          <div>
             <label className=" text-white flex">
               <input
                 type="checkbox"
